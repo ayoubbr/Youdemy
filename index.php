@@ -29,7 +29,7 @@ switch ($request) {
     case '/auth/logout':
         $auth = new AuthController();
         $auth->logout();
-        header("location: /profile");
+        header("location: /");
         break;
 
     default:
