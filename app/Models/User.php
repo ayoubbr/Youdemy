@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+#[\AllowDynamicProperties]
 class User
 {
     private int $id = 0;
@@ -12,7 +12,7 @@ class User
     private string $phone = "";
     private string $photo = "";
     private string $status = "";
-    private Role $role;
+    private ?Role $role;
     private $courses = [];
 
     public function __construct()
@@ -20,12 +20,62 @@ class User
         $this->role = new Role();
     }
 
-    public function __call($name, $arguments)
+    // public function __call($name, $arguments)
+    // {
+    //     if ($name == 'instanceWithFirstnameAndLastname') {
+    //         $this->firstname = $arguments[0];
+    //         $this->lastname = $arguments[1];
+    //     }
+    //     if ($name == 'instanceWithoutId') {
+    //         $this->firstname = $arguments[0];
+    //         $this->lastname = $arguments[1];
+    //         $this->password = $arguments[2];
+    //         $this->email = $arguments[3];
+    //         $this->phone = $arguments[4];
+    //         $this->photo = $arguments[5];
+    //         $this->status = $arguments[6];
+    //         $this->role = $arguments[7];
+    //         $this->courses = $arguments[8];
+    //     }
+    // }
+
+    public static function instanceWithFirstnameAndLastname(string $firstName, string $lastName)
     {
-        if ($name == 'instanceWithFirstnameAndLastname') {
-            $this->firstname = $arguments[0];
-            $this->lastname = $arguments[1];
-        }
+        $instance = new self();
+        $instance->firstname = $firstName;
+        $instance->lastname = $lastName;
+
+        return $instance;
+    }
+    public static function instaceWithEmailAndPassword(string $email, string $password): self
+    {
+        $instance = new self();
+        $instance->email = $email;
+        $instance->password = $password;
+
+        return $instance;
+    }
+
+    public static function instanceWithFirstnameAndLastnameAndEmail(string $firstname, string $lastname, string $email)
+    {
+        $instance = self::instanceWithFirstnameAndLastname($firstname, $lastname);
+
+        $instance->email = $email;
+
+        return $instance;
+    }
+    public static function instanceWithoutId(string $firstname, string $lastname, string $email, string $password, string $phone, string $photo, string $status, Role $role, array $courses)
+    {
+        $instance = self::instanceWithFirstnameAndLastnameAndEmail($firstname, $lastname, $email);
+
+        $instance->password = $password;
+        $instance->phone = $phone;
+        $instance->photo = $photo;
+        $instance->status = $status;
+        $instance->role = $role;
+        $instance->courses = $courses;
+
+        return $instance;
     }
 
     public function getId(): int
@@ -107,7 +157,7 @@ class User
     {
         $this->status = $status;
     }
-    
+
     public function getRole(): Role
     {
         return $this->role;

@@ -12,8 +12,16 @@
 </head>
 
 <body>
-    <h1>Home</h1>
-    <a href="/auth/login">login</a>
+    <h1>Profile</h1>
+    <?php
+    if (isset($_SESSION['user'])) {
+        var_dump($_SESSION['user']);
+    ?>
+        <a href="/auth/logout">logout</a>
+    <?php
+    }
+    ?>
+    <a href="/">Home</a>
 
 </body>
 

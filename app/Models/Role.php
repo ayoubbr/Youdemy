@@ -11,17 +11,36 @@ class Role
 
     public function __construct() {}
 
-    public function __call($name, $arguments)
-    {
-        if ($name == "instanceWithName") {
-            $this->name = $arguments[0];
-        }
+    // public function __call($name, $arguments)
+    // {
+    //     if ($name == "instanceWithName") {
+    //         $this->name = $arguments[0];
+    //     }
 
-        if ($name == "instanceWithNameAndDescriptionAndLogo") {
-            $this->name = $arguments[0];
-            $this->description = $arguments[1];
-            $this->badge = $arguments[2];
-        }
+    //     if ($name == "instanceWithNameAndDescriptionAndLogo") {
+    //         $this->name = $arguments[0];
+    //         $this->description = $arguments[1];
+    //         $this->badge = $arguments[2];
+    //     }
+    // }
+
+    public static function instanceWithNameAndDescriptionAndLogo(string $name, string $description, string $badge)
+    {
+        $instance = new self();
+        $instance->name = $name;
+        $instance->description = $description;
+        $instance->badge = $badge;
+
+        return $instance;
+    }
+
+    public static function instanceWithName(string $name): Role
+    {
+        $instance = new self();
+
+        $instance->name = $name;
+
+        return $instance;
     }
 
     public function getId(): int
