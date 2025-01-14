@@ -47,6 +47,7 @@ class UserService
         if (empty($user->getRole()->getName())) {
             throw new Exception("Role name is empty");
         }
+
         $roleName = $user->getRole()->getName();
         $user->setRole($this->roleService->getRoleByName($roleName));
 
@@ -85,7 +86,7 @@ class UserService
         }
 
         $user->setRole($this->roleService->getRoleById($user->role_id));
-        
+
         return $user;
     }
 }

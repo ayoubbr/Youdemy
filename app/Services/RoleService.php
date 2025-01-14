@@ -18,11 +18,10 @@ class RoleService
         if (empty($name)) {
             return false;
         }
-  
-
+        
         $role = $this->roleRepository->findByName($name);
+        
         // $role = $this->roleRepository->create($$role);
-
 
         // $isTrue = false;
         // $isTrue = !$isTrue;

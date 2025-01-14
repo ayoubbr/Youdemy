@@ -3,42 +3,43 @@
 namespace App\Services;
 
 use App\Http\LoginForm;
+use App\Http\RegisterForm;
+use App\Models\Role;
 use App\Models\User;
 use Exception;
 
 class AuthService
 {
     private UserService $userService;
+    private RoleService $roleService;
 
     public function __construct()
     {
         $this->userService = new UserService();
-        // Message::in("AuthService constructor");
+        $this->roleService = new RoleService();
     }
 
-    // public function register(RegisterForm $registerForm) : Utilisateur {
-    //     $this->validation($registerForm);
+    public function register(RegisterForm $registerForm): User
+    {
+        // $this->validation($registerForm);
 
-    //     // $firstname, string $lastname, string $email, string $password, string $phone, string $photo, Role $role, array $reservations
+        $role  = Role::instanceWithName($registerForm->roleName);
 
-    //     //Utilisateur
+        $user = User::instanceWithoutId(
+            $registerForm->firstname,
+            $registerForm->lastname,
+            $registerForm->email,
+            $registerForm->password,
+            $registerForm->phone,
+            $registerForm->photo,
+            $registerForm->status,
+            $role,
+            []
+        );
 
-    //     $user = Utilisateur::instanceWithoutId(
-    //         $registerForm->firstname,
-    //         $registerForm->lastname,
-    //         $registerForm->email,
-    //         $registerForm->password,
-    //         $registerForm->phone,
-    //         $registerForm->photo,
-    //         new Role(),
-    //         []
-    //     );
-
-    //     $user->getRole()->setRoleName("Utilisateur");
-
-    //     $this->userService->create($user);
-    //     return new Utilisateur();
-    // }
+        $this->userService->create($user);
+        return $user;
+    }
 
     // private function validation($forms) {
     //     // Message::in("la méthode validation dans la classe authService");
@@ -86,7 +87,6 @@ class AuthService
             $loginForm->password
         );
 
-      
         $user =  $this->userService->findByEmailAndPassword($user);
        
         if ($user->getId() == 0) {

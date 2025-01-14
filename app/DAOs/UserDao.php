@@ -10,6 +10,7 @@ class UserDao
 
     public function create(User $user): User
     {
+
         $query = "INSERT INTO users (firstname, lastname, email, password, photo, phone, status, role_id ) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -24,10 +25,8 @@ class UserDao
             $user->getStatus(),
             $user->getRole()->getId()
         ]);
-        die($query);
 
         $user->setId(Database::getInstance()->getConnection()->lastInsertId());
-
         return $user;
     }
 }

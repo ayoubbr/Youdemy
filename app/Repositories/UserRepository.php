@@ -25,14 +25,13 @@ class UserRepository
         $query = "SELECT id, firstname, lastname, email, phone, photo, role_id, password FROM users WHERE email = '" . $email . "';";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
-
+        
         return $stmt->fetchObject(User::class);
     }
 
     public function findByEmailAndPassword(User $user): mixed
     {
-        $query = "SELECT id, firstname, lastname, email, phone, photo, role_id, password FROM users WHERE email = '" . $user->getEmail() . "' AND password = '" . $user->getPassword() . "';";
-        // die($query);
+        $query = "SELECT id, firstname, lastname, email, phone, photo, status, role_id, password FROM users WHERE email = '" . $user->getEmail() . "' AND password = '" . $user->getPassword() . "';";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
 

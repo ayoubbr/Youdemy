@@ -33,8 +33,8 @@ class UserController
         $rolename = "Teacher";
 
         $role = Role::instanceWithName($rolename);
-
-        $user = User::instanceWithoutId(
+        $user =  new User();
+        $user->instanceWithoutId(
             $firstname,
             $lastname,
             $password,

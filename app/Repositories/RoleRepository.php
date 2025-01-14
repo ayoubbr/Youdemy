@@ -18,12 +18,12 @@ class RoleRepository
 
     public function findByName(string $name)
     {
-
         $query = "SELECT id, name, description, badge FROM roles WHERE name = '" . $name . "';";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
 
-        return $stmt->fetchObject(Role::class);
+        $result = $stmt->fetchObject(Role::class);
+        return $result;
     }
 
     public function create(Role $role): Role

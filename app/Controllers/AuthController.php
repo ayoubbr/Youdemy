@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Http\LoginForm;
+use App\Http\RegisterForm;
 use App\Services\AuthService;
 use Exception;
 
@@ -12,32 +13,32 @@ class AuthController
 
     public function __construct()
     {
-        session_start();
         $this->authService = new AuthService();
     }
 
-    // public function register(RegisterForm $registerForm)
-    // {
-    //     try {
-    //         $user = $this->authService->register($registerForm);
-    //     } catch (Exception $e) {
-    //     }
-    // }
+    public function register(RegisterForm $registerForm)
+    {
+        try {
+            $user = $this->authService->register($registerForm);
+
+            if ($user) {
+                $_SESSION['user'] = $user;
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 
     public function login(LoginForm $loginForm)
     {
-
         try {
-        
             $user = $this->authService->login($loginForm);
 
             if ($user) {
                 $_SESSION['user'] = $user;
-            } else {
-                session_destroy();
             }
-
         } catch (Exception $e) {
+            $_SESSION['error'] =  $e->getMessage();
         }
     }
 

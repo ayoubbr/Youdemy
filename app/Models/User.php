@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 #[\AllowDynamicProperties]
 class User
 {
@@ -20,24 +21,26 @@ class User
         $this->role = new Role();
     }
 
-    // public function __call($name, $arguments)
-    // {
-    //     if ($name == 'instanceWithFirstnameAndLastname') {
-    //         $this->firstname = $arguments[0];
-    //         $this->lastname = $arguments[1];
-    //     }
-    //     if ($name == 'instanceWithoutId') {
-    //         $this->firstname = $arguments[0];
-    //         $this->lastname = $arguments[1];
-    //         $this->password = $arguments[2];
-    //         $this->email = $arguments[3];
-    //         $this->phone = $arguments[4];
-    //         $this->photo = $arguments[5];
-    //         $this->status = $arguments[6];
-    //         $this->role = $arguments[7];
-    //         $this->courses = $arguments[8];
-    //     }
-    // }
+    public function __call($name, $arguments)
+    {
+        if ($name == 'instanceWithFirstnameAndLastname') {
+            $this->firstname = $arguments[0];
+            $this->lastname = $arguments[1];
+        }
+        if ($name == 'instanceWithoutId') {
+            if (count($arguments) == 9) {
+                $this->firstname = $arguments[0];
+                $this->lastname = $arguments[1];
+                $this->password = $arguments[2];
+                $this->email = $arguments[3];
+                $this->phone = $arguments[4];
+                $this->photo = $arguments[5];
+                $this->status = $arguments[6];
+                $this->role = $arguments[7];
+                $this->courses = $arguments[8];
+            }
+        }
+    }
 
     public static function instanceWithFirstnameAndLastname(string $firstName, string $lastName)
     {
