@@ -214,6 +214,14 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
+        .profile-name-badge {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .profile-name-badge .badge{
+            width: 100px;
+        }
         .section-title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -336,9 +344,16 @@
         </div>
 
         <div class="profile-content">
-            <h1 class="profile-name"><?php echo ucfirst($user->getFirstname());
-                                        echo " ";
-                                        echo ucfirst($user->getLastname()); ?></h1>
+            <div class="profile-name-badge">
+                <img class="badge" src="<?php echo $user->getRole()->getBadge(); ?>" alt="">
+                <h1 class="profile-name">
+                    <?php
+                    echo ucfirst($user->getFirstname());
+                    echo " ";
+                    echo ucfirst($user->getLastname());
+                    ?>
+                </h1>
+            </div>
             <div class="profile-title">Senior Software Engineer</div>
             <p class="profile-bio">
                 Passionate about building scalable web applications and contributing to open-source projects.
