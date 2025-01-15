@@ -21,19 +21,6 @@ switch ($request) {
     case '':
     case '/':
         require __DIR__ . '/views/Home.php';
-        // echo "test";
-        // $cat = new CategoryController();
-        // $newCat = new Category();
-        // $newCat->instanceWithoutId('Coding', 'Everything that has code in it.');
-        // $cat->create($newCat);
-        // $tagC =  new TagController();
-        // $tag =  new Tag();
-        // $tag->instanceWithoutId('JS', 'javascript tag');
-        // $tagC->create($tag);
-        // $category = new Category();
-        // $teacher = new User();
-
-
         break;
 
     case '/profile':
@@ -87,15 +74,7 @@ switch ($request) {
         require __DIR__ . '/views/courses.php';
         break;
 
-    case '/admin':
-    case '/admin/courses':
-    case '/admin/users':
-    case '/admin/topics':
-        require __DIR__ . '/views/admin/admin.php';
-        break;
-
     case '/course/create':
-
         $courseController =  new CourseController();
         $courseForm =  CourseForm::instanceWithAllArgs(
             'HTML & CSS basics',
@@ -109,10 +88,45 @@ switch ($request) {
             []
         );
 
-        $courseController->create($courseForm);
+        // $courseController->create($courseForm);
         header("location: /admin/courses");
         break;
+    case '/tag/create':
+        // $tagC =  new TagController();
+        // $tag =  new Tag();
+        // $tag->instanceWithoutId('JS', 'javascript tag');
+        // $tagC->create($tag);
+        header("location: /admin/courses");
+        break;
+    case '/category/create':
+        // $cat = new CategoryController();
+        // $newCat = new Category();
+        // $newCat->instanceWithoutId('Coding', 'Everything that has code in it.');
+        // $cat->create($newCat);
+        header("location: /admin/courses");
+        break;
+    case '/student/courses':
+        require __DIR__ . '/views/student/courses.php';
+        break;
+    case '/student/courses/details':
+        require __DIR__ . '/views/student/courseDetails.php';
+        break;
+    case '/student/courses/enrolled':
+        require __DIR__ . '/views/student/mycourses.php';
+        break;
+    case '/teacher':
+    case '/teacher/courses':
+    case '/teacher/statistics':
+    case '/teacher/students':
+        require __DIR__ . '/views/teacher/dashboard.php';
+        break;
 
+    case '/admin':
+    case '/admin/courses':
+    case '/admin/users':
+    case '/admin/topics':
+        require __DIR__ . '/views/admin/admin.php';
+        break;
     default:
         require __DIR__ . '/views/Home.php';
         break;

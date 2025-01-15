@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youdemy - Login</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
         :root {
             /* Primary Colors */
             --primary-color: #4f46e5;
@@ -38,7 +40,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: "Roboto Slab", 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         body {

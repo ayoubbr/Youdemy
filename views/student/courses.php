@@ -7,7 +7,7 @@
     <title>Course Catalog | E-Learning Platform</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
         :root {
             /* Primary Colors */
@@ -251,6 +251,9 @@
                     </div>
                     <div class="course-price">$89.99</div>
                 </div>
+                <div class="course-meta">
+                    <a href="">Details</a>
+                </div>
             </div>
         </div>
 
@@ -269,6 +272,9 @@
                         <span>4.9</span>
                     </div>
                     <div class="course-price">$69.99</div>
+                </div>
+                <div class="course-meta">
+                    <a href="">Details</a>
                 </div>
             </div>
         </div>
@@ -289,6 +295,9 @@
                     </div>
                     <div class="course-price">$79.99</div>
                 </div>
+                <div class="course-meta">
+                    <a href="">Details</a>
+                </div>
             </div>
         </div>
 
@@ -307,6 +316,9 @@
                         <span>4.7</span>
                     </div>
                     <div class="course-price">$79.99</div>
+                </div>
+                <div class="course-meta">
+                    <a href="">Details</a>
                 </div>
             </div>
         </div>

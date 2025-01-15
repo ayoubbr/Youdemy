@@ -1,252 +1,152 @@
-   <!-- Main Content -->
-   <main class="main-content">
-       <div class="header">
-           <h1>Dashboard Overview</h1>
-           <button class="add-new-btn" onclick="showModal('addCourseModal')">
-               <i class="fas fa-plus"></i>
-               Add New Course
-           </button>
-       </div>
+<div class="main-content">
+    <div class="header">
+        <h1>Platform Statistics</h1>
+        <p>Overview of key platform metrics and performance indicators</p>
+    </div>
 
-       <!-- Dashboard Cards -->
-       <div class="dashboard-cards">
-           <div class="dashboard-card">
-               <div class="card-title">Total Courses</div>
-               <div class="card-value">124</div>
-               <div class="card-change">
-                   <i class="fas fa-arrow-up"></i>
-                   12.5% this month
-               </div>
-           </div>
-           <div class="dashboard-card">
-               <div class="card-title">Total Students</div>
-               <div class="card-value">1,234</div>
-               <div class="card-change">
-                   <i class="fas fa-arrow-up"></i>
-                   8.2% this month
-               </div>
-           </div>
-           <div class="dashboard-card">
-               <div class="card-title">Revenue</div>
-               <div class="card-value">$12,345</div>
-               <div class="card-change">
-                   <i class="fas fa-arrow-up"></i>
-                   15.3% this month
-               </div>
-           </div>
-           <div class="dashboard-card">
-               <div class="card-title">Active Categories</div>
-               <div class="card-value">18</div>
-               <div class="card-change">
-                   <i class="fas fa-arrow-up"></i>
-                   2 new this month
-               </div>
-           </div>
-       </div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="label">Total Courses</div>
+            <div class="value" id="totalCourses">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="icon">
+                <i class="fas fa-list"></i>
+            </div>
+            <div class="label">Categories</div>
+            <div class="value" id="totalCategories">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="label">Total Students</div>
+            <div class="value" id="totalStudents">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="label">Active Teachers</div>
+            <div class="value" id="totalTeachers">0</div>
+        </div>
+    </div>
 
-       <!-- Courses Table -->
-       <div class="data-table">
-           <table>
-               <thead>
-                   <tr>
-                       <th>Course Name</th>
-                       <th>Category</th>
-                       <th>Instructor</th>
-                       <th>Students</th>
-                       <th>Status</th>
-                       <th>Actions</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   <tr>
-                       <td>Web Development Bootcamp</td>
-                       <td>Development</td>
-                       <td>John Doe</td>
-                       <td>234</td>
-                       <td><span class="status-badge status-active">Active</span></td>
-                       <td>
-                           <div class="action-buttons">
-                               <button class="action-btn edit-btn" onclick="showModal('editCourseModal')">
-                                   <i class="fas fa-edit"></i>
-                               </button>
-                               <button class="action-btn delete-btn">
-                                   <i class="fas fa-trash"></i>
-                               </button>
-                           </div>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>UI/UX Design Fundamentals</td>
-                       <td>Design</td>
-                       <td>Jane Smith</td>
-                       <td>186</td>
-                       <td><span class="status-badge status-pending">Pending</span></td>
-                       <td>
-                           <div class="action-buttons">
-                               <button class="action-btn edit-btn">
-                                   <i class="fas fa-edit"></i>
-                               </button>
-                               <button class="action-btn delete-btn">
-                                   <i class="fas fa-trash"></i>
-                               </button>
-                           </div>
-                       </td>
-                   </tr>
-               </tbody>
-           </table>
-       </div>
-   </main>
+    <div class="chart-container">
+        <h2 class="chart-title">Course Categories Distribution</h2>
+        <div class="category-bars" id="categoryChart"></div>
+    </div>
 
-   <!-- Add Course Modal -->
-   <div class="modal" id="addCourseModal">
-       <div class="modal-content">
-           <div class="modal-header">
-               <h2 class="modal-title">Add New Course</h2>
-               <button class="close-btn" onclick="hideModal('addCourseModal')">&times;</button>
-           </div>
-           <form>
-               <div class="form-group">
-                   <label>Course Title</label>
-                   <input type="text" placeholder="Enter course title">
-               </div>
-               <div class="form-group">
-                   <label>Category</label>
-                   <select>
-                       <option>Development</option>
-                       <option>Design</option>
-                       <option>Business</option>
-                       <option>Marketing</option>
-                   </select>
-               </div>
-               <div class="form-group">
-                   <label>Description</label>
-                   <textarea rows="3" placeholder="Enter course description"></textarea>
-               </div>
-               <div class="form-group">
-                   <label>Price</label>
-                   <input type="number" placeholder="Enter course price">
-               </div>
-               <div class="modal-footer">
-                   <button type="button" class="modal-btn cancel-btn" onclick="hideModal('addCourseModal')">Cancel</button>
-                   <button type="submit" class="modal-btn save-btn">Save Course</button>
-               </div>
-           </form>
-       </div>
-   </div>
+    <div class="top-items">
+        <h2>Most Popular Course</h2>
+        <div class="top-item" id="topCourse"></div>
+    </div>
 
-   <script>
-       // Modal functionality
-       function showModal(modalId) {
-           document.getElementById(modalId).classList.add('active');
-       }
+    <div class="top-items">
+        <h2>Top 3 Teachers</h2>
+        <div id="topTeachers"></div>
+    </div>
 
-       function hideModal(modalId) {
-           document.getElementById(modalId).classList.remove('active');
-       }
+</div>
+<script>
+    // Sample data - Replace with actual data from your backend
+    const data = {
+        stats: {
+            totalCourses: 135,
+            totalCategories: 5,
+            totalStudents: 12450,
+            totalTeachers: 48
+        },
+        categories: [{
+                name: 'Programming',
+                count: 45
+            },
+            {
+                name: 'Design',
+                count: 30
+            },
+            {
+                name: 'Business',
+                count: 25
+            },
+            {
+                name: 'Marketing',
+                count: 20
+            },
+            {
+                name: 'Languages',
+                count: 15
+            }
+        ],
+        topCourse: {
+            name: 'Advanced Web Development',
+            teacher: 'Sarah Johnson',
+            students: 2500,
+            category: 'Programming'
+        },
+        topTeachers: [{
+                name: 'Sarah Johnson',
+                students: 1200,
+                courses: 8
+            },
+            {
+                name: 'Michael Chen',
+                students: 980,
+                courses: 6
+            },
+            {
+                name: 'Emma Davis',
+                students: 850,
+                courses: 5
+            }
+        ]
+    };
 
-       // Close modal when clicking outside
-       window.onclick = function(event) {
-           if (event.target.classList.contains('modal')) {
-               event.target.classList.remove('active');
-           }
-       }
+    // Update stats
+    document.getElementById('totalCourses').textContent = data.stats.totalCourses;
+    document.getElementById('totalCategories').textContent = data.stats.totalCategories;
+    document.getElementById('totalStudents').textContent = data.stats.totalStudents.toLocaleString();
+    document.getElementById('totalTeachers').textContent = data.stats.totalTeachers;
 
-       // Navigation functionality
-       const navItems = document.querySelectorAll('.nav-item');
+    // Create category chart
+    const categoryChart = document.getElementById('categoryChart');
+    const maxCount = Math.max(...data.categories.map(cat => cat.count));
 
-       navItems.forEach(item => {
-           item.addEventListener('click', () => {
-               // Remove active class from all items
-               navItems.forEach(nav => nav.classList.remove('active'));
-               // Add active class to clicked item
-               item.classList.add('active');
-           });
-       });
+    data.categories.forEach(category => {
+        const percentage = (category.count / maxCount) * 100;
+        categoryChart.innerHTML += `
+                <div>
+                    <div class="category-label">
+                        <span>${category.name}</span>
+                        <span>${category.count} courses</span>
+                    </div>
+                    <div class="category-bar">
+                        <div class="category-bar-fill" style="width: ${percentage}%"></div>
+                    </div>
+                </div>
+            `;
+    });
 
-       // Sample data management
-       const courses = [{
-               id: 1,
-               title: 'Web Development Bootcamp',
-               category: 'Development',
-               instructor: 'John Doe',
-               students: 234,
-               status: 'active'
-           },
-           {
-               id: 2,
-               title: 'UI/UX Design Fundamentals',
-               category: 'Design',
-               instructor: 'Jane Smith',
-               students: 186,
-               status: 'pending'
-           }
-       ];
+    // Display top course
+    document.getElementById('topCourse').innerHTML = `
+            <h3>${data.topCourse.name}</h3>
+            <p>Teacher: ${data.topCourse.teacher}</p>
+            <p>Category: ${data.topCourse.category}</p>
+            <p>Students: ${data.topCourse.students.toLocaleString()}</p>
+        `;
 
-       // Function to render courses table
-       function renderCoursesTable() {
-           const tableBody = document.querySelector('tbody');
-           tableBody.innerHTML = courses.map(course => `
-                    <tr>
-                        <td>${course.title}</td>
-                        <td>${course.category}</td>
-                        <td>${course.instructor}</td>
-                        <td>${course.students}</td>
-                        <td><span class="status-badge status-${course.status}">${course.status}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="editCourse(${course.id})">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn" onclick="deleteCourse(${course.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
-       }
-
-       // Function to add new course
-       function addCourse(event) {
-           event.preventDefault();
-           const form = event.target;
-           const newCourse = {
-               id: courses.length + 1,
-               title: form.querySelector('[placeholder="Enter course title"]').value,
-               category: form.querySelector('select').value,
-               instructor: 'New Instructor', // This would come from the logged-in user
-               students: 0,
-               status: 'pending'
-           };
-
-           courses.push(newCourse);
-           renderCoursesTable();
-           hideModal('addCourseModal');
-           form.reset();
-       }
-
-       // Function to delete course
-       function deleteCourse(id) {
-           if (confirm('Are you sure you want to delete this course?')) {
-               const index = courses.findIndex(course => course.id === id);
-               courses.splice(index, 1);
-               renderCoursesTable();
-           }
-       }
-
-       // Function to edit course
-       function editCourse(id) {
-           const course = courses.find(course => course.id === id);
-           showModal('editCourseModal');
-           // Populate form with course data
-           const form = document.querySelector('#editCourseModal form');
-           form.querySelector('[placeholder="Enter course title"]').value = course.title;
-           form.querySelector('select').value = course.category;
-       }
-
-       // Add event listeners
-       document.querySelector('#addCourseModal form').addEventListener('submit', addCourse);
-
-       // Initial render
-       renderCoursesTable();
-   </script>
+    // Display top teachers
+    const topTeachersContainer = document.getElementById('topTeachers');
+    data.topTeachers.forEach(teacher => {
+        topTeachersContainer.innerHTML += `
+                <div class="top-item">
+                    <h3>${teacher.name}</h3>
+                    <p>Total Students: ${teacher.students.toLocaleString()}</p>
+                    <p>Active Courses: ${teacher.courses}</p>
+                </div>
+            `;
+    });
+</script>
