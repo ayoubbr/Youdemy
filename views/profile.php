@@ -124,6 +124,7 @@
             margin-bottom: 0.5rem;
             background: var(--bg-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -219,9 +220,11 @@
             justify-content: center;
             align-items: center;
         }
-        .profile-name-badge .badge{
+
+        .profile-name-badge .badge {
             width: 100px;
         }
+
         .section-title {
             font-size: 1.5rem;
             font-weight: 600;

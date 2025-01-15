@@ -102,6 +102,9 @@
             color: var(--text-color);
             overflow-x: hidden;
         }
+        a{
+            text-decoration: none;
+        }
 
         .glass-effect {
             background: var(--glass-bg);

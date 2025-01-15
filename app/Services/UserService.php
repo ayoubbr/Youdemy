@@ -89,4 +89,10 @@ class UserService
 
         return $user;
     }
+
+    public function findByEmail(string $email): User
+    {
+        $user = $this->userRepository->findByEmail($email);
+        return $user;
+    }
 }

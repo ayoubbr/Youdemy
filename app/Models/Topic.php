@@ -5,10 +5,20 @@ namespace App\Models;
 abstract class Topic
 {
     protected int $id = 0;
-    protected string $name = "";
+    protected string $title = "";
     protected string $description = "";
 
     public function __construct() {}
+
+    public function __call($name, $arguments)
+    {
+        if ($name == "instanceWithoutId") {
+            if (count($arguments) == 2) {
+                $this->title = $arguments[0];
+                $this->description = $arguments[1];
+            }
+        }
+    }
 
     public function getId(): int
     {
@@ -20,14 +30,14 @@ abstract class Topic
         $this->id = $id;
     }
 
-    public function getName(): string
+    public function getTitle(): string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): void
+    public function setTitle(string $title): void
     {
-        $this->name = $name;
+        $this->title = $title;
     }
 
     public function getDescription(): string
@@ -42,6 +52,6 @@ abstract class Topic
 
     public function __toString(): string
     {
-        return "id: " . $this->id . " , name: " . $this->name . " , description: " . $this->description . " .";
+        return "id: " . $this->id . " , name: " . $this->title . " , description: " . $this->description . " .";
     }
 }

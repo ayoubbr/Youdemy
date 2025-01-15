@@ -17,6 +17,23 @@ class Course
 
     public function __construct() {}
 
+    public function __call($name, $arguments)
+    {
+        if ($name == 'instanceWithoutId') {
+            if (count($arguments) == 9) {
+                $this->title = $arguments[0];
+                $this->description = $arguments[1];
+                $this->price = $arguments[2];
+                $this->rating = $arguments[3];
+                $this->content = $arguments[4];
+                $this->category = $arguments[5];
+                $this->tags = $arguments[6];
+                $this->teacher = $arguments[7];
+                $this->students = $arguments[8];
+            }
+        }
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -97,7 +114,7 @@ class Course
         $this->tags = $tags;
     }
 
-    public function getTeacher(): string
+    public function getTeacher(): User
     {
         return $this->teacher;
     }

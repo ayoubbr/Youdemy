@@ -49,4 +49,8 @@ class RoleService
         
         return $role;
     }
+
+    public function create(Role $role):Role{
+        return $this->roleRepository->create($role);
+    }
 }

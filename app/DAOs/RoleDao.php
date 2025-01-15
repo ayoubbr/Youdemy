@@ -9,16 +9,15 @@ class RoleDao
 {
     public function create(Role $role): Role
     {
-        die($role);
         if (empty($role->getDescription()) || $role->getDescription() == null) {
             $role->setDescription("default Description");
         }
 
-        if (empty($role->getLogo()) || $role->getLogo() == null) {
-            $role->setLogo("Default logo");
+        if (empty($role->getBadge()) || $role->getBadge() == null) {
+            $role->setBadge("Default badge");
         }
 
-        $query = "INSERT INTO roles (name , description, badge) VALUES ( '" . $role->getRoleName() . "', '" . $role->getDescription() . "', '" . $role->getBadge() . "');";
+        $query = "INSERT INTO roles (name , description, badge) VALUES ( '" . $role->getName() . "', '" . $role->getDescription() . "', '" . $role->getBadge() . "');";
 
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
@@ -26,8 +25,6 @@ class RoleDao
         $role->setId(Database::getInstance()
             ->getConnection()
             ->lastInsertId());
-
-
 
         return $role;
     }
