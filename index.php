@@ -137,6 +137,10 @@ switch ($request) {
 
     case '/admin':
     case '/admin/courses':
+        $courseController = new CourseController();
+        $courses = $courseController->getAll();
+        require __DIR__ . '/views/admin/admin.php';
+        break;
     case '/admin/users':
         $userController = new UserController();
         $users = $userController->getAll();

@@ -5,6 +5,7 @@ namespace App\DAOs;
 use App\Core\Database;
 use App\Http\CourseForm;
 use App\Models\Course;
+use PDO;
 
 class CourseDao
 {
@@ -34,7 +35,7 @@ class CourseDao
             $course->getCategory()->getId(),
             $course->getTeacher()->getId()
         ]);
-       
+
         $course->setId(Database::getInstance()->getConnection()->lastInsertId());
 
         $course_id = $course->getId();
@@ -52,5 +53,14 @@ class CourseDao
         $stmt = Database::getInstance()->getConnection()->prepare($sql);
 
         $stmt->execute();
+    }
+
+    public function getAll()
+    {
+        $query = "SELECT id, title, description, price, rating, content, categorie_id, teacher_id FROM courses";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\Course');
+        return $result;
     }
 }

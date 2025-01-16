@@ -29,8 +29,18 @@ class CategoryRepository
         return $result;
     }
 
+    public function findById($id): Category
+    {
+        $query = "SELECT id, title, description FROM categories WHERE id = '" . $id . "';";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+
+        $result = $stmt->fetchObject(Category::class);
+        return $result;
+    }
+
     public function getAll()
-    {  
+    {
         return $this->categoryDao->getAll();
     }
 }

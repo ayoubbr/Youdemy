@@ -30,6 +30,10 @@ body {
     display: flex;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* Course Management Specific Styles */
 .main-content {
     flex: 1;

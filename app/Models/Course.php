@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+#[\AllowDynamicProperties]
 class Course
 {
     private int $id = 0;
@@ -119,7 +120,7 @@ class Course
         return $this->teacher;
     }
 
-    public function setTeacher(string $teacher): void
+    public function setTeacher(User $teacher): void
     {
         $this->teacher = $teacher;
     }

@@ -52,82 +52,52 @@
         <!-- Courses Grid -->
         <div class="courses-grid">
             <!-- Course Card 1 -->
-            <div class="course-card">
-                <div class="course-image">
-                    <img src="/api/placeholder/300/160" alt="Course thumbnail">
-                    <span class="course-status status-published">Published</span>
-                </div>
-                <div class="course-content">
-                    <div class="course-category">Development</div>
-                    <h3 class="course-title">Complete Web Development Bootcamp</h3>
-                    <div class="course-instructor">
-                        <i class="fas fa-user"></i> John Doe
-                    </div>
-                    <div class="course-stats">
-                        <div class="stat-item">
-                            <div class="stat-value">234</div>
-                            <div class="stat-label">Students</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">4.8</div>
-                            <div class="stat-label">Rating</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">$99</div>
-                            <div class="stat-label">Price</div>
-                        </div>
-                    </div>
-                    <div class="course-actions">
-                        <button class="action-button edit-button">
-                            <i class="fas fa-edit"></i>
-                            Edit
-                        </button>
-                        <button class="action-button delete-button">
-                            <i class="fas fa-trash"></i>
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Course Card 2 -->
-            <div class="course-card">
-                <div class="course-image">
-                    <img src="/api/placeholder/300/160" alt="Course thumbnail">
-                    <span class="course-status status-draft">Draft</span>
+            <?php
+            foreach ($courses as $key => $value) {
+            ?>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="/api/placeholder/300/160">
+                        <!-- <span class="course-status status-published">Published</span> -->
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
+                        <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
+                        <div class="course-instructor">
+                            <i class="fas fa-user"></i>
+                            <?php echo $value->getTeacher()->getFirstname() . " " . $value->getTeacher()->getLastname(); ?>
+                        </div>
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <div class="stat-value"><?php echo count($value->getStudents()); ?></div>
+                                <div class="stat-label">Students</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value"><?php echo $value->getRating(); ?></div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">$<?php echo $value->getPrice(); ?></div>
+                                <div class="stat-label">Price</div>
+                            </div>
+                        </div>
+                        <div class="course-actions">
+                            <button class="action-button edit-button">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
+                            <button class="action-button delete-button">
+                                <i class="fas fa-trash"></i>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="course-content">
-                    <div class="course-category">Design</div>
-                    <h3 class="course-title">UI/UX Design Fundamentals</h3>
-                    <div class="course-instructor">
-                        <i class="fas fa-user"></i> Jane Smith
-                    </div>
-                    <div class="course-stats">
-                        <div class="stat-item">
-                            <div class="stat-value">186</div>
-                            <div class="stat-label">Students</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">4.9</div>
-                            <div class="stat-label">Rating</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">$89</div>
-                            <div class="stat-label">Price</div>
-                        </div>
-                    </div>
-                    <div class="course-actions">
-                        <button class="action-button edit-button">
-                            <i class="fas fa-edit"></i>
-                            Edit
-                        </button>
-                        <button class="action-button delete-button">
-                            <i class="fas fa-trash"></i>
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <?php
+            }
+            ?>
         </div>
 
         <!-- Pagination -->

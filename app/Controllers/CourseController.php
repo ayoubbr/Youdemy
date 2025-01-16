@@ -17,7 +17,11 @@ class CourseController
 
     public function create(CourseForm $courseForm)
     {
-       
         return $this->courseService->create($courseForm);
+    }
+
+    public function getAll()
+    {
+        return $this->courseService->getAll();
     }
 }

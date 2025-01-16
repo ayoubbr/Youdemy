@@ -41,6 +41,14 @@ class UserRepository
 
         return $stmt->fetchObject(User::class);
     }
+    public function findById($id): mixed
+    {
+        $query = "SELECT id, firstname, lastname, email, phone, photo, role_id, password FROM users WHERE id = '" . $id . "';";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchObject(User::class);
+    }
 
     public function findByEmailAndPassword(User $user): mixed
     {

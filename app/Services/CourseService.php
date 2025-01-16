@@ -39,4 +39,9 @@ class CourseService
 
         return $this->courseRepository->create($course);
     }
+
+    public function getAll()
+    {
+        return $this->courseRepository->getAll();
+    }
 }
