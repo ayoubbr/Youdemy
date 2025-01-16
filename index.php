@@ -98,6 +98,13 @@ switch ($request) {
         // $tagC->create($tag);
         header("location: /admin/courses");
         break;
+    case '/tag/getAll':
+        var_dump("test");
+        $tagController = new TagController();
+        $tags = $tagController->getAll();
+        $_SESSION['tags'] = $tags;
+        header('location: /admin/topics');
+        break;
     case '/category/create':
         // $cat = new CategoryController();
         // $newCat = new Category();

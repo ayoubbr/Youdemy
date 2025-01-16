@@ -16,7 +16,7 @@ class TagService
     }
 
     public function create(Tag $tag)
-    { 
+    {
         if ($tag->getId() != 0) {
             throw new Exception("invalide value (id)");
         }
@@ -28,7 +28,12 @@ class TagService
         if (empty($tag->getDescription())) {
             throw new Exception("Description is empty");
         }
-        
+
         return $this->tagRepository->create($tag);
+    }
+
+    public function getAll()
+    {
+        return $this->tagRepository->getAll();
     }
 }

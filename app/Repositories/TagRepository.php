@@ -28,4 +28,9 @@ class TagRepository
         $result = $stmt->fetchObject(Tag::class);
         return $result;
     }
+
+    public function getAll()
+    {  
+        return $this->tagDao->getAll();
+    }
 }
