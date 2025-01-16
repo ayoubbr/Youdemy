@@ -34,4 +34,9 @@ class CategoryService
     public function findByName($name) : Category {
         return $this->categoryRepository->findByName($name);
     }
+
+    public function getAll()
+    {
+        return $this->categoryRepository->getAll();
+    }
 }

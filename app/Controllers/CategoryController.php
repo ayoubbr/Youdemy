@@ -18,4 +18,9 @@ class CategoryController
     {
         return $this->categoryService->create($category);
     }
+
+    public function getAll()
+    {
+        return $this->categoryService->getAll();
+    }
 }

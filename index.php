@@ -98,11 +98,15 @@ switch ($request) {
         // $tagC->create($tag);
         header("location: /admin/courses");
         break;
-    case '/tag/getAll':
-        var_dump("test");
+    case '/topic/getAll':
+
         $tagController = new TagController();
         $tags = $tagController->getAll();
         $_SESSION['tags'] = $tags;
+
+        $categoryController = new CategoryController();
+        $categories = $categoryController->getAll();
+        $_SESSION['categories'] = $categories;
         header('location: /admin/topics');
         break;
     case '/category/create':
@@ -112,6 +116,8 @@ switch ($request) {
         // $cat->create($newCat);
         header("location: /admin/courses");
         break;
+
+
     case '/student/courses':
         require __DIR__ . '/views/student/courses.php';
         break;

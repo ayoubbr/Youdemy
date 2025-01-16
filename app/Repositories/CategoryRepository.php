@@ -28,4 +28,9 @@ class CategoryRepository
         $result = $stmt->fetchObject(Category::class);
         return $result;
     }
+
+    public function getAll()
+    {  
+        return $this->categoryDao->getAll();
+    }
 }

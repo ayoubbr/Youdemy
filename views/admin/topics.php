@@ -41,33 +41,45 @@
     <div class="section">
         <div class="section-header">
             <h2>Categories</h2>
-            <span>Total: 5</span>
+            <span>Total
+                <?php
+                $categories = $_SESSION['categories'];
+                echo count($categories);
+                ?>
+            </span>
         </div>
         <table class="table">
             <thead>
                 <tr>
+                    <th>Order</th>
                     <th>Name</th>
-                    <th>Slug</th>
-                    <th>Items</th>
-                    <th>Status</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Web Development</td>
-                    <td>web-development</td>
-                    <td>15</td>
-                    <td><span class="status status-active">Active</span></td>
-                    <td>
-                        <button class="btn" onclick="editItem('category', 1)">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn" onclick="deleteItem('category', 1)">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                <?php
+
+                foreach ($categories as $key => $value) {
+                    $id = $value->getId();
+
+                ?>
+                    <tr>
+                        <td><?php echo $key + 1; ?></td>
+                        <td><?php echo $value->getTitle(); ?></td>
+                        <td><?php echo $value->getDescription(); ?></td>
+                        <td class="actions-td">
+                            <button class="btn" onclick="<?php echo "editItem('category', $id)"; ?>">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn" onclick="<?php echo "deleteItem('category', $id)"; ?>">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
             </tbody>
         </table>
     </div>
@@ -75,33 +87,43 @@
     <div class="section">
         <div class="section-header">
             <h2>Tags</h2>
-            <span>Total: 12</span>
+            <span>Total:
+                <?php
+                $tags = $_SESSION['tags'];
+                echo count($tags);
+                ?>
+            </span>
         </div>
         <table class="table">
             <thead>
                 <tr>
+                    <th>Order</th>
                     <th>Name</th>
-                    <th>Slug</th>
-                    <th>Items</th>
-                    <th>Status</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>JavaScript</td>
-                    <td>javascript</td>
-                    <td>8</td>
-                    <td><span class="status status-active">Active</span></td>
-                    <td>
-                        <button class="btn" onclick="editItem('tag', 1)">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn" onclick="deleteItem('tag', 1)">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                <?php
+                foreach ($tags as $key => $value) {
+                    $id = $value->getId();
+                ?>
+                    <tr>
+                        <td><?php echo $key + 1; ?></td>
+                        <td><?php echo $value->getTitle(); ?></td>
+                        <td><?php echo $value->getDescription(); ?></td>
+                        <td class="actions-td">
+                            <button class="btn" onclick="<?php echo "editItem('tag', $id)"; ?>">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn" onclick="<?php echo "deleteItem('tag', $id)"; ?>">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
             </tbody>
         </table>
     </div>
