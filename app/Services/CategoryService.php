@@ -28,6 +28,7 @@ class CategoryService
         if (empty($category->getDescription())) {
             throw new Exception("Description is empty");
         }
+ 
         return $this->categoryRepository->create($category);
     }
 

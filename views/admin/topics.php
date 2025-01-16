@@ -136,14 +136,14 @@
             <h3 class="modal-title">Add Category</h3>
             <button class="close-btn" onclick="hideModal('categoryModal')">&times;</button>
         </div>
-        <form onsubmit="handleSubmit(event, 'category')">
+        <form method="post" action="/category/create">
             <div class="form-group">
-                <label>Name</label>
-                <input type="text" required>
+                <label>Title</label>
+                <input type="text" name="title" required>
             </div>
             <div class="form-group">
                 <label>Slug</label>
-                <input type="text" required>
+                <input type="text" name="description" required>
             </div>
             <button type="submit" class="btn btn-primary">Save Category</button>
         </form>

@@ -92,10 +92,10 @@ switch ($request) {
         header("location: /admin/courses");
         break;
     case '/tag/create':
-        // $tagC =  new TagController();
-        // $tag =  new Tag();
-        // $tag->instanceWithoutId('JS', 'javascript tag');
-        // $tagC->create($tag);
+        $tag =  new Tag();
+        $tag->instanceWithoutId($_POST['title'], $_POST['description']);
+        $tagController =  new TagController();
+        $tagController->create($tag);
         header("location: /admin/courses");
         break;
     case '/topic/getAll':
@@ -110,11 +110,11 @@ switch ($request) {
         header('location: /admin/topics');
         break;
     case '/category/create':
-        // $cat = new CategoryController();
-        // $newCat = new Category();
-        // $newCat->instanceWithoutId('Coding', 'Everything that has code in it.');
-        // $cat->create($newCat);
-        header("location: /admin/courses");
+        $category = new Category();
+        $category->instanceWithoutId($_POST['title'], $_POST['description']);
+        $categoryController = new CategoryController();
+        $categoryController->create($category);
+        header("location: /admin/topics");
         break;
 
 
@@ -138,6 +138,13 @@ switch ($request) {
     case '/admin/courses':
     case '/admin/users':
     case '/admin/topics':
+        $tagController = new TagController();
+        $tags = $tagController->getAll();
+        $_SESSION['tags'] = $tags;
+
+        $categoryController = new CategoryController();
+        $categories = $categoryController->getAll();
+        $_SESSION['categories'] = $categories;
         require __DIR__ . '/views/admin/admin.php';
         break;
     default:
