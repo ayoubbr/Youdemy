@@ -123,6 +123,8 @@
             background: var(--primary-dark);
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <?php
     echo $request == '/admin' ?  '<link href="../../views/admin/dashboard.css" rel="stylesheet">' :  '';
     ?>
@@ -162,7 +164,7 @@
                 <i class="fas fa-users"></i>
                 Users
             </a>
-            <a href="/admin/topics" class="nav-item <?php echo $request == '/admin/topics   ' ?  'active' :  ''; ?>">
+            <a href="/admin/topics" class="nav-item <?php echo $request == '/admin/topics' ?  'active' :  ''; ?>">
                 <i class="fas fa-tags"></i>
                 Categories & Tags
             </a>
