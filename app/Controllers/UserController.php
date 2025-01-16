@@ -63,4 +63,9 @@ class UserController
     {
         $this->userService->suspendUser($id);
     }
+
+    public function activateUser($id)
+    {
+        $this->userService->activateUser($id);
+    }
 }

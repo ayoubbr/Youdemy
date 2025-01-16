@@ -57,4 +57,11 @@ class UserRepository
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
     }
+
+    public function activateUser($id)
+    {
+        $query = "UPDATE users SET `status` = 'Active' WHERE id = " . $id;
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+    }
 }

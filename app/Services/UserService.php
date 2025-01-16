@@ -103,4 +103,9 @@ class UserService
     {
         $this->userRepository->suspendUser($id);
     }
+   
+    public function activateUser($id)
+    {
+        $this->userRepository->activateUser($id);
+    }
 }

@@ -158,6 +158,12 @@ switch ($request) {
         $userController->suspendUser($id);
         header('location: /admin/users');
         break;
+    case '/user/activate':
+        $userController = new UserController();
+        $id = $_POST['id'];
+        $userController->activateUser($id);
+        header('location: /admin/users');
+        break;
     default:
         require __DIR__ . '/views/Home.php';
         break;

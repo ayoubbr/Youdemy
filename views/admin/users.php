@@ -112,6 +112,13 @@
                                             Suspend User
                                         </button>
                                     </form>
+                                    <form action="/user/activate" method="post">
+                                        <input type="hidden" name="id" value="<?php echo "$id"; ?>">
+                                        <button class="action-item" type="submit">
+                                            <i class="fas fa-ban"></i>
+                                            Activate User
+                                        </button>
+                                    </form>
                                     <div class="action-item delete" onclick="<?php echo "handleUserAction($id, 'delete')"; ?>">
                                         <i class="fas fa-trash"></i>
                                         Delete User
