@@ -142,7 +142,7 @@
                 <input type="text" name="title" required>
             </div>
             <div class="form-group">
-                <label>Slug</label>
+                <label>Description</label>
                 <input type="text" name="description" required>
             </div>
             <button type="submit" class="btn btn-primary">Save Category</button>
@@ -157,14 +157,14 @@
             <h3 class="modal-title">Add Tag</h3>
             <button class="close-btn" onclick="hideModal('tagModal')">&times;</button>
         </div>
-        <form onsubmit="handleSubmit(event, 'tag')">
+        <form method="post" action="/tag/create">
             <div class="form-group">
-                <label>Name</label>
-                <input type="text" required>
+                <label>Title</label>
+                <input type="text" name="title" required>
             </div>
             <div class="form-group">
-                <label>Slug</label>
-                <input type="text" required>
+                <label>Description</label>
+                <input type="text" name="description" required>
             </div>
             <button type="submit" class="btn btn-primary">Save Tag</button>
         </form>

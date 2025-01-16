@@ -116,7 +116,6 @@ body {
     background: var(--white);
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
-    overflow: hidden;
 }
 
 .users-table {
@@ -639,4 +638,10 @@ body {
 
 .modal-content {
     animation: fadeIn 0.3s ease-out;
+}
+
+#edit-user-form{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }

@@ -2,10 +2,7 @@
     <!-- Page Header -->
     <div class="page-header">
         <h1 class="page-title">User Management</h1>
-        <button class="add-user-btn" onclick="openEditModal('new')">
-            <i class="fas fa-plus"></i>
-            Add New User
-        </button>
+
     </div>
 
     <!-- Filters -->
@@ -57,92 +54,75 @@
                     <th>User</th>
                     <th>Role</th>
                     <th>Status</th>
-                    <th>Join Date</th>
-                    <th>Last Login</th>
+                    <th>Email</th>
+                    <th>Phone</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- User Row 1 -->
-                <tr>
-                    <td>
-                        <div class="user-info">
-                            <div class="user-avatar">JD</div>
-                            <div>
-                                <div class="user-name">John Doe</div>
-                                <div class="user-email">john.doe@example.com</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>Student</td>
-                    <td>
-                        <span class="status-badge status-active">Active</span>
-                    </td>
-                    <td>Jan 15, 2024</td>
-                    <td>2 hours ago</td>
-                    <td>
-                        <div class="action-menu" data-user-id="1">
-                            <button class="action-button" onclick="toggleActionMenu(1)">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="action-dropdown" id="action-menu-1">
-                                <div class="action-item" onclick="handleUserAction(1, 'edit')">
-                                    <i class="fas fa-edit"></i>
-                                    Edit User
+                <?php
+                foreach ($users as $key => $value) {
+                    $id = $value->getId();
+                ?>
+                    <tr>
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <img width="45px" src="<?php echo $value->getPhoto() ?>" alt="">
                                 </div>
-                                <div class="action-item" onclick="handleUserAction(1, 'suspend')">
-                                    <i class="fas fa-ban"></i>
-                                    Suspend User
-                                </div>
-                                <div class="action-item delete" onclick="handleUserAction(1, 'delete')">
-                                    <i class="fas fa-trash"></i>
-                                    Delete User
+                                <div>
+                                    <div class="user-name"><?php echo $value->getFirstname(); ?></div>
+                                    <div class="user-email"><?php echo $value->getLastname(); ?></div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- User Row 2 -->
-                <tr>
-                    <td>
-                        <div class="user-info">
-                            <div class="user-avatar">JS</div>
-                            <div>
-                                <div class="user-name">Jane Smith</div>
-                                <div class="user-email">jane.smith@example.com</div>
+                        </td>
+                        <td><?php echo $value->getRole()->getName(); ?></td>
+                        <td>
+                            <span class="status-badge status-<?php switch ($value->getStatus()) {
+                                                                    case 'Pending':
+                                                                        echo 'pending';
+                                                                        break;
+                                                                    case 'Suspended':
+                                                                        echo 'suspended';
+                                                                        break;
+                                                                    case 'Active':
+                                                                        echo 'active';
+                                                                        break;
+                                                                    default:
+                                                                        break;
+                                                                }
+                                                                ?>"><?php echo $value->getStatus(); ?></span>
+                        </td>
+                        <td><?php echo $value->getEmail(); ?></td>
+                        <td><?php echo $value->getPhone(); ?></td>
+                        <td>
+                            <div class="action-menu" data-user-id="<?php echo "$id"; ?>">
+                                <button class="action-button" onclick="<?php echo "toggleActionMenu($id)"; ?>">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="action-dropdown" id="action-menu-<?php echo "$id"; ?>">
+                                    <div class="action-item" onclick="<?php echo "handleUserAction($id, 'edit')"; ?>">
+                                        <i class="fas fa-edit"></i>
+                                        Edit User
+                                    </div>
+                                    <form action="/user/suspend" method="post">
+                                        <input type="hidden" name="id" value="<?php echo "$id"; ?>">
+                                        <button class="action-item" type="submit">
+                                            <i class="fas fa-ban"></i>
+                                            Suspend User
+                                        </button>
+                                    </form>
+                                    <div class="action-item delete" onclick="<?php echo "handleUserAction($id, 'delete')"; ?>">
+                                        <i class="fas fa-trash"></i>
+                                        Delete User
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>Instructor</td>
-                    <td>
-                        <span class="status-badge status-suspended">Suspended</span>
-                    </td>
-                    <td>Dec 20, 2023</td>
-                    <td>1 day ago</td>
-                    <td>
-                        <div class="action-menu" data-user-id="2">
-                            <button class="action-button" onclick="toggleActionMenu(2)">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="action-dropdown" id="action-menu-2">
-                                <div class="action-item">
-                                    <i class="fas fa-edit"></i>
-                                    Edit User
-                                </div>
-                                <div class="action-item">
-                                    <i class="fas fa-check"></i>
-                                    Activate User
-                                </div>
-                                <div class="action-item delete">
-                                    <i class="fas fa-trash"></i>
-                                    Delete User
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
                 <!-- Add more user rows as needed -->
             </tbody>
         </table>
@@ -151,7 +131,7 @@
     <!-- Pagination -->
     <div class="pagination">
         <div class="pagination-info">
-            Showing 1-10 of 100 users
+            Showing 1-10 of <?php echo count($users); ?> users
         </div>
         <div class="pagination-buttons">
             <button class="page-button"><i class="fas fa-chevron-left"></i></button>
@@ -204,42 +184,13 @@
 <!-- Error Message Container -->
 <div id="error-message" class="error-message"></div>
 
-<!-- Add New User Modal -->
-<div id="add-user-modal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Add New User</h2>
-            <button class="modal-close">×</button>
-        </div>
-        <form id="add-user-form">
-            <div class="form-group">
-                <label for="new-name">Full Name</label>
-                <input type="text" id="new-name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="new-email">Email</label>
-                <input type="email" id="new-email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="new-role">Role</label>
-                <select id="new-role" name="role" required>
-                    <option value="student">Student</option>
-                    <option value="instructor">Instructor</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="modal-close page-button">Cancel</button>
-                <button type="submit" class="add-user-btn">Add User</button>
-            </div>
-        </form>
-    </div>
-</div>
+
 <script>
     // Toggle action menu dropdown
     function toggleActionMenu(userId) {
+
         const menu = document.getElementById(`action-menu-${userId}`);
-        // Close all other open menus
+        // // Close all other open menus
         document.querySelectorAll('.action-dropdown').forEach(dropdown => {
             if (dropdown.id !== `action-menu-${userId}`) {
                 dropdown.classList.remove('active');
@@ -266,9 +217,9 @@
             case 'delete':
                 confirmDeleteUser(userId);
                 break;
-            case 'suspend':
-                toggleUserStatus(userId, 'suspended');
-                break;
+                // case 'suspend':
+                //     toggleUserStatus(userId, 'suspended');
+                //     break;
             case 'activate':
                 toggleUserStatus(userId, 'active');
                 break;
@@ -280,37 +231,29 @@
         const modal = document.getElementById('edit-user-modal');
         const form = modal.querySelector('form');
 
-        // Fetch user data and populate form
-        fetchUserData(userId).then(userData => {
-            form.querySelector('[name="name"]').value = userData.name;
-            form.querySelector('[name="email"]').value = userData.email;
-            form.querySelector('[name="role"]').value = userData.role;
-            form.dataset.userId = userId;
-        });
-
-        modal.classList.add('active');
+        modal.classList.add('show');
     }
 
     // Handle user form submission
     function handleUserFormSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const userId = form.dataset.userId;
+        // event.preventDefault();
+        // const form = event.target;
+        // const userId = form.dataset.userId;
 
-        const userData = {
-            name: form.querySelector('[name="name"]').value,
-            email: form.querySelector('[name="email"]').value,
-            role: form.querySelector('[name="role"]').value
-        };
+        // const userData = {
+        //     name: form.querySelector('[name="name"]').value,
+        //     email: form.querySelector('[name="email"]').value,
+        //     role: form.querySelector('[name="role"]').value
+        // };
 
-        updateUser(userId, userData).then(response => {
-            if (response.success) {
-                closeModal('edit-user-modal');
-                refreshUserList();
-            } else {
-                showError(response.message);
-            }
-        });
+        // updateUser(userId, userData).then(response => {
+        //     if (response.success) {
+        //         closeModal('edit-user-modal');
+        //         refreshUserList();
+        //     } else {
+        //         showError(response.message);
+        //     }
+        // });
     }
 
     // Confirm and handle user deletion
@@ -327,56 +270,20 @@
     }
 
     // Toggle user status (suspend/activate)
-    function toggleUserStatus(userId, status) {
-        updateUserStatus(userId, status).then(response => {
-            if (response.success) {
-                refreshUserList();
-            } else {
-                showError(response.message);
-            }
-        });
-    }
+    // function toggleUserStatus(userId, status) {
+    //     console.log(userId);
+    //     console.log(status);
 
-    // API calls (implement these based on your backend)
-    async function fetchUserData(userId) {
-        // Implement API call to fetch user data
-        const response = await fetch(`/api/users/${userId}`);
-        return response.json();
-    }
+    //     // updateUserStatus(userId, status).then(response => {
+    //     //     if (response.success) {
+    //     //         refreshUserList();
+    //     //     } else {
+    //     //         showError(response.message);
+    //     //     }
+    //     // });
+    // }
 
-    async function updateUser(userId, userData) {
-        // Implement API call to update user
-        const response = await fetch(`/api/users/${userId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        });
-        return response.json();
-    }
 
-    async function deleteUser(userId) {
-        // Implement API call to delete user
-        const response = await fetch(`/api/users/${userId}`, {
-            method: 'DELETE'
-        });
-        return response.json();
-    }
-
-    async function updateUserStatus(userId, status) {
-        // Implement API call to update user status
-        const response = await fetch(`/api/users/${userId}/status`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                status
-            })
-        });
-        return response.json();
-    }
 
     // Utility functions
     function showError(message) {
@@ -384,13 +291,13 @@
         errorDiv.textContent = message;
         errorDiv.classList.add('active');
         setTimeout(() => {
-            errorDiv.classList.remove('active');
+            errorDiv.classList.remove('show');
         }, 3000);
     }
 
     function closeModal(modalId) {
         const modal = document.getElementById(modalId);
-        modal.classList.remove('active');
+        modal.classList.remove('show');
     }
 
     function refreshUserList() {

@@ -4,6 +4,7 @@ namespace App\DAOs;
 
 use App\Core\Database;
 use App\Models\User;
+use PDO;
 
 class UserDao
 {
@@ -28,5 +29,14 @@ class UserDao
 
         $user->setId(Database::getInstance()->getConnection()->lastInsertId());
         return $user;
+    }
+    public function getAll()
+    {
+        $query = "SELECT id, firstname, lastname,
+         password, email, phone, photo, status, role_id FROM users;";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+        $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\User');
+        return $users;
     }
 }

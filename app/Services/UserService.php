@@ -71,7 +71,10 @@ class UserService
 
     // public function delete() {}
 
-    // public function findAll() {}
+    public function getAll()
+    {
+        return $this->userRepository->getAll();
+    }
 
     // public function findById() {}
 
@@ -94,5 +97,10 @@ class UserService
     {
         $user = $this->userRepository->findByEmail($email);
         return $user;
+    }
+
+    public function suspendUser($id)
+    {
+        $this->userRepository->suspendUser($id);
     }
 }

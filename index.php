@@ -7,6 +7,7 @@ use App\Controllers\AuthController;
 use App\Controllers\CategoryController;
 use App\Controllers\CourseController;
 use App\Controllers\TagController;
+use App\Controllers\UserController;
 use App\Http\CourseForm;
 use App\Http\LoginForm;
 use App\Http\RegisterForm;
@@ -96,7 +97,7 @@ switch ($request) {
         $tag->instanceWithoutId($_POST['title'], $_POST['description']);
         $tagController =  new TagController();
         $tagController->create($tag);
-        header("location: /admin/courses");
+        header("location: /admin/topics");
         break;
     case '/topic/getAll':
 
@@ -137,6 +138,10 @@ switch ($request) {
     case '/admin':
     case '/admin/courses':
     case '/admin/users':
+        $userController = new UserController();
+        $users = $userController->getAll();
+        require __DIR__ . '/views/admin/admin.php';
+        break;
     case '/admin/topics':
         $tagController = new TagController();
         $tags = $tagController->getAll();
@@ -146,6 +151,12 @@ switch ($request) {
         $categories = $categoryController->getAll();
         $_SESSION['categories'] = $categories;
         require __DIR__ . '/views/admin/admin.php';
+        break;
+    case '/user/suspend':
+        $userController = new UserController();
+        $id = $_POST['id'];
+        $userController->suspendUser($id);
+        header('location: /admin/users');
         break;
     default:
         require __DIR__ . '/views/Home.php';

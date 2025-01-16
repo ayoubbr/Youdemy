@@ -53,4 +53,14 @@ class UserController
             die("Erreur de base de données : " . $e->getMessage());
         }
     }
+
+    public function getAll()
+    {
+        return $this->userService->getAll();
+    }
+
+    public function suspendUser($id)
+    {
+        $this->userService->suspendUser($id);
+    }
 }
