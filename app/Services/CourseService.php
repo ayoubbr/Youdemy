@@ -57,6 +57,7 @@ class CourseService
     public function findById($id)
     {
         $result = $this->courseRepository->findById($id);
+
         $teacher = $this->userService->findById($result->teacher_id);
         $category = $this->categoryService->findById($result->categorie_id);
         $result->setTeacher($teacher);

@@ -69,7 +69,7 @@ class CourseRepository
     {
         $query = "SELECT courses.id, courses.title, courses.description, courses.price, courses.rating, courses.content, 
         courses.categorie_id, courses.teacher_id , GROUP_CONCAT(tags.title SEPARATOR ', ') AS tags FROM courses 
-        INNER JOIN course_tags ON courses.id = course_tags.course_id JOIN tags ON tags.id = course_tags.tag_id WHERE courses.id = ? GROUP BY courses.id";
+        LEFT JOIN course_tags ON courses.id = course_tags.course_id LEFT JOIN tags ON tags.id = course_tags.tag_id WHERE courses.id = ? GROUP BY courses.id";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetchObject(Course::class);

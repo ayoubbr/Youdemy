@@ -26,7 +26,8 @@ class CourseController
 
     public function findById($id)
     {
-        $result =  $this->courseService->findById($id);
+       
+        $result = $this->courseService->findById($id);
         return $result;
     }
 }

@@ -338,11 +338,15 @@
             </div>
             <div class="course-tags">
                 <?php
-                $tags = explode(', ', $course->getTags());
-                foreach ($tags as $key => $value) {
+                if (!is_null($course->getTags())) {
+
+
+                    $tags = explode(', ', $course->getTags());
+                    foreach ($tags as $key => $value) {
                 ?>
-                    <span class="tag"><?= $value; ?></span>
+                        <span class="tag"><?= $value; ?></span>
                 <?php
+                    }
                 }
                 ?>
             </div>

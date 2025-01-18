@@ -289,18 +289,20 @@
                     </div>
                     <div class="course-tags">
                         <?php
-                        $array = explode(', ', $value->getTags());
-                        foreach ($array as $key => $tag) {
+                        if (!is_null($value->getTags())) {
+                            $array = explode(', ', $value->getTags());
+                            foreach ($array as $key => $tag) {
                         ?>
-                            <span><?php echo $tag; ?></span>
+                                <span><?php echo $tag; ?></span>
                         <?php
+                            }
                         }
                         ?>
                     </div>
                     <div class="course-meta">
                         <form action="/student/courses/details" method="post">
                             <input type="submit" class="course-details" value="Details">
-                            <input type="hidden" name="id" class="course-details" value="<?php echo $value->getId(); ?>" >
+                            <input type="hidden" name="id" class="course-details" value="<?php echo $value->getId(); ?>">
                         </form>
                     </div>
                 </div>
