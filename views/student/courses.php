@@ -290,15 +290,18 @@
                     <div class="course-tags">
                         <?php
                         $array = explode(', ', $value->getTags());
-                        foreach ($array as $key => $value) {
+                        foreach ($array as $key => $tag) {
                         ?>
-                            <span><?php echo $value . ' '; ?></span>
+                            <span><?php echo $tag; ?></span>
                         <?php
                         }
                         ?>
                     </div>
                     <div class="course-meta">
-                        <a class="course-details" href="/student/courses/details">Details</a>
+                        <form action="/student/courses/details" method="post">
+                            <input type="submit" class="course-details" value="Details">
+                            <input type="hidden" name="id" class="course-details" value="<?php echo $value->getId(); ?>" >
+                        </form>
                     </div>
                 </div>
             </div>

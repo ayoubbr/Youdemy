@@ -99,11 +99,17 @@ class UserService
         return $user;
     }
 
+    public function findById($id): User
+    {
+        $user = $this->userRepository->findById($id);
+        return $user;
+    }
+
     public function suspendUser($id)
     {
         $this->userRepository->suspendUser($id);
     }
-   
+
     public function activateUser($id)
     {
         $this->userRepository->activateUser($id);

@@ -53,4 +53,14 @@ class CourseService
     {
         return $this->courseRepository->getAll();
     }
+
+    public function findById($id)
+    {
+        $result = $this->courseRepository->findById($id);
+        $teacher = $this->userService->findById($result->teacher_id);
+        $category = $this->categoryService->findById($result->categorie_id);
+        $result->setTeacher($teacher);
+        $result->setCategory($category);
+        return $result;
+    }
 }

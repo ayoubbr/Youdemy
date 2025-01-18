@@ -317,30 +317,34 @@
     <div class="main-content">
         <!-- Course Header -->
         <div class="course-header">
-            <h1 class="course-title">Advanced Web Development Masterclass</h1>
+            <h1 class="course-title"><?= $course->getTitle(); ?></h1>
             <div class="course-meta">
-                <div class="meta-item">
+                <!-- <div class="meta-item">
                     <i class="fas fa-clock"></i>
                     <span>24 hours of content</span>
-                </div>
+                </div> -->
                 <div class="meta-item">
                     <i class="fas fa-user-graduate"></i>
-                    <span>2,456 students enrolled</span>
+                    <span><?= count($course->getStudents()); ?></span>
                 </div>
                 <div class="meta-item">
                     <i class="fas fa-star"></i>
-                    <span>4.8 (256 reviews)</span>
+                    <span><?= $course->getRating(); ?></span>
                 </div>
-                <div class="meta-item">
+                <!-- <div class="meta-item">
                     <i class="fas fa-calendar"></i>
                     <span>Last updated: January 2024</span>
-                </div>
+                </div> -->
             </div>
             <div class="course-tags">
-                <span class="tag">JavaScript</span>
-                <span class="tag">React</span>
-                <span class="tag">Node.js</span>
-                <span class="tag">Web Development</span>
+                <?php
+                $tags = explode(', ', $course->getTags());
+                foreach ($tags as $key => $value) {
+                ?>
+                    <span class="tag"><?= $value; ?></span>
+                <?php
+                }
+                ?>
             </div>
         </div>
 
@@ -352,7 +356,7 @@
                 <div class="course-description">
                     <h2 class="section-title">Course Description</h2>
                     <div class="description-content">
-                        <p>Master modern web development with this comprehensive course. You'll learn everything from basic HTML/CSS to advanced React patterns and Node.js backend development.</p>
+                        <p><?php echo $course->getDescription(); ?></p>
                         <div class="progress-bar">
                             <div class="progress" style="width: 75%;"></div>
                         </div>
@@ -361,17 +365,14 @@
 
                 <!-- Curriculum Section -->
                 <div class="curriculum-section">
-                    <h2 class="section-title">Course Curriculum</h2>
+                    <h2 class="section-title">Course Content</h2>
                     <div class="module active">
                         <div class="module-header">
-                            <h3>Module 1: Introduction to Web Development</h3>
+                            <h3><?php echo $course->getTitle(); ?></h3>
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="module-content">
-                            <div class="lesson-item">
-                                <i class="fas fa-play-circle"></i>
-                                <span>Getting Started with HTML5</span>
-                            </div>
+                            <!-- TODO  create course with content-->
                             <div class="lesson-item">
                                 <i class="fas fa-play-circle"></i>
                                 <span>CSS Fundamentals</span>
@@ -382,26 +383,25 @@
                             </div>
                         </div>
                     </div>
-                    <!-- More modules -->
                 </div>
 
                 <!-- Instructor Section -->
                 <div class="instructor-section">
                     <h2 class="section-title">Your Instructor</h2>
                     <div class="instructor-info">
-                        <img src="/api/placeholder/80/80" alt="Instructor" class="instructor-avatar">
+                        <img src="<?php echo $course->getTeacher()->getPhoto(); ?>" alt="Instructor" class="instructor-avatar">
                         <div class="instructor-details">
-                            <h4>John Doe</h4>
-                            <p>Senior Web Developer | 10+ years experience</p>
+                            <h4><?php echo $course->getTeacher()->getFirstname() . ' ' . $course->getTeacher()->getLastname(); ?></h4>
+                            <p><?php echo $course->getTeacher()->getEmail(); ?></p>
                         </div>
                     </div>
-                    <p class="instructor-bio">
+                    <!-- <p class="instructor-bio">
                         Expert web developer with a passion for teaching and helping others master modern web technologies.
-                    </p>
+                    </p> -->
                 </div>
 
                 <!-- Reviews Section -->
-                <div class="reviews-section">
+                <!-- <div class="reviews-section">
                     <h2 class="section-title">Student Reviews</h2>
                     <div class="review-card">
                         <div class="review-header">
@@ -422,13 +422,13 @@
                         </div>
                         <p>Excellent course! The content is well-structured and the instructor explains complex concepts clearly.</p>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Right Column - Sidebar -->
             <div class="course-sidebar">
-                <div class="price-tag">$99.99</div>
-                <button class="enroll-button">Enroll Now</button>
+                <div class="price-tag">$<?php echo $course->getPrice(); ?></div>
+                <button class="enroll-button">Subscribe Now</button>
                 <div class="course-features">
                     <div class="feature-item">
                         <i class="fas fa-video"></i>
@@ -450,9 +450,6 @@
             </div>
         </div>
     </div>
-
-    <!DOCTYPE html>
-    <!-- Previous HTML and CSS remains the same -->
 
     <script>
         // Module accordion functionality

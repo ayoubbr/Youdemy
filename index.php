@@ -12,9 +12,7 @@ use App\Http\CourseForm;
 use App\Http\LoginForm;
 use App\Http\RegisterForm;
 use App\Models\Category;
-use App\Models\Course;
 use App\Models\Tag;
-use App\Models\User;
 
 $request = $_SERVER['REQUEST_URI'];
 
@@ -130,6 +128,9 @@ switch ($request) {
         require __DIR__ . '/views/student/courses.php';
         break;
     case '/student/courses/details':
+        $courseController =  new CourseController();
+        $id = $_POST['id'];
+        $course = $courseController->findById($id);
         require __DIR__ . '/views/student/courseDetails.php';
         break;
     case '/student/courses/enrolled':

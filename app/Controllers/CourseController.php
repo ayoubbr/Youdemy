@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Http\CourseForm;
-use App\Models\Course;
 use App\Services\CourseService;
 
 class CourseController
@@ -23,5 +22,11 @@ class CourseController
     public function getAll()
     {
         return $this->courseService->getAll();
+    }
+
+    public function findById($id)
+    {
+        $result =  $this->courseService->findById($id);
+        return $result;
     }
 }
