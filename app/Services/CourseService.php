@@ -12,18 +12,27 @@ class CourseService
     private CourseRepository $courseRepository;
     private UserService $userService;
     private CategoryService $categoryService;
+    private TagService $tagService;
 
     public function __construct()
     {
         $this->courseRepository = new CourseRepository();
         $this->categoryService = new CategoryService();
         $this->userService = new UserService();
+        $this->tagService = new TagService();
     }
 
     public function create(CourseForm $courseForm)
     {
+
         $teacher = $this->userService->findByEmail($courseForm->teacherEmail);
         $category = $this->categoryService->findByName($courseForm->categoryName);
+        $tags = $courseForm->tags;
+        $tagObjects = [];
+
+        for ($i = 0; $i < count($tags); $i++) {
+            array_push($tagObjects, $this->tagService->findByName($tags[$i]));
+        }
         $course = new Course();
         $course->instanceWithoutId(
             $courseForm->title,
@@ -32,7 +41,7 @@ class CourseService
             $courseForm->rating,
             $courseForm->content,
             $category,
-            $courseForm->tags,
+            $tagObjects,
             $teacher,
             $courseForm->students
         );

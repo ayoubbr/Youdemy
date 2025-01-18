@@ -10,7 +10,7 @@ class CourseForm
     public string $rating;
     public string $content;
     public string $categoryName;
-    public $tags;
+    public array $tags = [];
     public string $teacherEmail;
     public $students;
 

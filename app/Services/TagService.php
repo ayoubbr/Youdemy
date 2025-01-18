@@ -36,4 +36,8 @@ class TagService
     {
         return $this->tagRepository->getAll();
     }
+
+    public function findByName($name){
+        return $this->tagRepository->findByName($name);
+    }
 }

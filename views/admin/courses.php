@@ -54,6 +54,7 @@
             <!-- Course Card 1 -->
 
             <?php
+            //   var_dump($courses);
             foreach ($courses as $key => $value) {
             ?>
 
@@ -71,7 +72,9 @@
                         </div>
                         <div class="course-stats">
                             <div class="stat-item">
-                                <div class="stat-value"><?php echo count($value->getStudents()); ?></div>
+                                <div class="stat-value"><?php echo count($value->getStudents());
+
+                                                        ?></div>
                                 <div class="stat-label">Students</div>
                             </div>
                             <div class="stat-item">
@@ -82,6 +85,16 @@
                                 <div class="stat-value">$<?php echo $value->getPrice(); ?></div>
                                 <div class="stat-label">Price</div>
                             </div>
+                        </div>
+                        <div class="course-tags">
+                            <?php
+                            $array = explode(', ', $value->getTags());
+                            foreach ($array as $key => $value) {
+                            ?>
+                                <span><?php echo $value . ' '; ?></span>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <div class="course-actions">
                             <button class="action-button edit-button">
@@ -110,11 +123,93 @@
         </div>
     </div>
 
+    <!-- Add this HTML just before the closing </div> of "main-content" -->
+    <div id="addCourseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Course</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="addCourseForm" action="/course/create" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title">Course Title</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoryName">Category</label>
+                        <select id="categoryName" name="categoryName" required>
+                            <option value="">Select Category</option>
+                            <?php
+                            // $categories = $_SESSION['categories'];
+                            foreach ($categories as $key => $value) {
+                            ?>
+                                <option value="<?php echo $value->getTitle(); ?>"><?php echo $value->getTitle(); ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="price">Price ($)</label>
+                        <input type="number" id="price" name="price" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="content">Course Content</label>
+                        <input type="text" id="content" name="content" required>
+                    </div>
+                </div>
+                <!-- <div class="form-row"> -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <!-- </div>  -->
+
+
+                <div class="form-group tags">
+                    <?php
+                    foreach ($tags as $key => $value) {
+                    ?>
+                        <div>
+                            <input type="checkbox" id="<?php echo $value->getId() ?>" name="tags[]" value="<?php echo $value->getTitle() ?>" />
+                            <label for="<?php echo $value->getTitle() ?>"><?php echo $value->getTitle() ?></label>
+                        </div>
+                    <?php
+                    } ?>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="page-button" onclick="closeAddCourseModal()">Cancel</button>
+                    <button type="submit" class="add-course-btn">Create Course</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
-        // Function to show add course modal
         function showAddCourseModal() {
-            // Implementation would go here
-            alert('Add Course Modal - To be implemented');
+            document.getElementById('addCourseModal').style.display = 'block';
+        }
+
+        // Function to close the modal
+        function closeAddCourseModal() {
+            document.getElementById('addCourseModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addCourseModal');
+            if (event.target == modal) {
+                closeAddCourseModal();
+            }
+        }
+
+        // Close modal when clicking the X button
+        document.querySelector('.close-modal').onclick = function() {
+            closeAddCourseModal();
         }
 
         // Add event listeners for filter actions

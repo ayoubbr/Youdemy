@@ -30,7 +30,7 @@ class TagRepository
     }
 
     public function getAll()
-    {  
+    {
         return $this->tagDao->getAll();
     }
 }

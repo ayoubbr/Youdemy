@@ -76,20 +76,21 @@ switch ($request) {
         break;
 
     case '/course/create':
+
         $courseController =  new CourseController();
         $courseForm =  CourseForm::instanceWithAllArgs(
-            'HTML & CSS basics',
-            'Everything about HTML AND CSS',
-            100,
-            4,
-            'content of the course',
-            'Coding',
-            ['CSS', 'HTML'],
-            'jipi@mailinator.com',
+            $_POST['title'],
+            $_POST['description'],
+            $_POST['price'],
+            0,
+            $_POST['content'],
+            $_POST['categoryName'],
+            $_POST['tags'],
+            // get email from session
+            'rucuw@mailinator.com',
             []
         );
-
-        // $courseController->create($courseForm);
+        $courseController->create($courseForm);
         header("location: /admin/courses");
         break;
     case '/tag/create':
@@ -120,6 +121,12 @@ switch ($request) {
 
 
     case '/student/courses':
+        $courseController = new CourseController();
+        $courses = $courseController->getAll();
+        $categoryController = new CategoryController();
+        $categories = $categoryController->getAll();
+        $tagController = new TagController();
+        $tags = $tagController->getAll();
         require __DIR__ . '/views/student/courses.php';
         break;
     case '/student/courses/details':
@@ -139,6 +146,10 @@ switch ($request) {
     case '/admin/courses':
         $courseController = new CourseController();
         $courses = $courseController->getAll();
+        $categoryController = new CategoryController();
+        $categories = $categoryController->getAll();
+        $tagController = new TagController();
+        $tags = $tagController->getAll();
         require __DIR__ . '/views/admin/admin.php';
         break;
     case '/admin/users':

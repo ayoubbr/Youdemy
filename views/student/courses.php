@@ -7,7 +7,7 @@
     <title>Course Catalog | E-Learning Platform</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
         :root {
             /* Primary Colors */
@@ -197,6 +197,38 @@
             color: var(--primary-color);
         }
 
+        .course-tags {
+            padding: 15px 15px 5px 15px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+
+        .course-tags span {
+            border-radius: 10px;
+            background-color: #bbc2cb;
+            color: black;
+            width: 60px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .course-details {
+            text-decoration: none;
+            background-color: #4f46e5;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .course-details:hover {
+            background-color: #1e293b;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -227,101 +259,53 @@
 
     <div class="filters">
         <button class="filter-btn active">All</button>
-        <button class="filter-btn">Development</button>
-        <button class="filter-btn">Design</button>
-        <button class="filter-btn">Business</button>
-        <button class="filter-btn">Marketing</button>
-        <button class="filter-btn">Photography</button>
+        <?php
+        foreach ($categories as $key => $value) {
+        ?>
+            <button class="filter-btn"><?= $value->getTitle(); ?></button>
+        <?php
+        }
+        ?>
     </div>
 
     <div class="courses-grid">
-        <!-- Course Card 1 -->
-        <div class="course-card">
-            <div class="course-image">
-                <img src="/api/placeholder/300/200" alt="Course thumbnail">
-            </div>
-            <div class="course-content">
-                <span class="course-category">Development</span>
-                <h3 class="course-title">Complete Web Development Bootcamp</h3>
-                <p class="course-description">Learn web development from scratch with this comprehensive course covering HTML, CSS, JavaScript, and more.</p>
-                <div class="course-meta">
-                    <div class="course-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8</span>
+        <?php
+        foreach ($courses as $key => $value) {
+        ?>
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="/api/placeholder/300/200" alt="Course thumbnail">
+                </div>
+                <div class="course-content">
+                    <span class="course-category"><?php echo $value->getCategory()->getTitle(); ?></span>
+                    <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
+                    <p class="course-description"><?php echo $value->getDescription(); ?></p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span><?php echo $value->getRating(); ?></span>
+                        </div>
+                        <div class="course-price">$<?php echo $value->getPrice(); ?></div>
                     </div>
-                    <div class="course-price">$89.99</div>
-                </div>
-                <div class="course-meta">
-                    <a href="">Details</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Course Card 2 -->
-        <div class="course-card">
-            <div class="course-image">
-                <img src="/api/placeholder/300/200" alt="Course thumbnail">
-            </div>
-            <div class="course-content">
-                <span class="course-category">Design</span>
-                <h3 class="course-title">UI/UX Design Fundamentals</h3>
-                <p class="course-description">Master the principles of user interface and user experience design with practical projects.</p>
-                <div class="course-meta">
-                    <div class="course-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9</span>
+                    <div class="course-tags">
+                        <?php
+                        $array = explode(', ', $value->getTags());
+                        foreach ($array as $key => $value) {
+                        ?>
+                            <span><?php echo $value . ' '; ?></span>
+                        <?php
+                        }
+                        ?>
                     </div>
-                    <div class="course-price">$69.99</div>
-                </div>
-                <div class="course-meta">
-                    <a href="">Details</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Course Card 3 -->
-        <div class="course-card">
-            <div class="course-image">
-                <img src="/api/placeholder/300/200" alt="Course thumbnail">
-            </div>
-            <div class="course-content">
-                <span class="course-category">Business</span>
-                <h3 class="course-title">Digital Marketing Strategy</h3>
-                <p class="course-description">Learn how to create and implement effective digital marketing strategies for business growth.</p>
-                <div class="course-meta">
-                    <div class="course-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7</span>
+                    <div class="course-meta">
+                        <a class="course-details" href="/student/courses/details">Details</a>
                     </div>
-                    <div class="course-price">$79.99</div>
-                </div>
-                <div class="course-meta">
-                    <a href="">Details</a>
                 </div>
             </div>
-        </div>
-
-        <!-- Course Card 4 -->
-        <div class="course-card">
-            <div class="course-image">
-                <img src="/api/placeholder/300/200" alt="Course thumbnail">
-            </div>
-            <div class="course-content">
-                <span class="course-category">Business</span>
-                <h3 class="course-title">Digital Marketing Strategy</h3>
-                <p class="course-description">Learn how to create and implement effective digital marketing strategies for business growth.</p>
-                <div class="course-meta">
-                    <div class="course-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7</span>
-                    </div>
-                    <div class="course-price">$79.99</div>
-                </div>
-                <div class="course-meta">
-                    <a href="">Details</a>
-                </div>
-            </div>
-        </div>
+        <?php
+        }
+        ?>
+    </div>
     </div>
 
     <script>
