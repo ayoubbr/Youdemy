@@ -11,6 +11,7 @@ class Course
     private float $price = 0;
     private float $rating = 0;
     private string $content = "";
+    private string $status = "";
     private Category $category;
     private $tags = [];
     private User $teacher;
@@ -21,16 +22,17 @@ class Course
     public function __call($name, $arguments)
     {
         if ($name == 'instanceWithoutId') {
-            if (count($arguments) == 9) {
+            if (count($arguments) == 10) {
                 $this->title = $arguments[0];
                 $this->description = $arguments[1];
                 $this->price = $arguments[2];
                 $this->rating = $arguments[3];
-                $this->content = $arguments[4];
-                $this->category = $arguments[5];
-                $this->tags = $arguments[6];
-                $this->teacher = $arguments[7];
-                $this->students = $arguments[8];
+                $this->status = $arguments[4];
+                $this->content = $arguments[5];
+                $this->category = $arguments[6];
+                $this->tags = $arguments[7];
+                $this->teacher = $arguments[8];
+                $this->students = $arguments[9];
             }
         }
     }
@@ -93,6 +95,16 @@ class Course
     public function setContent(string $content): void
     {
         $this->content = $content;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
     }
 
     public function getCategory(): Category

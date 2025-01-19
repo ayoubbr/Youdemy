@@ -23,22 +23,23 @@ class CourseService
     }
 
     public function create(CourseForm $courseForm)
-    {
-
+    { 
         $teacher = $this->userService->findByEmail($courseForm->teacherEmail);
         $category = $this->categoryService->findByName($courseForm->categoryName);
         $tags = $courseForm->tags;
         $tagObjects = [];
-
+       
         for ($i = 0; $i < count($tags); $i++) {
             array_push($tagObjects, $this->tagService->findByName($tags[$i]));
         }
+      
         $course = new Course();
         $course->instanceWithoutId(
             $courseForm->title,
             $courseForm->description,
             $courseForm->price,
             $courseForm->rating,
+            $courseForm->status,
             $courseForm->content,
             $category,
             $tagObjects,
@@ -68,5 +69,15 @@ class CourseService
     public function delete($id)
     {
         $this->courseRepository->delete($id);
+    }
+    
+    public function activate($id)
+    {
+        $this->courseRepository->activate($id);
+    }
+    
+    public function archive($id)
+    {
+        $this->courseRepository->archive($id);
     }
 }

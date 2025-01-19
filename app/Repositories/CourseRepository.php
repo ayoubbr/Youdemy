@@ -23,16 +23,6 @@ class CourseRepository
 
     public function create(Course $course)
     {
-
-        // $tags = $course->getTags();
-
-        // $array_tags = [];
-        // for ($i = 0; $i < count($tags); $i++) {
-        //     array_push($array_tags, $this->tagRepository->findByName($tags[$i]));
-        // }
-
-        // $course->setTags($array_tags);
-
         return $this->courseDao->create($course);
     }
 
@@ -72,5 +62,25 @@ class CourseRepository
     public function delete($id)
     {
         $this->courseDao->delete($id);
+    }
+
+    public function activate($id)
+    {
+        $query = "UPDATE courses SET `status` = 'Active' WHERE id = ?";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$id]);
+        $result = $stmt->fetchObject(Course::class);
+
+        return $result;
+    }
+
+    public function archive($id)
+    {
+        $query = "UPDATE courses SET `status` = 'Archived' WHERE id = ?";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$id]);
+        $result = $stmt->fetchObject(Course::class);
+
+        return $result;
     }
 }

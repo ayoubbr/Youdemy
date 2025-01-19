@@ -34,4 +34,14 @@ class CourseController
     {
         $this->courseService->delete($id);
     }
+
+    public function activateCourse($id)
+    {
+        $this->courseService->activate($id);
+    }
+    
+    public function archiveCourse($id)
+    {
+        $this->courseService->archive($id);
+    }
 }

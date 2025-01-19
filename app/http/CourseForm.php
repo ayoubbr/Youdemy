@@ -9,6 +9,7 @@ class CourseForm
     public string $price;
     public string $rating;
     public string $content;
+    public string $status;
     public string $categoryName;
     public array $tags = [];
     public string $teacherEmail;
@@ -21,6 +22,7 @@ class CourseForm
         $price,
         $rating,
         $content,
+        $status,
         $categoryName,
         $tags,
         $teacherEmail,
@@ -33,6 +35,7 @@ class CourseForm
         $instance->price = $price;
         $instance->rating = $rating;
         $instance->content = $content;
+        $instance->status = $status;
         $instance->categoryName = $categoryName;
         $instance->tags = $tags;
         $instance->teacherEmail = $teacherEmail;

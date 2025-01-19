@@ -136,7 +136,7 @@
                 <h2>Add New Course</h2>
                 <span class="close-modal">&times;</span>
             </div>
-            <form id="addCourseForm" action="/course/create" method="post">
+            <form id="addCourseForm" action="/teacher/course/create" method="post">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="title">Course Title</label>
@@ -175,8 +175,6 @@
                     <textarea id="description" name="description" rows="4" required></textarea>
                 </div>
                 <!-- </div>  -->
-
-
                 <div class="form-group tags">
                     <?php
                     foreach ($tags as $key => $value) {
@@ -235,7 +233,7 @@
         // document.querySelectorAll('.delete-button').forEach(button => {
         //     button.addEventListener('click', (e) => {
         //         if (confirm('Are you sure you want to delete this course?')) {
-                    
+
         //         } else {
         //             console.log('annuled');
         //         }

@@ -75,7 +75,7 @@ switch ($request) {
         require __DIR__ . '/views/courses.php';
         break;
 
-    case '/course/create':
+    case '/teacher/course/create':
         $courseController =  new CourseController();
         $courseForm =  CourseForm::instanceWithAllArgs(
             $_POST['title'],
@@ -83,12 +83,14 @@ switch ($request) {
             $_POST['price'],
             0,
             $_POST['content'],
+            'Active',
             $_POST['categoryName'],
             $_POST['tags'],
             // get email from session
             'rucuw@mailinator.com',
             []
         );
+
         $courseController->create($courseForm);
         header("location: /teacher/courses");
         break;
@@ -178,8 +180,7 @@ switch ($request) {
 
         $userController =  new UserController();
         $teachers = $userController->getAll();
-        // var_dump($teachers);
-        // die();
+        
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses/one/delete':
@@ -188,12 +189,18 @@ switch ($request) {
         $courseController->delete($id);
         header('location: /admin/courses');
         break;
-        // case '/admin/courses/one/archive':
-        //     $courseController =  new CourseController();
-        //     $id = $_POST['id'];
-        //     $courseController->archive($id);
-        //     header('location: /admin/courses');
-        //     break;
+    case '/admin/courses/one/archive':
+        $courseController =  new CourseController();
+        $id = $_POST['id'];
+        $courseController->archiveCourse($id);
+        header('location: /admin/courses');
+        break;
+    case '/admin/courses/one/activate':
+        $courseController =  new CourseController();
+        $id = $_POST['id'];
+        $courseController->activateCourse($id);
+        header('location: /admin/courses');
+        break;
     case '/admin/users':
         $userController = new UserController();
         $users = $userController->getAll();

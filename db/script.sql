@@ -41,6 +41,7 @@ CREATE TABLE courses (
     price FLOAT,
     rating FLOAT,
     content VARCHAR(255),
+    status VARCHAR(55),
     categorie_id INT,
     teacher_id INT,
     Foreign Key (categorie_id) REFERENCES categories (id),

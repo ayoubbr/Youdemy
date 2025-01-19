@@ -21,8 +21,8 @@ class CourseDao
         $tags = $course->getTags();
 
         $query = "INSERT INTO courses 
-        (title, description, price, rating, content, categorie_id, teacher_id)
-         VALUES (?,?,?,?,?,?,?);";
+        (title, description, price, rating, content, status, categorie_id, teacher_id)
+         VALUES (?,?,?,?,?,?,?,?);";
 
         $stmt = Database::getInstance()->getConnection()->prepare($query);
 
@@ -32,6 +32,7 @@ class CourseDao
             $course->getPrice(),
             $course->getRating(),
             $course->getContent(),
+            $course->getStatus(),
             $course->getCategory()->getId(),
             $course->getTeacher()->getId()
         ]);
@@ -57,7 +58,7 @@ class CourseDao
 
     public function getAll()
     {
-        $query = "SELECT courses.id, courses.title, courses.description, courses.price, courses.rating, courses.content, 
+        $query = "SELECT courses.id, courses.title, courses.description, courses.price, courses.rating, courses.content, courses.status, 
                     courses.categorie_id, courses.teacher_id , GROUP_CONCAT(tags.title SEPARATOR ', ') AS tags FROM courses 
                     LEFT JOIN course_tags ON courses.id = course_tags.course_id LEFT JOIN tags ON tags.id = course_tags.tag_id GROUP BY courses.id";
         $stmt = Database::getInstance()->getConnection()->prepare($query);

@@ -61,20 +61,20 @@
 
         <!-- Courses Grid -->
         <div class="courses-grid">
-            <!-- Course Card 1 -->
-
             <?php
-            //   var_dump($courses);
             foreach ($courses as $key => $value) {
             ?>
-
                 <div class="course-card">
                     <!-- <div class="course-image"> -->
                     <!-- <img src="/api/placeholder/300/160"> -->
                     <!-- <span class="course-status status-published">Published</span> -->
                     <!-- </div> -->
                     <div class="course-content">
-                        <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
+                        <div class="course-header">
+                            <div class="course-status2"><?php echo $value->getStatus(); ?></div>
+
+                            <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
+                        </div>
                         <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
                         <div class="course-instructor">
                             <i class="fas fa-user"></i>
@@ -108,17 +108,49 @@
                             ?>
                         </div>
                         <div class="course-actions">
-                            <button class="action-button edit-button">
-                                <i class="fas fa-edit"></i>
-                                Edit
-                            </button>
-                            <!-- <form action="/admin/courses/one/archive" method="post">
-                                <input type="hidden" name="id" value="<?= $value->getId(); ?>">
-                                <button type="submit" class="action-button ">
-                                    <i class="fas fa-box-archive"></i>
-                                    Archive
-                                </button>
-                            </form> -->
+                            <?php
+                            if ($value->getStatus() == 'Active') {
+                            ?>
+                                <form action="/admin/courses/one/archive" method="post">
+                                    <input type="hidden" name="id" value="<?= $value->getId(); ?>">
+                                    <button type="submit" class="action-button ">
+                                        <i class="fas fa-box-archive"></i>
+                                        Archive
+                                    </button>
+                                </form>
+                            <?php
+                            } else if ($value->getStatus() == 'Archived') {
+                            ?>
+                                <form action="/admin/courses/one/activate" method="post">
+                                    <input type="hidden" name="id" value="<?= $value->getId(); ?>">
+                                    <button type="submit" class="action-button activate">
+                                        <i class="fa-solid fa-check-double"></i>
+                                        Activate
+                                    </button>
+                                </form>
+                            <?php
+
+                            } else {
+                            ?>
+                                <form action="/admin/courses/one/archive" method="post">
+                                    <input type="hidden" name="id" value="<?= $value->getId(); ?>">
+                                    <button type="submit" class="action-button ">
+                                        <i class="fas fa-box-archive"></i>
+                                        Archive
+                                    </button>
+                                </form>
+                                <form action="/admin/courses/one/activate" method="post">
+                                    <input type="hidden" name="id" value="<?= $value->getId(); ?>">
+                                    <button type="submit" class="action-button activate">
+                                        <i class="fa-solid fa-check-double"></i>
+                                        Activate
+                                    </button>
+                                </form>
+                            <?php
+                            }
+                            ?>
+
+
                         </div>
                     </div>
                 </div>
@@ -126,137 +158,11 @@
             }
             ?>
         </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            <button class="page-button"><i class="fas fa-chevron-left"></i></button>
-            <button class="page-button active">1</button>
-            <button class="page-button">2</button>
-            <button class="page-button">3</button>
-            <button class="page-button"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </div>
-
-    <!-- Add this HTML just before the closing </div> of "main-content" -->
-    <div id="addCourseModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Add New Course</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <form id="addCourseForm" action="/course/create" method="post">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="title">Course Title</label>
-                        <input type="text" id="title" name="title" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="categoryName">Category</label>
-                        <select id="categoryName" name="categoryName" required>
-                            <option value="">Select Category</option>
-                            <?php
-                            // $categories = $_SESSION['categories'];
-                            foreach ($categories as $key => $value) {
-                            ?>
-                                <option value="<?php echo $value->getTitle(); ?>"><?php echo $value->getTitle(); ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-group half">
-                        <label for="price">Price ($)</label>
-                        <input type="number" id="price" name="price" min="0" step="0.01" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="content">Course Content</label>
-                        <input type="text" id="content" name="content" required>
-                    </div>
-                </div>
-                <!-- <div class="form-row"> -->
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description" rows="4" required></textarea>
-                </div>
-                <!-- </div>  -->
-
-
-                <div class="form-group tags">
-                    <?php
-                    foreach ($tags as $key => $value) {
-                    ?>
-                        <div>
-                            <input type="checkbox" id="<?php echo $value->getId() ?>" name="tags[]" value="<?php echo $value->getTitle() ?>" />
-                            <label for="<?php echo $value->getTitle() ?>"><?php echo $value->getTitle() ?></label>
-                        </div>
-                    <?php
-                    } ?>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="page-button" onclick="closeAddCourseModal()">Cancel</button>
-                    <button type="submit" class="add-course-btn">Create Course</button>
-                </div>
-            </form>
-        </div>
     </div>
     <script>
-        function showAddCourseModal() {
-            document.getElementById('addCourseModal').style.display = 'block';
-        }
-
-        // Function to close the modal
-        function closeAddCourseModal() {
-            document.getElementById('addCourseModal').style.display = 'none';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('addCourseModal');
-            if (event.target == modal) {
-                closeAddCourseModal();
-            }
-        }
-
-        // Close modal when clicking the X button
-        document.querySelector('.close-modal').onclick = function() {
-            closeAddCourseModal();
-        }
-
         // Add event listeners for filter actions
         document.querySelector('.filter-actions .add-course-btn').addEventListener('click', () => {
             // Implementation for applying filters
             alert('Applying filters - To be implemented');
-        });
-
-        // Add event listeners for edit and delete actions
-        document.querySelectorAll('.edit-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                // Implementation for edit action
-                alert('Edit course - To be implemented');
-            });
-        });
-
-        document.querySelectorAll('.delete-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                confirm('Are you sure you want to delete this course?')
-            });
-        });
-
-
-
-        // Add event listeners for pagination
-        document.querySelectorAll('.pagination .page-button').forEach(button => {
-            button.addEventListener('click', () => {
-                if (!button.classList.contains('active')) {
-                    document.querySelector('.pagination .active').classList.remove('active');
-                    button.classList.add('active');
-                    // Implementation for pagination
-                    alert('Pagination - To be implemented');
-                }
-            });
         });
     </script>
