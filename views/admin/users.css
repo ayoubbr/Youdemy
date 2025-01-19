@@ -1,20 +1,5 @@
 /* Base styles from previous dashboard */
 :root {
-    --primary-color: #4f46e5;
-    --primary-dark: #4338ca;
-    --primary-light: #818cf8;
-    --secondary-color: #06b6d4;
-    --secondary-dark: #0891b2;
-    --secondary-light: #22d3ee;
-    --bg-gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
-    --background-color: #f8fafc;
-    --text-color: #1e293b;
-    --text-light: #64748b;
-    --white: #ffffff;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-
     /* Status colors */
     --status-active: #16a34a;
     --status-suspended: #dc2626;
@@ -22,17 +7,11 @@
     --status-active-bg: #dcfce7;
     --status-suspended-bg: #fee2e2;
     --status-pending-bg: #fef9c3;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--background-color);
-    min-height: 100vh;
+    --surface: #ffffff;
+    /* Border Colors */
+    --border: #e2e8f0;
+    /* Animation */
+    --transition: all 0.2s ease;
 }
 
 .main-content {
@@ -270,48 +249,6 @@ body {
     background: var(--primary-color);
     color: var(--white);
     border-color: var(--primary-color);
-}
-
-/* CSS Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    /* Colors */
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --secondary: #64748b;
-    --success: #22c55e;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    --background: #f8fafc;
-    --surface: #ffffff;
-
-    /* Text Colors */
-    --text-primary: #1e293b;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-
-    /* Border Colors */
-    --border: #e2e8f0;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-
-    /* Animation */
-    --transition: all 0.2s ease;
-}
-
-body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background-color: var(--background);
-    color: var(--text-primary);
-    line-height: 1.5;
 }
 
 /* Layout */
@@ -640,7 +577,7 @@ body {
     animation: fadeIn 0.3s ease-out;
 }
 
-#edit-user-form{
+#edit-user-form {
     display: flex;
     flex-direction: column;
     padding: 20px;

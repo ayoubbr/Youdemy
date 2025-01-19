@@ -1,39 +1,3 @@
-/* Keeping the root styles and basic setup from previous dashboard */
-:root {
-    --primary-color: #4f46e5;
-    --primary-dark: #4338ca;
-    --primary-light: #818cf8;
-    --secondary-color: #06b6d4;
-    --secondary-dark: #0891b2;
-    --secondary-light: #22d3ee;
-    --bg-gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
-    --background-color: #f8fafc;
-    --text-color: #1e293b;
-    --text-light: #64748b;
-    --white: #ffffff;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* font-family: 'Inter', system-ui, -apple-system, sans-serif; */
-}
-
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    display: flex;
-}
-
-a {
-    text-decoration: none;
-}
-
 /* Course Management Specific Styles */
 .main-content {
     flex: 1;

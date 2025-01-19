@@ -69,12 +69,12 @@ switch ($request) {
     case '/signup':
         require __DIR__ . '/views/signup.php';
         break;
+
     case '/courses':
         require __DIR__ . '/views/courses.php';
         break;
 
     case '/course/create':
-
         $courseController =  new CourseController();
         $courseForm =  CourseForm::instanceWithAllArgs(
             $_POST['title'],
@@ -91,6 +91,7 @@ switch ($request) {
         $courseController->create($courseForm);
         header("location: /admin/courses");
         break;
+
     case '/tag/create':
         $tag =  new Tag();
         $tag->instanceWithoutId($_POST['title'], $_POST['description']);
@@ -98,8 +99,8 @@ switch ($request) {
         $tagController->create($tag);
         header("location: /admin/topics");
         break;
-    case '/topic/getAll':
 
+    case '/topic/getAll':
         $tagController = new TagController();
         $tags = $tagController->getAll();
         $_SESSION['tags'] = $tags;
@@ -109,6 +110,7 @@ switch ($request) {
         $_SESSION['categories'] = $categories;
         header('location: /admin/topics');
         break;
+
     case '/category/create':
         $category = new Category();
         $category->instanceWithoutId($_POST['title'], $_POST['description']);
@@ -116,7 +118,6 @@ switch ($request) {
         $categoryController->create($category);
         header("location: /admin/topics");
         break;
-
 
     case '/student/courses':
         $courseController = new CourseController();
@@ -127,15 +128,18 @@ switch ($request) {
         $tags = $tagController->getAll();
         require __DIR__ . '/views/student/courses.php';
         break;
+
     case '/student/courses/details':
         $courseController =  new CourseController();
         $id = $_POST['id'];
         $course = $courseController->findById($id);
         require __DIR__ . '/views/student/courseDetails.php';
         break;
+
     case '/student/courses/enrolled':
         require __DIR__ . '/views/student/mycourses.php';
         break;
+
     case '/teacher':
     case '/teacher/courses':
         $courseController = new CourseController();
@@ -153,6 +157,9 @@ switch ($request) {
         break;
 
     case '/admin':
+    case '/admin/statistics':
+        require __DIR__ . '/views/admin/dashboard.php';
+        break;
     case '/admin/courses':
         $courseController = new CourseController();
         $courses = $courseController->getAll();
@@ -160,13 +167,15 @@ switch ($request) {
         $categories = $categoryController->getAll();
         $tagController = new TagController();
         $tags = $tagController->getAll();
-        require __DIR__ . '/views/admin/admin.php';
+        require __DIR__ . '/views/admin/dashboard.php';
         break;
+
     case '/admin/users':
         $userController = new UserController();
         $users = $userController->getAll();
-        require __DIR__ . '/views/admin/admin.php';
+        require __DIR__ . '/views/admin/dashboard.php';
         break;
+
     case '/admin/topics':
         $tagController = new TagController();
         $tags = $tagController->getAll();
@@ -175,20 +184,23 @@ switch ($request) {
         $categoryController = new CategoryController();
         $categories = $categoryController->getAll();
         $_SESSION['categories'] = $categories;
-        require __DIR__ . '/views/admin/admin.php';
+        require __DIR__ . '/views/admin/dashboard.php';
         break;
+
     case '/user/suspend':
         $userController = new UserController();
         $id = $_POST['id'];
         $userController->suspendUser($id);
         header('location: /admin/users');
         break;
+
     case '/user/activate':
         $userController = new UserController();
         $id = $_POST['id'];
         $userController->activateUser($id);
         header('location: /admin/users');
         break;
+
     default:
         require __DIR__ . '/views/Home.php';
         break;
