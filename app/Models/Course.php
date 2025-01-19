@@ -110,14 +110,13 @@ class Course
         return $this->tags;
     }
 
-    public function setTags($tags): void
+    public function setTags($tag): void
     {
-        $this->tags = $tags;
+        if (!is_array($this->tags)) {
+            $this->tags = [];
+        }
+        array_push($this->tags, $tag);
     }
-
-    // public function addTag(){
-
-    // }
 
     public function getTeacher(): User
     {

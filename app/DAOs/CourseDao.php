@@ -57,9 +57,6 @@ class CourseDao
 
     public function getAll()
     {
-        // $query = "SELECT courses.id, courses.title, courses.description, courses.price, courses.rating, 
-        //           courses.content, courses.categorie_id, courses.teacher_id , course_tags.tag_id 
-        //           FROM courses INNER JOIN course_tags ON courses.id = course_id";
         $query = "SELECT courses.id, courses.title, courses.description, courses.price, courses.rating, courses.content, 
                     courses.categorie_id, courses.teacher_id , GROUP_CONCAT(tags.title SEPARATOR ', ') AS tags FROM courses 
                     LEFT JOIN course_tags ON courses.id = course_tags.course_id LEFT JOIN tags ON tags.id = course_tags.tag_id GROUP BY courses.id";

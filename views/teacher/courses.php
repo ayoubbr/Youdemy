@@ -60,8 +60,8 @@
 
                 <div class="course-card">
                     <!-- <div class="course-image"> -->
-                        <!-- <img src="/api/placeholder/300/160"> -->
-                        <!-- <span class="course-status status-published">Published</span> -->
+                    <!-- <img src="/api/placeholder/300/160"> -->
+                    <!-- <span class="course-status status-published">Published</span> -->
                     <!-- </div> -->
                     <div class="course-content">
                         <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
@@ -90,10 +90,10 @@
                             <?php
                             if (!is_null($value->getTags())) {
 
-                                $array = explode(', ', $value->getTags());
-                                foreach ($array as $key => $value) {
+                                // $array = explode(', ', $value->getTags());
+                                foreach ($value->getTags() as $key => $tag) {
                             ?>
-                                    <span><?php echo $value . ' '; ?></span>
+                                    <span><?php echo $tag->getTitle(); ?></span>
                             <?php
                                 }
                             }

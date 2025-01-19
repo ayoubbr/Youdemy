@@ -39,29 +39,21 @@ class CourseRepository
     public function getAll()
     {
         $courses = $this->courseDao->getAll();
-        // $tags_array = [];
-        // $tags_object = [];
-
+        $tags_array = [];
         foreach ($courses as $key => $course) {
-            // TODO return tags as objects
-            // $tags_array = explode(', ', $course->getTags());
-            // $tags_object = [];
-            // foreach ($tags_array as $key => $tag_string) {
-            //     array_push($tags_object, $this->tagRepository->findByName($tag_string));
-            //     $course->setTags($this->tagRepository->findByName($tag_string));
-            // }
+            if (!is_null($course->getTags())) {
+                $tags_array = explode(', ', $course->getTags());
+            }
 
-            // foreach ($tags_object as $key => $value) {
-            // $course->setTags($tags_object);
-            // }
-            // var_dump($tags_object);
+            foreach ($tags_array as $key => $tag_string) {
+                $course->setTags($this->tagRepository->findByName($tag_string));
+            }
+
             $course->setTeacher($this->userRepository->findById($course->teacher_id));
             $course->setCategory($this->categoryRepository->findById($course->categorie_id));
-        };
-
-        // var_dump($courses);
-        // die();
-
+           
+        }
+      
         return $courses;
     }
 
@@ -73,7 +65,7 @@ class CourseRepository
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetchObject(Course::class);
-        
+
         return $result;
     }
 }
