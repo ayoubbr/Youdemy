@@ -36,11 +36,19 @@ class CategoryDao
         $query = "UPDATE `categories` SET `title`  = '" . $category->getTitle() . "' ,  `description` =  '"
             . $category->getDescription() . "' WHERE id = ?;";
 
-            $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute([$category->getId()]);
 
         $category->setId(Database::getInstance()->getConnection()->lastInsertId());
 
         return $category;
+    }
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM `categories` WHERE id = ?;";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$id]);
     }
 }

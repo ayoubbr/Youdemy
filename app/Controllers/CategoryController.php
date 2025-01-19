@@ -28,4 +28,9 @@ class CategoryController
     {
         return $this->categoryService->update($category);
     }
+
+    public function delete($id)
+    {
+        return $this->categoryService->delete($id);
+    }
 }

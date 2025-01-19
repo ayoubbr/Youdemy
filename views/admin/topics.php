@@ -45,9 +45,12 @@
                             <button class="btn" onclick="<?php echo "editItem('category', $id)"; ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn" onclick="<?php echo "deleteItem('category', $id)"; ?>">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <form action="/admin/category/delete" method="post">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                <button type="submit" class="btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 <?php
@@ -217,7 +220,6 @@
             showModal('editTagModal');
         }
     }
-
 
     // Close modal when clicking outside
     window.onclick = function(event) {

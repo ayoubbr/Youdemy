@@ -122,7 +122,12 @@ switch ($request) {
         $categoryController->update($category);
         header("location: /admin/topics");
         break;
-
+    case '/admin/category/delete':
+        $categoryController = new CategoryController();
+        $id = $_POST['id'];
+        $categoryController->delete($id);
+        header("location: /admin/topics");
+        break;
     case '/admin/tag/create':
         $tag =  new Tag();
         $tag->instanceWithoutId($_POST['title'], $_POST['description']);

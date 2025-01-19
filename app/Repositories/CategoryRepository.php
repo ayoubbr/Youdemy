@@ -48,4 +48,9 @@ class CategoryRepository
     {
         return $this->categoryDao->update($category);
     }
+
+    public function delete($id)
+    {
+        return $this->categoryDao->delete($id);
+    }
 }
