@@ -13,31 +13,6 @@
         </div>
     </div>
 
-    <div class="filters">
-        <div class="filter-grid">
-            <div class="filter-group">
-                <label>Search</label>
-                <input type="text" placeholder="Search...">
-            </div>
-            <div class="filter-group">
-                <label>Type</label>
-                <select>
-                    <option value="">All</option>
-                    <option value="category">Categories</option>
-                    <option value="tag">Tags</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>Status</label>
-                <select>
-                    <option value="">All</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
     <div class="section">
         <div class="section-header">
             <h2>Categories</h2>
@@ -59,10 +34,8 @@
             </thead>
             <tbody>
                 <?php
-
                 foreach ($categories as $key => $value) {
                     $id = $value->getId();
-
                 ?>
                     <tr>
                         <td><?php echo $key + 1; ?></td>
@@ -136,7 +109,7 @@
             <h3 class="modal-title">Add Category</h3>
             <button class="close-btn" onclick="hideModal('categoryModal')">&times;</button>
         </div>
-        <form method="post" action="/category/create">
+        <form method="post" action="/admin/category/create">
             <div class="form-group">
                 <label>Title</label>
                 <input type="text" name="title" required>
@@ -157,7 +130,7 @@
             <h3 class="modal-title">Add Tag</h3>
             <button class="close-btn" onclick="hideModal('tagModal')">&times;</button>
         </div>
-        <form method="post" action="/tag/create">
+        <form method="post" action="/admin/tag/create">
             <div class="form-group">
                 <label>Title</label>
                 <input type="text" name="title" required>
@@ -171,6 +144,50 @@
     </div>
 </div>
 
+<!-- Edit Category Modal -->
+<div id="editCategoryModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Category</h3>
+            <button class="close-btn" onclick="hideModal('editCategoryModal')">&times;</button>
+        </div>
+        <form method="post" action="/admin/category/update">
+            <input type="hidden" name="id" id="editCategoryId">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" id="editCategoryTitle" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="description" id="editCategoryDescription" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Category</button>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Tag Modal -->
+<div id="editTagModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Tag</h3>
+            <button class="close-btn" onclick="hideModal('editTagModal')">&times;</button>
+        </div>
+        <form method="post" action="/admin/tag/update">
+            <input type="hidden" name="id" id="editTagId">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" id="editTagTitle" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="description" id="editTagDescription" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Tag</button>
+        </form>
+    </div>
+</div>
+
 <script>
     function showModal(id) {
         document.getElementById(id).classList.add('active');
@@ -180,17 +197,24 @@
         document.getElementById(id).classList.remove('active');
     }
 
-    function handleSubmit(event, type) {
-        event.preventDefault();
-        // Add your form submission logic here
-        console.log(`Submitting ${type} form`);
-        hideModal(`${type}Modal`);
+    function editItem(type, id) {
+        const row = event.target.closest('tr');
+        const title = row.children[1].textContent;
+        const description = row.children[2].textContent;
+
+        if (type === 'category') {
+            document.getElementById('editCategoryId').value = id;
+            document.getElementById('editCategoryTitle').value = title;
+            document.getElementById('editCategoryDescription').value = description;
+            showModal('editCategoryModal');
+        } else if (type === 'tag') {
+            document.getElementById('editTagId').value = id;
+            document.getElementById('editTagTitle').value = title;
+            document.getElementById('editTagDescription').value = description;
+            showModal('editTagModal');
+        }
     }
 
-    function editItem(type, id) {
-        console.log(`Editing ${type} with id ${id}`);
-        // Add your edit logic here
-    }
 
     function deleteItem(type, id) {
         if (confirm(`Are you sure you want to delete this ${type}?`)) {

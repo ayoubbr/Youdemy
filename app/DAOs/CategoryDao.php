@@ -15,11 +15,12 @@ class CategoryDao
 
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute([$category->getTitle(), $category->getDescription()]);
-       
+
         $category->setId(Database::getInstance()->getConnection()->lastInsertId());
 
         return $category;
     }
+
     public function getAll()
     {
 
@@ -28,5 +29,18 @@ class CategoryDao
         $stmt->execute();
         $tags = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
         return $tags;
+    }
+
+    public function update(Category $category): Category
+    {
+        $query = "UPDATE `categories` SET `title`  = '" . $category->getTitle() . "' ,  `description` =  '"
+            . $category->getDescription() . "' WHERE id = ?;";
+
+            $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$category->getId()]);
+
+        $category->setId(Database::getInstance()->getConnection()->lastInsertId());
+
+        return $category;
     }
 }

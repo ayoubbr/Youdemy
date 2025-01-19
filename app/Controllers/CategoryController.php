@@ -23,4 +23,9 @@ class CategoryController
     {
         return $this->categoryService->getAll();
     }
+
+    public function update($category)
+    {
+        return $this->categoryService->update($category);
+    }
 }

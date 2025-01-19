@@ -28,20 +28,27 @@ class CategoryService
         if (empty($category->getDescription())) {
             throw new Exception("Description is empty");
         }
- 
+
         return $this->categoryRepository->create($category);
     }
 
-    public function findByName($name) : Category {
+    public function findByName($name): Category
+    {
         return $this->categoryRepository->findByName($name);
     }
 
-    public function findById($id) : Category {
+    public function findById($id): Category
+    {
         return $this->categoryRepository->findById($id);
     }
 
     public function getAll()
     {
         return $this->categoryRepository->getAll();
+    }
+
+    public function update($category)
+    {
+        return $this->categoryRepository->update($category);
     }
 }

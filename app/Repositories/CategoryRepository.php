@@ -43,4 +43,9 @@ class CategoryRepository
     {
         return $this->categoryDao->getAll();
     }
+
+    public function update($category)
+    {
+        return $this->categoryDao->update($category);
+    }
 }

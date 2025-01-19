@@ -18,6 +18,13 @@ abstract class Topic
                 $this->description = $arguments[1];
             }
         }
+        if ($name == "instanceWithAll") {
+            if (count($arguments) == 3) {
+                $this->id = $arguments[0];
+                $this->title = $arguments[1];
+                $this->description = $arguments[2];
+            }
+        }
     }
 
     public function getId(): int

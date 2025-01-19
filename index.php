@@ -114,11 +114,18 @@ switch ($request) {
         header('location: /admin/topics');
         break;
 
-    case '/category/create':
+    case '/admin/category/create':
         $category = new Category();
         $category->instanceWithoutId($_POST['title'], $_POST['description']);
         $categoryController = new CategoryController();
         $categoryController->create($category);
+        header("location: /admin/topics");
+        break;
+    case '/admin/category/update':
+        $category = new Category();
+        $category->instanceWithAll($_POST['id'], $_POST['title'], $_POST['description']);
+        $categoryController = new CategoryController();
+        $categoryController->update($category);
         header("location: /admin/topics");
         break;
 
@@ -180,7 +187,7 @@ switch ($request) {
 
         $userController =  new UserController();
         $teachers = $userController->getAll();
-        
+
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses/one/delete':
