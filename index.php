@@ -8,6 +8,7 @@ use App\Controllers\CategoryController;
 use App\Controllers\CourseController;
 use App\Controllers\TagController;
 use App\Controllers\UserController;
+use App\DAOs\CourseDao;
 use App\Http\CourseForm;
 use App\Http\LoginForm;
 use App\Http\RegisterForm;
@@ -169,7 +170,14 @@ switch ($request) {
         $tags = $tagController->getAll();
         require __DIR__ . '/views/admin/dashboard.php';
         break;
-
+    case '/admin/courses/one/delete':
+        $courseDao =  new CourseDao();
+        $id = $_POST['id'];
+        var_dump($id);
+        $courseDao->delete($id);
+        die();
+        header('location: /admin/courses');
+        break;
     case '/admin/users':
         $userController = new UserController();
         $users = $userController->getAll();

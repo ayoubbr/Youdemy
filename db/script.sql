@@ -57,8 +57,8 @@ CREATE TABLE subscriptions (
 
 CREATE TABLE course_tags (
     course_id INT,
-    FOREIGN KEY (course_id) REFERENCES courses (id),
+    FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE,
     tag_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tags (id),
+    FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE,
     PRIMARY KEY (course_id, tag_id)
 ) ENGINE = INNODB;

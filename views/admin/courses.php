@@ -89,9 +89,9 @@
                         <div class="course-tags">
                             <?php
                             if (!is_null($value->getTags())) {
-                                foreach ($value->getTags() as $key => $value) {
+                                foreach ($value->getTags() as $key => $tag) {
                             ?>
-                                    <span><?php echo $value->getTitle(); ?></span>
+                                    <span><?php echo $tag->getTitle(); ?></span>
                             <?php
                                 }
                             }
@@ -102,10 +102,13 @@
                                 <i class="fas fa-edit"></i>
                                 Edit
                             </button>
-                            <button class="action-button delete-button">
-                                <i class="fas fa-trash"></i>
-                                Delete
-                            </button>
+                            <form action="/admin/courses/one/delete" method="post">
+                                <input type="hidden" name="id" value="<?= $value->getId(); ?>">
+                                <button type="submit" class="action-button delete-button">
+                                    <i class="fas fa-trash"></i>
+                                    Delete
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -229,10 +232,7 @@
 
         document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', (e) => {
-                if (confirm('Are you sure you want to delete this course?')) {
-                    // Implementation for delete action
-                    alert('Delete course - To be implemented');
-                }
+                confirm('Are you sure you want to delete this course?')
             });
         });
 

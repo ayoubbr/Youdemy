@@ -41,6 +41,7 @@ class CourseRepository
         $courses = $this->courseDao->getAll();
         $tags_array = [];
         foreach ($courses as $key => $course) {
+            $tags_array = [];
             if (!is_null($course->getTags())) {
                 $tags_array = explode(', ', $course->getTags());
             }
@@ -51,9 +52,8 @@ class CourseRepository
 
             $course->setTeacher($this->userRepository->findById($course->teacher_id));
             $course->setCategory($this->categoryRepository->findById($course->categorie_id));
-           
         }
-      
+
         return $courses;
     }
 

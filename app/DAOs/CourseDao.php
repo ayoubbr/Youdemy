@@ -65,4 +65,11 @@ class CourseDao
         $result = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\Course');
         return $result;
     }
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM courses WHERE id = ? LIMIT 1";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$id]);
+    }
 }
