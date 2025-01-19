@@ -44,4 +44,8 @@ class CourseController
     {
         $this->courseService->archive($id);
     }
+
+    public function getCountCourses():int{
+        return $this->courseService->getCountCourses();
+    }
 }

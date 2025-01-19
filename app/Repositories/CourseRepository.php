@@ -83,4 +83,13 @@ class CourseRepository
 
         return $result;
     }
+
+    public function getCountCourses(): int
+    {
+        $query = "SELECT count(*) FROM courses;";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+        $countCourses = $stmt->fetchColumn();
+        return $countCourses;
+    }
 }

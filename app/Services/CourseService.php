@@ -80,4 +80,8 @@ class CourseService
     {
         $this->courseRepository->archive($id);
     }
+
+    public function getCountCourses():int{
+        return $this->courseRepository->getCountCourses();
+    }
 }

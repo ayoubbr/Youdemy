@@ -10,7 +10,7 @@
                 <i class="fas fa-book"></i>
             </div>
             <div class="label">Total Courses</div>
-            <div class="value" id="totalCourses">0</div>
+            <div class="value" id="totalCourses"><?php echo $countCourses; ?></div>
         </div>
         <div class="stat-card">
             <div class="icon">
@@ -53,57 +53,57 @@
 </div>
 <script>
     // Sample data - Replace with actual data from your backend
-    const data = {
-        stats: {
-            totalCourses: 135,
-            totalCategories: 5,
-            totalStudents: 12450,
-            totalTeachers: 48
-        },
-        categories: [{
-                name: 'Programming',
-                count: 45
-            },
-            {
-                name: 'Design',
-                count: 30
-            },
-            {
-                name: 'Business',
-                count: 25
-            },
-            {
-                name: 'Marketing',
-                count: 20
-            },
-            {
-                name: 'Languages',
-                count: 15
-            }
-        ],
-        topCourse: {
-            name: 'Advanced Web Development',
-            teacher: 'Sarah Johnson',
-            students: 2500,
-            category: 'Programming'
-        },
-        topTeachers: [{
-                name: 'Sarah Johnson',
-                students: 1200,
-                courses: 8
-            },
-            {
-                name: 'Michael Chen',
-                students: 980,
-                courses: 6
-            },
-            {
-                name: 'Emma Davis',
-                students: 850,
-                courses: 5
-            }
-        ]
-    };
+    // const data = {
+    //     stats: {
+    //         totalCourses: 135,
+    //         totalCategories: 5,
+    //         totalStudents: 12450,
+    //         totalTeachers: 48
+    //     },
+    //     categories: [{
+    //             name: 'Programming',
+    //             count: 45
+    //         },
+    //         {
+    //             name: 'Design',
+    //             count: 30
+    //         },
+    //         {
+    //             name: 'Business',
+    //             count: 25
+    //         },
+    //         {
+    //             name: 'Marketing',
+    //             count: 20
+    //         },
+    //         {
+    //             name: 'Languages',
+    //             count: 15
+    //         }
+    //     ],
+    //     topCourse: {
+    //         name: 'Advanced Web Development',
+    //         teacher: 'Sarah Johnson',
+    //         students: 2500,
+    //         category: 'Programming'
+    //     },
+    //     topTeachers: [{
+    //             name: 'Sarah Johnson',
+    //             students: 1200,
+    //             courses: 8
+    //         },
+    //         {
+    //             name: 'Michael Chen',
+    //             students: 980,
+    //             courses: 6
+    //         },
+    //         {
+    //             name: 'Emma Davis',
+    //             students: 850,
+    //             courses: 5
+    //         }
+    //     ]
+    // };
 
     // Update stats
     document.getElementById('totalCourses').textContent = data.stats.totalCourses;

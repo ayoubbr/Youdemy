@@ -192,6 +192,8 @@ switch ($request) {
 
     case '/admin':
     case '/admin/statistics':
+        $courseController = new CourseController();
+        $countCourses = $courseController->getCountCourses();
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses':
