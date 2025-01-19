@@ -69,16 +69,10 @@ class UserService
         return false;
     }
 
-    // public function delete() {}
-
     public function getAll()
     {
         return $this->userRepository->getAll();
     }
-
-    // public function findById() {}
-
-    // public function update() {}
 
     public function findByEmailAndPassword(User $user): User
     {
@@ -118,5 +112,10 @@ class UserService
     public function delete($id)
     {
         $this->userRepository->delete($id);
+    }
+
+    public function getTopThreeTeachers()
+    {
+        return $this->userRepository->getTopThreeTeachers();
     }
 }

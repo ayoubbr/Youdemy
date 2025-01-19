@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Core\Database;
 use App\DAOs\UserDao;
 use App\Models\User;
+use PDO;
 
 class UserRepository
 {
@@ -78,5 +79,24 @@ class UserRepository
         $query = "UPDATE users SET `status` = 'Deleted' WHERE id = " . $id;
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
+    }
+
+    public function getTopThreeTeachers()
+    {
+        $query = "SELECT u.id, u.firstname, u.lastname, r.name as role_name,
+                    COUNT(s.student_id) as total_students
+                    FROM users u
+                    JOIN roles r ON u.role_id = r.id
+                    JOIN courses c ON u.id = c.teacher_id
+                    JOIN subscriptions s ON c.id = s.course_id
+                    WHERE r.name = 'Teacher'
+                    GROUP BY u.id, u.firstname, u.lastname, r.name
+                    ORDER BY total_students DESC
+                    LIMIT 3";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 }

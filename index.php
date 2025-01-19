@@ -202,6 +202,9 @@ switch ($request) {
 
         $courseWithMostStudents = $courseController->courseWithMostStudents();
 
+        $userController = new UserController();
+        $topThreeTeachers = $userController->getTopThreeTeachers();
+
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses':

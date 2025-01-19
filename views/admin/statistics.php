@@ -4,35 +4,44 @@
         <p>Overview of key platform metrics and performance indicators</p>
     </div>
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="icon">
-                <i class="fas fa-book"></i>
+    <div class="top-items-container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="label">Total Courses</div>
+                <div class="value" id="totalCourses"><?php echo $countCourses; ?></div>
             </div>
-            <div class="label">Total Courses</div>
-            <div class="value" id="totalCourses"><?php echo $countCourses; ?></div>
         </div>
-        <!-- <div class="stat-card">
-            <div class="icon">
-                <i class="fas fa-list"></i>
+        <div class="top-items">
+            <h2>Most Popular Course</h2>
+            <div class="top-item" id="topCourse">
+                <h3>Title: <?php echo $courseWithMostStudents['title']; ?></h3>
+                <p>Description: <?php echo $courseWithMostStudents['description']; ?></p>
+                <p>Price: <?php echo $courseWithMostStudents['price']; ?></p>
+                <p>Category: <?php echo $courseWithMostStudents['category']; ?></p>
+                <p>Teacher: <?php echo $courseWithMostStudents['teacher_name']; ?></p>
+                <p>Students: <?php echo $courseWithMostStudents['student_count']; ?></p>
             </div>
-            <div class="label">Categories</div>
-            <div class="value" id="totalCategories"><?php echo $countCourses; ?></div>
         </div>
-        <div class="stat-card">
-            <div class="icon">
-                <i class="fas fa-user-graduate"></i>
+
+        <div class="top-items">
+            <h2>Top 3 Teachers</h2>
+            <div id="topTeachers">
+                <div class="top-item">
+                    <?php
+                    foreach ($topThreeTeachers as $key => $value) {
+                    ?>
+                        <h3><?php echo $value['firstname'] . ' ' . $value['lastname']; ?></h3>
+                        <p>Total Students: <?php echo $value['total_students']; ?></p>
+
+                    <?php
+                    }
+                    ?>
+                </div>
             </div>
-            <div class="label">Total Students</div>
-            <div class="value" id="totalStudents"><?php echo $countCourses; ?></div>
         </div>
-        <div class="stat-card">
-            <div class="icon">
-                <i class="fas fa-chalkboard-teacher"></i>
-            </div>
-            <div class="label">Active Teachers</div>
-            <div class="value" id="totalTeachers"><?php echo $countCourses; ?></div>
-        </div> -->
     </div>
 
     <div class="chart-container">
@@ -61,60 +70,4 @@
             ?>
         </div>
     </div>
-
-    <div class="top-items">
-        <h2>Most Popular Course</h2>
-        <div class="top-item" id="topCourse">
-            <h3>Title: <?php echo $courseWithMostStudents['title']; ?></h3>
-            <p>Description: <?php echo $courseWithMostStudents['description']; ?></p>
-            <p>Price: <?php echo $courseWithMostStudents['price']; ?></p>
-            <p>Category: <?php echo $courseWithMostStudents['category']; ?></p>
-            <p>Teacher: <?php echo $courseWithMostStudents['teacher_name']; ?></p>
-            <p>Students: <?php echo $courseWithMostStudents['student_count']; ?></p>
-        </div>
-    </div>
-
-    <div class="top-items">
-        <h2>Top 3 Teachers</h2>
-        <div id="topTeachers"></div>
-    </div>
-
 </div>
-<script>
-    // Update stats
-    document.getElementById('totalCourses').textContent = data.stats.totalCourses;
-    document.getElementById('totalCategories').textContent = data.stats.totalCategories;
-    document.getElementById('totalStudents').textContent = data.stats.totalStudents.toLocaleString();
-    document.getElementById('totalTeachers').textContent = data.stats.totalTeachers;
-
-    // Create category chart
-    const categoryChart = document.getElementById('categoryChart');
-    const maxCount = Math.max(...data.categories.map(cat => cat.count));
-
-    data.categories.forEach(category => {
-        const percentage = (category.count / maxCount) * 100;
-        categoryChart.innerHTML += `
-                <div>
-                    <div class="category-label">
-                        <span>${category.name}</span>
-                        <span>${category.count} courses</span>
-                    </div>
-                    <div class="category-bar">
-                        <div class="category-bar-fill" style="width: ${percentage}%"></div>
-                    </div>
-                </div>
-            `;
-    });
-
-    // Display top teachers
-    const topTeachersContainer = document.getElementById('topTeachers');
-    data.topTeachers.forEach(teacher => {
-        topTeachersContainer.innerHTML += `
-                <div class="top-item">
-                    <h3>${teacher.name}</h3>
-                    <p>Total Students: ${teacher.students.toLocaleString()}</p>
-                    <p>Active Courses: ${teacher.courses}</p>
-                </div>
-            `;
-    });
-</script>
