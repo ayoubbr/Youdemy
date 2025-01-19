@@ -199,7 +199,9 @@ switch ($request) {
         $countCourses = $courseController->getCountCourses();
 
         $countCoursesByCategoryArray = $courseController->courseByCategory();
-       
+
+        $courseWithMostStudents = $courseController->courseWithMostStudents();
+
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses':

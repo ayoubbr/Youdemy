@@ -102,4 +102,8 @@ class CourseService
 
         return $returnArray;
     }
+
+    public function courseWithMostStudents(){
+        return $this->courseRepository->courseWithMostStudents();
+    }
 }

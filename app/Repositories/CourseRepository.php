@@ -95,25 +95,31 @@ class CourseRepository
 
     public function courseByCategory()
     {
-        // Returns array like [1 => 5, 2 => 3, 3 => 7] where numbers are keys and counts are values
-        // $query = "SELECT number, COUNT(*) as count FROM table GROUP BY number";
-        // $result = $pdo->query($query);
-        // $counts = $result->fetchAll(PDO::FETCH_KEY_PAIR);
-
-        // // Or using mysqli
-        // $result = mysqli_query($connection, $query);
-        // $counts = [];
-        // while ($row = mysqli_fetch_assoc($result)) {
-        //     $counts[$row['number']] = $row['count'];
-        // }
-
-
         $query = "SELECT categorie_id, count(*) FROM courses GROUP BY categorie_id";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
         $count = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-        // var_dump($count);
-        // die();
+
+        return $count;
+    }
+
+    public function courseWithMostStudents()
+    {
+        $query = "SELECT c.id,c.title,c.price, c.description,cat.title as category,
+                CONCAT(u.firstname, ' ', u.lastname) as teacher_name,
+                COUNT(s.student_id) as student_count
+                FROM courses c
+                LEFT JOIN subscriptions s ON c.id = s.course_id
+                LEFT JOIN categories cat ON c.categorie_id = cat.id
+                LEFT JOIN users u ON c.teacher_id = u.id
+                GROUP BY c.id, c.title, c.price, cat.title, teacher_name
+                ORDER BY student_count DESC
+                LIMIT 1;";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+        $count = $stmt->fetch(PDO::FETCH_ASSOC);
+
         return $count;
     }
 }

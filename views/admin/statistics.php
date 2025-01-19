@@ -12,7 +12,7 @@
             <div class="label">Total Courses</div>
             <div class="value" id="totalCourses"><?php echo $countCourses; ?></div>
         </div>
-        <div class="stat-card">
+        <!-- <div class="stat-card">
             <div class="icon">
                 <i class="fas fa-list"></i>
             </div>
@@ -32,7 +32,7 @@
             </div>
             <div class="label">Active Teachers</div>
             <div class="value" id="totalTeachers"><?php echo $countCourses; ?></div>
-        </div>
+        </div> -->
     </div>
 
     <div class="chart-container">
@@ -64,7 +64,14 @@
 
     <div class="top-items">
         <h2>Most Popular Course</h2>
-        <div class="top-item" id="topCourse"></div>
+        <div class="top-item" id="topCourse">
+            <h3>Title: <?php echo $courseWithMostStudents['title']; ?></h3>
+            <p>Description: <?php echo $courseWithMostStudents['description']; ?></p>
+            <p>Price: <?php echo $courseWithMostStudents['price']; ?></p>
+            <p>Category: <?php echo $courseWithMostStudents['category']; ?></p>
+            <p>Teacher: <?php echo $courseWithMostStudents['teacher_name']; ?></p>
+            <p>Students: <?php echo $courseWithMostStudents['student_count']; ?></p>
+        </div>
     </div>
 
     <div class="top-items">
@@ -98,14 +105,6 @@
                 </div>
             `;
     });
-
-    // Display top course
-    document.getElementById('topCourse').innerHTML = `
-            <h3>${data.topCourse.name}</h3>
-            <p>Teacher: ${data.topCourse.teacher}</p>
-            <p>Category: ${data.topCourse.category}</p>
-            <p>Students: ${data.topCourse.students.toLocaleString()}</p>
-        `;
 
     // Display top teachers
     const topTeachersContainer = document.getElementById('topTeachers');

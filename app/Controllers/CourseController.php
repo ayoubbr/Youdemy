@@ -53,4 +53,8 @@ class CourseController
     {
         return $this->courseService->courseByCategory();
     }
+
+    public function courseWithMostStudents(){
+        return $this->courseService->courseWithMostStudents();
+    }
 }
