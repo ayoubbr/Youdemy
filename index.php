@@ -95,13 +95,7 @@ switch ($request) {
         header("location: /teacher/courses");
         break;
 
-    case '/tag/create':
-        $tag =  new Tag();
-        $tag->instanceWithoutId($_POST['title'], $_POST['description']);
-        $tagController =  new TagController();
-        $tagController->create($tag);
-        header("location: /admin/topics");
-        break;
+
 
     case '/topic/getAll':
         $tagController = new TagController();
@@ -129,6 +123,26 @@ switch ($request) {
         header("location: /admin/topics");
         break;
 
+    case '/admin/tag/create':
+        $tag =  new Tag();
+        $tag->instanceWithoutId($_POST['title'], $_POST['description']);
+        $tagController =  new TagController();
+        $tagController->create($tag);
+        header("location: /admin/topics");
+        break;
+    case '/admin/tag/update':
+        $tag = new Tag();
+        $tag->instanceWithAll($_POST['id'], $_POST['title'], $_POST['description']);
+        $tagController = new tagController();
+        $tagController->update($tag);
+        header("location: /admin/topics");
+        break;
+    case '/admin/tag/delete':
+        $tagController = new tagController();
+        $id = $_POST['id'];
+        $tagController->delete($id);
+        header("location: /admin/topics");
+        break;
     case '/student/courses':
         $courseController = new CourseController();
         $courses = $courseController->getAll();
@@ -246,8 +260,6 @@ switch ($request) {
     case '/admin/user/delete':
         $userController = new UserController();
         $id = $_POST['id'];
-        // var_dump($id);
-        // die();
         $userController->deleteUser($id);
         header('location: /admin/users');
         break;

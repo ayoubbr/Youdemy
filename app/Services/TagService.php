@@ -40,4 +40,9 @@ class TagService
     public function findByName($name){
         return $this->tagRepository->findByName($name);
     }
+
+    public function update($tag)
+    {
+        return $this->tagRepository->update($tag);
+    }
 }

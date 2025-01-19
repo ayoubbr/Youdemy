@@ -16,13 +16,16 @@ class TagController
 
     public function create(Tag $tag)
     {
-
         return $this->tagService->create($tag);
     }
 
     public function getAll()
-    {
-        
+    {   
         return $this->tagService->getAll();
+    }
+
+    public function update($tag)
+    {
+        return $this->tagService->update($tag);
     }
 }

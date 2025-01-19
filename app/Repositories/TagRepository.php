@@ -33,4 +33,9 @@ class TagRepository
     {
         return $this->tagDao->getAll();
     }
+
+    public function update($tag)
+    {
+        return $this->tagDao->update($tag);
+    }
 }

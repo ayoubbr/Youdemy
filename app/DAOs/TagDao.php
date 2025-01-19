@@ -32,4 +32,17 @@ class TagDao
         $tags = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\Tag');
         return $tags;
     }
+
+    public function update(Tag $tag): Tag
+    {
+        $query = "UPDATE `tags` SET `title`  = '" . $tag->getTitle() . "' ,  `description` =  '"
+            . $tag->getDescription() . "' WHERE id = ?;";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$tag->getId()]);
+
+        $tag->setId(Database::getInstance()->getConnection()->lastInsertId());
+
+        return $tag;
+    }
 }
