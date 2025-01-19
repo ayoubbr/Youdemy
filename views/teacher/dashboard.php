@@ -340,6 +340,7 @@
     echo $request == '/teacher/students' ?  '<link href="../../views/teacher/students.css" rel="stylesheet">' :  '';
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
 
 </head>
 

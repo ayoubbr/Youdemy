@@ -90,7 +90,7 @@ switch ($request) {
             []
         );
         $courseController->create($courseForm);
-        header("location: /admin/courses");
+        header("location: /teacher/courses");
         break;
 
     case '/tag/create':
@@ -151,7 +151,12 @@ switch ($request) {
         $tags = $tagController->getAll();
         require __DIR__ . '/views/teacher/dashboard.php';
         break;
-
+    case '/teacher/courses/one/delete':
+        $courseController =  new CourseController();
+        $id = $_POST['id'];
+        $courseController->delete($id);
+        header('location: /teacher/courses');
+        break;
     case '/teacher/statistics':
     case '/teacher/students':
         require __DIR__ . '/views/teacher/dashboard.php';
@@ -164,10 +169,17 @@ switch ($request) {
     case '/admin/courses':
         $courseController = new CourseController();
         $courses = $courseController->getAll();
+
         $categoryController = new CategoryController();
         $categories = $categoryController->getAll();
+
         $tagController = new TagController();
         $tags = $tagController->getAll();
+
+        $userController =  new UserController();
+        $teachers = $userController->getAll();
+        // var_dump($teachers);
+        // die();
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses/one/delete':
@@ -176,7 +188,18 @@ switch ($request) {
         $courseController->delete($id);
         header('location: /admin/courses');
         break;
+        // case '/admin/courses/one/archive':
+        //     $courseController =  new CourseController();
+        //     $id = $_POST['id'];
+        //     $courseController->archive($id);
+        //     header('location: /admin/courses');
+        //     break;
     case '/admin/users':
+        $userController = new UserController();
+        $users = $userController->getAll();
+        require __DIR__ . '/views/admin/dashboard.php';
+        break;
+    case '/admin/teachers':
         $userController = new UserController();
         $users = $userController->getAll();
         require __DIR__ . '/views/admin/dashboard.php';
@@ -193,18 +216,30 @@ switch ($request) {
         require __DIR__ . '/views/admin/dashboard.php';
         break;
 
-    case '/user/suspend':
+    case '/admin/user/suspend':
         $userController = new UserController();
         $id = $_POST['id'];
         $userController->suspendUser($id);
         header('location: /admin/users');
         break;
 
-    case '/user/activate':
+    case '/admin/user/activate':
         $userController = new UserController();
         $id = $_POST['id'];
         $userController->activateUser($id);
         header('location: /admin/users');
+        break;
+    case '/admin/teacher/validate':
+        $userController = new UserController();
+        $id = $_POST['id'];
+        $userController->activateUser($id);
+        header('location: /admin/teachers');
+        break;
+    case '/admin/teacher/suspend':
+        $userController = new UserController();
+        $id = $_POST['id'];
+        $userController->suspendUser($id);
+        header('location: /admin/teachers');
         break;
 
     default:

@@ -9,6 +9,7 @@
     <?php echo $request == '/admin/statistics' ?  '<link href="../../views/admin/statistics.css" rel="stylesheet">' :  ''; ?>
     <?php echo $request == '/admin/courses' ?  '<link href="../../views/admin/courses.css" rel="stylesheet">' :  ''; ?>
     <?php echo $request == '/admin/users' ?  '<link href="../../views/admin/users.css" rel="stylesheet">' :  ''; ?>
+    <?php echo $request == '/admin/teachers' ?  '<link href="../../views/admin/teachers.css" rel="stylesheet">' :  ''; ?>
     <?php echo $request == '/admin/topics' ?  '<link href="../../views/admin/topics.css" rel="stylesheet">' :  ''; ?>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -38,6 +39,10 @@
                 <i class="fas fa-users"></i>
                 Users
             </a>
+            <a href="/admin/teachers" class="nav-item <?php echo $request == '/admin/teachers' ?  'active' :  ''; ?>">
+                <i class="fa-solid fa-user-tie"></i>
+                Teachers
+            </a>
             <a href="/admin/topics" class="nav-item <?php echo $request == '/admin/topics' ?  'active' :  ''; ?>">
                 <i class="fas fa-tags"></i>
                 Categories & Tags
@@ -50,6 +55,9 @@
 
         case '/admin/courses':
             require __DIR__ . "\\courses.php";
+            break;
+        case '/admin/teachers':
+            require __DIR__ . "\\teachers.php";
             break;
         case '/admin/users':
             require __DIR__ . "\\users.php";

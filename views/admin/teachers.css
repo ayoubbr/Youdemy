@@ -48,48 +48,6 @@
     background: var(--primary-dark);
 }
 
-/* Filter Section */
-.user-filters {
-    background: var(--white);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 2rem;
-}
-
-.filter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.filter-group label {
-    font-size: 0.875rem;
-    color: var(--text-light);
-}
-
-.filter-group input,
-.filter-group select {
-    padding: 0.5rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 0.875rem;
-}
-
-.filter-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
 /* Users Table */
 .users-table-container {
     background: var(--white);
@@ -203,6 +161,10 @@
     text-decoration: none;
     transition: background-color 0.2s;
     cursor: pointer;
+    background-color: var(--surface);
+    border: none;
+    width: 100%;
+    justify-content: center;
 }
 
 .action-item:hover {
@@ -211,23 +173,6 @@
 
 .action-item.delete {
     color: var(--status-suspended);
-}
-
-
-.page-button {
-    padding: 0.5rem 1rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    background: var(--white);
-    color: var(--text-color);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.page-button.active {
-    background: var(--primary-color);
-    color: var(--white);
-    border-color: var(--primary-color);
 }
 
 /* Layout */

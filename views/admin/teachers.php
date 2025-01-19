@@ -1,49 +1,8 @@
 <div class="main-content">
     <!-- Page Header -->
     <div class="page-header">
-        <h1 class="page-title">User Management</h1>
+        <h1 class="page-title">Teachers Management</h1>
 
-    </div>
-
-    <!-- Filters -->
-    <div class="user-filters">
-        <div class="filter-grid">
-            <div class="filter-group">
-                <label>Search Users</label>
-                <input type="text" placeholder="Search by name or email...">
-            </div>
-            <div class="filter-group">
-                <label>Status</label>
-                <select>
-                    <option value="">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="suspended">Suspended</option>
-                    <option value="pending">Pending</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>Role</label>
-                <select>
-                    <option value="">All Roles</option>
-                    <option value="student">Student</option>
-                    <option value="instructor">Instructor</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>Join Date</label>
-                <select>
-                    <option value="">All Time</option>
-                    <option value="today">Today</option>
-                    <option value="week">This Week</option>
-                    <option value="month">This Month</option>
-                </select>
-            </div>
-        </div>
-        <div class="filter-actions">
-            <button class="page-button" onclick="resetFilters()">Reset</button>
-            <button class="add-user-btn" onclick="applyFilters()">Apply Filters</button>
-        </div>
     </div>
 
     <!-- Users Table -->
@@ -51,7 +10,7 @@
         <table class="users-table">
             <thead>
                 <tr>
-                    <th>User</th>
+                    <th>Teacher</th>
                     <th>Role</th>
                     <th>Status</th>
                     <th>Email</th>
@@ -62,72 +21,68 @@
             <tbody>
                 <?php
                 foreach ($users as $key => $value) {
-                    $id = $value->getId();
+                    if ($value->getRole()->getName() == 'Teacher') {
+
+
+                        $id = $value->getId();
                 ?>
-                    <tr>
-                        <td>
-                            <div class="user-info">
-                                <div class="user-avatar">
-                                    <img width="45px" src="<?php echo $value->getPhoto() ?>" alt="">
-                                </div>
-                                <div>
-                                    <div class="user-name"><?php echo $value->getFirstname(); ?></div>
-                                    <div class="user-email"><?php echo $value->getLastname(); ?></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><?php echo $value->getRole()->getName(); ?></td>
-                        <td>
-                            <span class="status-badge status-<?php switch ($value->getStatus()) {
-                                                                    case 'Pending':
-                                                                        echo 'pending';
-                                                                        break;
-                                                                    case 'Suspended':
-                                                                        echo 'suspended';
-                                                                        break;
-                                                                    case 'Active':
-                                                                        echo 'active';
-                                                                        break;
-                                                                    default:
-                                                                        break;
-                                                                }
-                                                                ?>"><?php echo $value->getStatus(); ?></span>
-                        </td>
-                        <td><?php echo $value->getEmail(); ?></td>
-                        <td><?php echo $value->getPhone(); ?></td>
-                        <td>
-                            <div class="action-menu" data-user-id="<?php echo "$id"; ?>">
-                                <button class="action-button" onclick="<?php echo "toggleActionMenu($id)"; ?>">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <div class="action-dropdown" id="action-menu-<?php echo "$id"; ?>">
-                                    <div class="action-item" onclick="<?php echo "handleUserAction($id, 'edit')"; ?>">
-                                        <i class="fas fa-edit"></i>
-                                        Edit User
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar">
+                                        <img width="45px" src="<?php echo $value->getPhoto() ?>" alt="">
                                     </div>
-                                    <form action="/admin/user/suspend" method="post">
-                                        <input type="hidden" name="id" value="<?php echo "$id"; ?>">
-                                        <button class="action-item" type="submit">
-                                            <i class="fas fa-ban"></i>
-                                            Suspend User
-                                        </button>
-                                    </form>
-                                    <form action="/admin/user/activate" method="post">
-                                        <input type="hidden" name="id" value="<?php echo "$id"; ?>">
-                                        <button class="action-item" type="submit">
-                                            <i class="fas fa-ban"></i>
-                                            Activate User
-                                        </button>
-                                    </form>
-                                    <div class="action-item delete" onclick="<?php echo "handleUserAction($id, 'delete')"; ?>">
-                                        <i class="fas fa-trash"></i>
-                                        Delete User
+                                    <div>
+                                        <div class="user-name"><?php echo $value->getFirstname(); ?></div>
+                                        <div class="user-email"><?php echo $value->getLastname(); ?></div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                            <td><?php echo $value->getRole()->getName(); ?></td>
+                            <td>
+                                <span class="status-badge status-<?php switch ($value->getStatus()) {
+                                                                        case 'Pending':
+                                                                            echo 'pending';
+                                                                            break;
+                                                                        case 'Suspended':
+                                                                            echo 'suspended';
+                                                                            break;
+                                                                        case 'Active':
+                                                                            echo 'active';
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                    ?>"><?php echo $value->getStatus(); ?></span>
+                            </td>
+                            <td><?php echo $value->getEmail(); ?></td>
+                            <td><?php echo $value->getPhone(); ?></td>
+                            <td>
+                                <div class="action-menu" data-user-id="<?php echo "$id"; ?>">
+                                    <button class="action-button" onclick="<?php echo "toggleActionMenu($id)"; ?>">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="action-dropdown" id="action-menu-<?php echo "$id"; ?>">
+                                        <form action="/admin/teacher/suspend" method="post">
+                                            <input type="hidden" name="id" value="<?php echo "$id"; ?>">
+                                            <button class="action-item" type="submit">
+                                                <i class="fas fa-ban"></i>
+                                                Suspend
+                                            </button>
+                                        </form>
+                                        <form action="/admin/teacher/validate" method="post">
+                                            <input type="hidden" name="id" value="<?php echo "$id"; ?>">
+                                            <button class="action-item" type="submit">
+                                                <i class="fa-solid fa-check-double"></i>
+                                                Validate
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                 <?php
+                    }
                 }
                 ?>
             </tbody>

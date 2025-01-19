@@ -104,10 +104,13 @@
                                 <i class="fas fa-edit"></i>
                                 Edit
                             </button>
-                            <button class="action-button delete-button">
-                                <i class="fas fa-trash"></i>
-                                Delete
-                            </button>
+                            <form action="/teacher/courses/one/delete" method="post">
+                                <input type="hidden" name="id" value="<?= $value->getId(); ?>">
+                                <button type="submit" class="action-button delete-button">
+                                    <i class="fas fa-trash"></i>
+                                    Delete
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -229,14 +232,15 @@
             });
         });
 
-        document.querySelectorAll('.delete-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                if (confirm('Are you sure you want to delete this course?')) {
-                    // Implementation for delete action
-                    alert('Delete course - To be implemented');
-                }
-            });
-        });
+        // document.querySelectorAll('.delete-button').forEach(button => {
+        //     button.addEventListener('click', (e) => {
+        //         if (confirm('Are you sure you want to delete this course?')) {
+                    
+        //         } else {
+        //             console.log('annuled');
+        //         }
+        //     });
+        // });
 
         // Add event listeners for pagination
         document.querySelectorAll('.pagination .page-button').forEach(button => {

@@ -2,10 +2,6 @@
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Course Management</h1>
-            <a href="#" class="add-course-btn" onclick="showAddCourseModal()">
-                <i class="fas fa-plus"></i>
-                Add New Course
-            </a>
         </div>
 
         <!-- Filters Section -->
@@ -19,27 +15,41 @@
                     <label>Category</label>
                     <select>
                         <option value="">All Categories</option>
-                        <option>Development</option>
-                        <option>Design</option>
-                        <option>Business</option>
-                        <option>Marketing</option>
+                        <?php
+                        foreach ($categories as $key => $category) {
+                        ?>
+                            <option><?= $category->getTitle(); ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label>Status</label>
+                    <label>Tag</label>
                     <select>
-                        <option value="">All Status</option>
-                        <option>Published</option>
-                        <option>Draft</option>
+                        <option value="">All Tags</option>
+                        <?php
+                        foreach ($tags as $key => $tag) {
+                        ?>
+                            <option><?= $tag->getTitle(); ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label>Sort By</label>
+                    <label>Teacher</label>
                     <select>
-                        <option>Newest First</option>
-                        <option>Oldest First</option>
-                        <option>Most Popular</option>
-                        <option>Highest Rated</option>
+                        <option>All Teachers</option>
+                        <?php
+                        foreach ($teachers as $key => $teacher) {
+                            if ($teacher->getRole()->getName() == 'Teacher') {
+                        ?>
+                                <option><?php echo $teacher->getFirstname() . ' ' . $teacher->getLastname(); ?></option>
+                        <?php
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -102,13 +112,13 @@
                                 <i class="fas fa-edit"></i>
                                 Edit
                             </button>
-                            <form action="/admin/courses/one/delete" method="post">
+                            <!-- <form action="/admin/courses/one/archive" method="post">
                                 <input type="hidden" name="id" value="<?= $value->getId(); ?>">
-                                <button type="submit" class="action-button delete-button">
-                                    <i class="fas fa-trash"></i>
-                                    Delete
+                                <button type="submit" class="action-button ">
+                                    <i class="fas fa-box-archive"></i>
+                                    Archive
                                 </button>
-                            </form>
+                            </form> -->
                         </div>
                     </div>
                 </div>
@@ -235,6 +245,8 @@
                 confirm('Are you sure you want to delete this course?')
             });
         });
+
+
 
         // Add event listeners for pagination
         document.querySelectorAll('.pagination .page-button').forEach(button => {
