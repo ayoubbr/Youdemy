@@ -124,6 +124,11 @@
     color: var(--status-pending);
 }
 
+.status-deleted {
+    background: black;
+    color: #fef9c3;
+}
+
 .action-menu {
     position: relative;
 }

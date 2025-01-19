@@ -72,4 +72,11 @@ class UserRepository
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
     }
+
+    public function delete($id)
+    {
+        $query = "UPDATE users SET `status` = 'Deleted' WHERE id = " . $id;
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+    }
 }

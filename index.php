@@ -229,6 +229,14 @@ switch ($request) {
         $userController->activateUser($id);
         header('location: /admin/users');
         break;
+    case '/admin/user/delete':
+        $userController = new UserController();
+        $id = $_POST['id'];
+        // var_dump($id);
+        // die();
+        $userController->deleteUser($id);
+        header('location: /admin/users');
+        break;
     case '/admin/teacher/validate':
         $userController = new UserController();
         $id = $_POST['id'];

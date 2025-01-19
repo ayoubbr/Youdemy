@@ -50,6 +50,9 @@
                                                                         case 'Active':
                                                                             echo 'active';
                                                                             break;
+                                                                        case 'Deleted':
+                                                                            echo 'deleted';
+                                                                            break;
                                                                         default:
                                                                             break;
                                                                     }

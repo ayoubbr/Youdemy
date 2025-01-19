@@ -68,4 +68,8 @@ class UserController
     {
         $this->userService->activateUser($id);
     }
+    public function deleteUser($id)
+    {
+        $this->userService->delete($id);
+    }
 }

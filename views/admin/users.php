@@ -88,6 +88,9 @@
                                                                     case 'Active':
                                                                         echo 'active';
                                                                         break;
+                                                                    case 'Deleted':
+                                                                        echo 'deleted';
+                                                                        break;
                                                                     default:
                                                                         break;
                                                                 }
@@ -101,10 +104,10 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
                                 <div class="action-dropdown" id="action-menu-<?php echo "$id"; ?>">
-                                    <div class="action-item" onclick="<?php echo "handleUserAction($id, 'edit')"; ?>">
+                                    <!-- <div class="action-item" onclick="<?php echo "handleUserAction($id, 'edit')"; ?>">
                                         <i class="fas fa-edit"></i>
                                         Edit User
-                                    </div>
+                                    </div> -->
                                     <form action="/admin/user/suspend" method="post">
                                         <input type="hidden" name="id" value="<?php echo "$id"; ?>">
                                         <button class="action-item" type="submit">
@@ -115,14 +118,17 @@
                                     <form action="/admin/user/activate" method="post">
                                         <input type="hidden" name="id" value="<?php echo "$id"; ?>">
                                         <button class="action-item" type="submit">
-                                            <i class="fas fa-ban"></i>
+                                            <i class="fa-solid fa-check-double"></i>
                                             Activate User
                                         </button>
                                     </form>
-                                    <div class="action-item delete" onclick="<?php echo "handleUserAction($id, 'delete')"; ?>">
-                                        <i class="fas fa-trash"></i>
-                                        Delete User
-                                    </div>
+                                    <form action="/admin/user/delete" method="post">
+                                        <input type="hidden" name="id" value="<?php echo "$id"; ?>">
+                                        <button class="action-item delete">
+                                            <i class="fas fa-trash"></i>
+                                            Delete User
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </td>
@@ -174,7 +180,6 @@
 
 
 <script>
-    // Toggle action menu dropdown
     function toggleActionMenu(userId) {
 
         const menu = document.getElementById(`action-menu-${userId}`);
@@ -194,122 +199,5 @@
                 dropdown.classList.remove('active');
             });
         }
-    });
-
-    // Handle user actions
-    function handleUserAction(userId, action) {
-        switch (action) {
-            case 'edit':
-                openEditModal(userId);
-                break;
-            case 'delete':
-                confirmDeleteUser(userId);
-                break;
-                // case 'suspend':
-                //     toggleUserStatus(userId, 'suspended');
-                //     break;
-            case 'activate':
-                toggleUserStatus(userId, 'active');
-                break;
-        }
-    }
-
-    // Open edit user modal
-    function openEditModal(userId) {
-        const modal = document.getElementById('edit-user-modal');
-        const form = modal.querySelector('form');
-
-        modal.classList.add('show');
-    }
-
-    // Handle user form submission
-    function handleUserFormSubmit(event) {
-        // event.preventDefault();
-        // const form = event.target;
-        // const userId = form.dataset.userId;
-
-        // const userData = {
-        //     name: form.querySelector('[name="name"]').value,
-        //     email: form.querySelector('[name="email"]').value,
-        //     role: form.querySelector('[name="role"]').value
-        // };
-
-        // updateUser(userId, userData).then(response => {
-        //     if (response.success) {
-        //         closeModal('edit-user-modal');
-        //         refreshUserList();
-        //     } else {
-        //         showError(response.message);
-        //     }
-        // });
-    }
-
-    // Confirm and handle user deletion
-    function confirmDeleteUser(userId) {
-        if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-            deleteUser(userId).then(response => {
-                if (response.success) {
-                    refreshUserList();
-                } else {
-                    showError(response.message);
-                }
-            });
-        }
-    }
-
-    // Toggle user status (suspend/activate)
-    // function toggleUserStatus(userId, status) {
-    //     console.log(userId);
-    //     console.log(status);
-
-    //     // updateUserStatus(userId, status).then(response => {
-    //     //     if (response.success) {
-    //     //         refreshUserList();
-    //     //     } else {
-    //     //         showError(response.message);
-    //     //     }
-    //     // });
-    // }
-
-
-
-    // Utility functions
-    function showError(message) {
-        const errorDiv = document.getElementById('error-message');
-        errorDiv.textContent = message;
-        errorDiv.classList.add('active');
-        setTimeout(() => {
-            errorDiv.classList.remove('show');
-        }, 3000);
-    }
-
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.remove('show');
-    }
-
-    function refreshUserList() {
-        // Implement function to refresh the user list
-        // This might involve re-fetching data and updating the DOM
-        location.reload(); // Temporary solution - implement proper refresh
-    }
-
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', () => {
-        // Set up form submission handlers
-        const editForm = document.querySelector('#edit-user-modal form');
-        if (editForm) {
-            editForm.addEventListener('submit', handleUserFormSubmit);
-        }
-
-        // Set up modal close buttons
-        document.querySelectorAll('.modal-close').forEach(button => {
-            button.addEventListener('click', () => {
-                const modal = button.closest('.modal');
-                if (modal) {
-                    closeModal(modal.id);
-                }
-            });
-        });
     });
 </script>

@@ -203,6 +203,9 @@
     text-decoration: none;
     transition: background-color 0.2s;
     cursor: pointer;
+    background-color: var(--surface);
+    border: none;
+    width: 100%;
 }
 
 .action-item:hover {
@@ -385,6 +388,11 @@
 .status-active {
     background: #dcfce7;
     color: #166534;
+}
+
+.status-deleted {
+    background: black;
+    color: #fef9c3;
 }
 
 .status-inactive {
