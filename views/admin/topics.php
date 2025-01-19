@@ -89,9 +89,12 @@
                             <button class="btn" onclick="<?php echo "editItem('tag', $id)"; ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn" onclick="<?php echo "deleteItem('tag', $id)"; ?>">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <form action="/admin/tag/delete" method="post">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                <button type="submit" class="btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 <?php
@@ -215,13 +218,6 @@
         }
     }
 
-
-    function deleteItem(type, id) {
-        if (confirm(`Are you sure you want to delete this ${type}?`)) {
-            console.log(`Deleting ${type} with id ${id}`);
-            // Add your delete logic here
-        }
-    }
 
     // Close modal when clicking outside
     window.onclick = function(event) {

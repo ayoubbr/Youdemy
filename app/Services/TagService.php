@@ -45,4 +45,9 @@ class TagService
     {
         return $this->tagRepository->update($tag);
     }
+
+    public function delete($id)
+    {
+        return $this->tagRepository->delete($id);
+    }
 }

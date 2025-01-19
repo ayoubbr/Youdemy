@@ -45,4 +45,12 @@ class TagDao
 
         return $tag;
     }
+
+    public function delete($id)
+    { 
+        $query = "DELETE FROM `tags` WHERE id = ?;";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$id]);
+    }
 }

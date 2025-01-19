@@ -28,4 +28,9 @@ class TagController
     {
         return $this->tagService->update($tag);
     }
+
+    public function delete($id)
+    {
+        return $this->tagService->delete($id);
+    }
 }

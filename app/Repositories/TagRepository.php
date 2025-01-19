@@ -38,4 +38,9 @@ class TagRepository
     {
         return $this->tagDao->update($tag);
     }
+
+    public function delete($id)
+    {
+        return $this->tagDao->delete($id);
+    }
 }
