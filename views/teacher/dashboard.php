@@ -56,7 +56,7 @@
         /* Sidebar Styles */
         .sidebar {
             width: 250px;
-            background: var(--white);
+            background: var(--primary-color);
             box-shadow: var(--shadow-md);
             padding: 1.5rem;
             display: flex;
@@ -66,7 +66,7 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary-color);
+            color: var(--white);
             margin-bottom: 2rem;
             display: flex;
             align-items: center;
@@ -78,7 +78,7 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.75rem 1rem;
-            color: var(--text-light);
+            color: var(--white);
             text-decoration: none;
             border-radius: 8px;
             margin-bottom: 0.5rem;
@@ -87,8 +87,8 @@
 
         .nav-item:hover,
         .nav-item.active {
-            background: var(--primary-color);
-            color: var(--white);
+            background: var(--white);
+            color: var(--primary-color);
         }
 
         /* Main Content Styles */
@@ -111,8 +111,8 @@
         }
 
         .add-new-btn {
-            background: var(--primary-color);
-            color: var(--white);
+            background: var(--white);
+            color: var(--primary-color);
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
             border: none;
@@ -327,6 +327,9 @@
             color: var(--white);
         }
     </style>
+    <?php
+    echo $request == '/teacher' ?  '<link href="../../views/teacher/statistics.css" rel="stylesheet">' :  '';
+    ?>
     <?php
     echo $request == '/teacher/statistics' ?  '<link href="../../views/teacher/statistics.css" rel="stylesheet">' :  '';
     ?>

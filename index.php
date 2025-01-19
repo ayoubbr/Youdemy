@@ -138,6 +138,15 @@ switch ($request) {
         break;
     case '/teacher':
     case '/teacher/courses':
+        $courseController = new CourseController();
+        $courses = $courseController->getAll();
+        $categoryController = new CategoryController();
+        $categories = $categoryController->getAll();
+        $tagController = new TagController();
+        $tags = $tagController->getAll();
+        require __DIR__ . '/views/teacher/dashboard.php';
+        break;
+
     case '/teacher/statistics':
     case '/teacher/students':
         require __DIR__ . '/views/teacher/dashboard.php';
