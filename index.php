@@ -192,8 +192,14 @@ switch ($request) {
 
     case '/admin':
     case '/admin/statistics':
+        $categoryController = new CategoryController();
+        $categories = $categoryController->getAll();
+
         $courseController = new CourseController();
         $countCourses = $courseController->getCountCourses();
+
+        $countCoursesByCategoryArray = $courseController->courseByCategory();
+       
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses':

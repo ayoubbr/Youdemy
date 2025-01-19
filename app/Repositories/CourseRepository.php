@@ -92,4 +92,28 @@ class CourseRepository
         $countCourses = $stmt->fetchColumn();
         return $countCourses;
     }
+
+    public function courseByCategory()
+    {
+        // Returns array like [1 => 5, 2 => 3, 3 => 7] where numbers are keys and counts are values
+        // $query = "SELECT number, COUNT(*) as count FROM table GROUP BY number";
+        // $result = $pdo->query($query);
+        // $counts = $result->fetchAll(PDO::FETCH_KEY_PAIR);
+
+        // // Or using mysqli
+        // $result = mysqli_query($connection, $query);
+        // $counts = [];
+        // while ($row = mysqli_fetch_assoc($result)) {
+        //     $counts[$row['number']] = $row['count'];
+        // }
+
+
+        $query = "SELECT categorie_id, count(*) FROM courses GROUP BY categorie_id";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute();
+        $count = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+        // var_dump($count);
+        // die();
+        return $count;
+    }
 }

@@ -23,16 +23,16 @@ class CourseService
     }
 
     public function create(CourseForm $courseForm)
-    { 
+    {
         $teacher = $this->userService->findByEmail($courseForm->teacherEmail);
         $category = $this->categoryService->findByName($courseForm->categoryName);
         $tags = $courseForm->tags;
         $tagObjects = [];
-       
+
         for ($i = 0; $i < count($tags); $i++) {
             array_push($tagObjects, $this->tagService->findByName($tags[$i]));
         }
-      
+
         $course = new Course();
         $course->instanceWithoutId(
             $courseForm->title,
@@ -70,18 +70,36 @@ class CourseService
     {
         $this->courseRepository->delete($id);
     }
-    
+
     public function activate($id)
     {
         $this->courseRepository->activate($id);
     }
-    
+
     public function archive($id)
     {
         $this->courseRepository->archive($id);
     }
 
-    public function getCountCourses():int{
+    public function getCountCourses(): int
+    {
         return $this->courseRepository->getCountCourses();
+    }
+
+    public function courseByCategory()
+    {
+        $arrayAssoc = $this->courseRepository->courseByCategory();
+        $returnArray = [];
+
+        foreach ($arrayAssoc as $key => $value) {
+
+            $category = $this->categoryService->findById($key);
+
+            $categoryName = $category->getTitle();
+
+            $returnArray[$categoryName] = $value;
+        }
+
+        return $returnArray;
     }
 }

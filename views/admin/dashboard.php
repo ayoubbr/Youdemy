@@ -52,7 +52,9 @@
 
     <?php
     switch ($request) {
-
+        case '/admin':
+            require __DIR__ . "\\statistics.php";
+            break;
         case '/admin/courses':
             require __DIR__ . "\\courses.php";
             break;

@@ -17,27 +17,49 @@
                 <i class="fas fa-list"></i>
             </div>
             <div class="label">Categories</div>
-            <div class="value" id="totalCategories">0</div>
+            <div class="value" id="totalCategories"><?php echo $countCourses; ?></div>
         </div>
         <div class="stat-card">
             <div class="icon">
                 <i class="fas fa-user-graduate"></i>
             </div>
             <div class="label">Total Students</div>
-            <div class="value" id="totalStudents">0</div>
+            <div class="value" id="totalStudents"><?php echo $countCourses; ?></div>
         </div>
         <div class="stat-card">
             <div class="icon">
                 <i class="fas fa-chalkboard-teacher"></i>
             </div>
             <div class="label">Active Teachers</div>
-            <div class="value" id="totalTeachers">0</div>
+            <div class="value" id="totalTeachers"><?php echo $countCourses; ?></div>
         </div>
     </div>
 
     <div class="chart-container">
         <h2 class="chart-title">Course Categories Distribution</h2>
-        <div class="category-bars" id="categoryChart"></div>
+        <div class="category-bars" id="categoryChart">
+            <?php
+            $count = 0;
+
+            foreach ($countCoursesByCategoryArray as $key => $value) {
+                $count += $value;
+            }
+
+            foreach ($countCoursesByCategoryArray as $key => $value) {
+            ?>
+                <div>
+                    <div class="category-label">
+                        <span><?php echo $key; ?></span>
+                        <span><?php echo $value; ?> courses</span>
+                    </div>
+                    <div class="category-bar">
+                        <div class="category-bar-fill" style="width: <?php echo ($value / $count) * 100; ?>%"></div>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+        </div>
     </div>
 
     <div class="top-items">
@@ -52,59 +74,6 @@
 
 </div>
 <script>
-    // Sample data - Replace with actual data from your backend
-    // const data = {
-    //     stats: {
-    //         totalCourses: 135,
-    //         totalCategories: 5,
-    //         totalStudents: 12450,
-    //         totalTeachers: 48
-    //     },
-    //     categories: [{
-    //             name: 'Programming',
-    //             count: 45
-    //         },
-    //         {
-    //             name: 'Design',
-    //             count: 30
-    //         },
-    //         {
-    //             name: 'Business',
-    //             count: 25
-    //         },
-    //         {
-    //             name: 'Marketing',
-    //             count: 20
-    //         },
-    //         {
-    //             name: 'Languages',
-    //             count: 15
-    //         }
-    //     ],
-    //     topCourse: {
-    //         name: 'Advanced Web Development',
-    //         teacher: 'Sarah Johnson',
-    //         students: 2500,
-    //         category: 'Programming'
-    //     },
-    //     topTeachers: [{
-    //             name: 'Sarah Johnson',
-    //             students: 1200,
-    //             courses: 8
-    //         },
-    //         {
-    //             name: 'Michael Chen',
-    //             students: 980,
-    //             courses: 6
-    //         },
-    //         {
-    //             name: 'Emma Davis',
-    //             students: 850,
-    //             courses: 5
-    //         }
-    //     ]
-    // };
-
     // Update stats
     document.getElementById('totalCourses').textContent = data.stats.totalCourses;
     document.getElementById('totalCategories').textContent = data.stats.totalCategories;

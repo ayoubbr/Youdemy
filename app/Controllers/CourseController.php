@@ -48,4 +48,9 @@ class CourseController
     public function getCountCourses():int{
         return $this->courseService->getCountCourses();
     }
+
+    public function courseByCategory()
+    {
+        return $this->courseService->courseByCategory();
+    }
 }
