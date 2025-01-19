@@ -68,4 +68,9 @@ class CourseRepository
 
         return $result;
     }
+
+    public function delete($id)
+    {
+        $this->courseDao->delete($id);
+    }
 }

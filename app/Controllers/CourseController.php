@@ -26,8 +26,12 @@ class CourseController
 
     public function findById($id)
     {
-       
         $result = $this->courseService->findById($id);
         return $result;
+    }
+
+    public function delete($id)
+    {
+        $this->courseService->delete($id);
     }
 }

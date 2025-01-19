@@ -64,4 +64,9 @@ class CourseService
         $result->setCategory($category);
         return $result;
     }
+
+    public function delete($id)
+    {
+        $this->courseRepository->delete($id);
+    }
 }

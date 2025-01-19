@@ -171,11 +171,9 @@ switch ($request) {
         require __DIR__ . '/views/admin/dashboard.php';
         break;
     case '/admin/courses/one/delete':
-        $courseDao =  new CourseDao();
+        $courseController =  new CourseController();
         $id = $_POST['id'];
-        var_dump($id);
-        $courseDao->delete($id);
-        die();
+        $courseController->delete($id);
         header('location: /admin/courses');
         break;
     case '/admin/users':
