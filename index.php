@@ -149,12 +149,20 @@ switch ($request) {
 
     case '/teacher':
     case '/teacher/courses':
+        if (isset($_SESSION['course_id'])) {
+            unset($_SESSION['course_id']);
+        }
         $courseController = new CourseController();
-        $courses = $courseController->getAll();
         $categoryController = new CategoryController();
-        $categories = $categoryController->getAll();
         $tagController = new TagController();
+        $userController = new UserController();
+        $courses = $courseController->getAll();
+        $categories = $categoryController->getAll();
         $tags = $tagController->getAll();
+        $teacher_id = $_SESSION['user']->getId();
+        $result = $userController->getNumberOfStudentsByTeacher($teacher_id);
+        $coursesNumber = $userController->getCoursesByTeacher($teacher_id);
+
         require __DIR__ . '/views/teacher/dashboard.php';
         break;
     case '/teacher/courses/one/delete':
@@ -212,7 +220,7 @@ switch ($request) {
         $userController = new UserController();
         $teacher_id = $_SESSION['user']->getId();
         $result = $userController->getNumberOfStudentsByTeacher($teacher_id);
-        // $result = $userController->getCoursesByTeacher($teacher_id);
+        $courses = $userController->getCoursesByTeacher($teacher_id);
         require __DIR__ . '/views/teacher/dashboard.php';
         break;
     case '/teacher/students':

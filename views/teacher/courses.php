@@ -1,4 +1,33 @@
     <div class="main-content">
+        <div class="dashboard">
+            <h1 class="page-title">Course Statistics</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon icon-students">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="stat-title">Total Students</div>
+                            <div class="stat-value"><?php echo $result; ?></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon icon-courses">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div>
+                            <div class="stat-title">All Courses</div>
+                            <div class="stat-value"><?php echo $coursesNumber; ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Course Management</h1>
@@ -75,21 +104,22 @@
                         </div>
                         <div class="course-stats">
                             <div class="stat-item">
-                                <div class="stat-value"><?php echo count($value->getStudents());
+                                <div class="stat-value1"><?php echo count($value->getStudents());
 
-                                                        ?></div>
+                                                            ?></div>
                                 <div class="stat-label">Students</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-value"><?php echo $value->getRating(); ?></div>
+                                <div class="stat-value1"><?php echo $value->getRating(); ?></div>
                                 <div class="stat-label">Rating</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-value">$<?php echo $value->getPrice(); ?></div>
+                                <div class="stat-value1">$<?php echo $value->getPrice(); ?></div>
                                 <div class="stat-label">Price</div>
                             </div>
                         </div>
                         <div class="course-tags">
+                            <div style="height: 40px;"></div>
                             <?php
                             if (!is_null($value->getTags())) {
                                 foreach ($value->getTags() as $key => $tag) {

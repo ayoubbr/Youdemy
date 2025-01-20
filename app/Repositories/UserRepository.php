@@ -149,4 +149,19 @@ class UserRepository
         $result = $stmt->fetchColumn();
         return $result;
     }
+
+    public function getCoursesByTeacher($teacher_id)
+    {
+        $coursesQuery = "SELECT COUNT(*) FROM courses 
+        WHERE teacher_id=:teacher_id";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($coursesQuery);
+        $stmt->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetchColumn();
+        return $result;
+        // var_dump($result);
+        // die();
+    }
 }

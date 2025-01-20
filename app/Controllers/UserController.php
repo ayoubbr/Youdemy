@@ -88,4 +88,9 @@ class UserController
     {
         return $this->userService->getNumberOfStudentsByTeacher($teacher_id);
     }
+
+    public function getCoursesByTeacher($teacher_id)
+    {   
+        return $this->userService->getCoursesByTeacher($teacher_id);
+    }
 }

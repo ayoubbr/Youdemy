@@ -354,10 +354,6 @@
             Teacher Panel
         </div>
         <nav>
-            <a href="/teacher/statistics" class="nav-item <?php echo $request == '/teacher/statistics' ?  'active' :  ''; ?>">
-                <i class="fas fa-chart-line"></i>
-                Dashboard
-            </a>
             <a href="/teacher/courses" class="nav-item <?php echo $request == '/teacher/courses' ?  'active' :  ''; ?>">
                 <i class="fas fa-book"></i>
                 Courses
@@ -365,13 +361,18 @@
             <?php
             if (!empty($_SESSION['id_course'])) {
             ?>
-                <a href="/teacher/students" class="nav-item <?php echo $request == '/teacher/students' ?  'active' :  ''; ?>">
+                <a class="nav-item <?php echo $request == '/teacher/students' ?  'active' :  ''; ?>">
                     <i class="fas fa-users"></i>
                     Students
                 </a>
             <?php
             }
             ?>
+            <a href="/auth/logout" class="nav-item">
+                <i class="fa-solid fa-circle-arrow-left"></i>
+                Logout
+            </a>
+
         </nav>
     </aside>
 
@@ -392,9 +393,7 @@
             include __DIR__ . "\\statistics.php";
             break;
     }
-
     ?>
-
 </body>
 
 </html>

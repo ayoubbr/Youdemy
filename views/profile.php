@@ -377,9 +377,17 @@
             </div>
 
             <div class="social-links">
-                <a href="#" class="social-button primary">
-                    Something
-                </a>
+                <?php
+                if (isset($_SESSION['user'])) {
+                    if ($_SESSION['user']->getRole()->getName() == 'Teacher') {
+                ?>
+                        <a href="/teacher/courses" class="social-button primary">
+                            Dashboard
+                        </a>
+                <?php
+                    }
+                }
+                ?>
                 <a href="/auth/logout" class="social-button secondary">
                     Logout
                 </a>
