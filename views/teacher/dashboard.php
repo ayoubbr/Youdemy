@@ -296,7 +296,6 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.75rem;
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 6px;
             font-size: 1rem;

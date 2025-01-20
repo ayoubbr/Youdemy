@@ -8,7 +8,6 @@ use App\Controllers\CategoryController;
 use App\Controllers\CourseController;
 use App\Controllers\TagController;
 use App\Controllers\UserController;
-use App\DAOs\CourseDao;
 use App\Http\CourseForm;
 use App\Http\LoginForm;
 use App\Http\RegisterForm;

@@ -51,10 +51,8 @@
 
         <!-- Courses Grid -->
         <div class="courses-grid">
-            <!-- Course Card 1 -->
 
             <?php
-            //   var_dump($courses);
             foreach ($courses as $key => $value) {
             ?>
 
@@ -69,6 +67,10 @@
                         <div class="course-instructor">
                             <i class="fas fa-user"></i>
                             <?php echo $value->getTeacher()->getFirstname() . " " . $value->getTeacher()->getLastname(); ?>
+                        </div>
+                        <div class="course-instructor">
+                            <i class="fa-solid fa-link"></i>
+                            <a href="<?php echo $value->getContent(); ?>">Click here to see course.</a>
                         </div>
                         <div class="course-stats">
                             <div class="stat-item">
@@ -118,15 +120,6 @@
             }
             ?>
         </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            <button class="page-button"><i class="fas fa-chevron-left"></i></button>
-            <button class="page-button active">1</button>
-            <button class="page-button">2</button>
-            <button class="page-button">3</button>
-            <button class="page-button"><i class="fas fa-chevron-right"></i></button>
-        </div>
     </div>
 
     <!-- Add this HTML just before the closing </div> of "main-content" -->
@@ -138,12 +131,24 @@
             </div>
             <form id="addCourseForm" action="/teacher/course/create" method="post">
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group half">
                         <label for="title">Course Title</label>
                         <input type="text" id="title" name="title" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group half">
+                        <label for="price">Price ($)</label>
+                        <input type="number" id="price" name="price" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="content">Course Content</label>
+                        <input type="text" id="content" name="content" required>
+                    </div>
+                    
+                    <div class="form-group half">
                         <label for="categoryName">Category</label>
                         <select id="categoryName" name="categoryName" required>
                             <option value="">Select Category</option>
@@ -156,17 +161,6 @@
                             }
                             ?>
                         </select>
-                    </div>
-                    <div class="form-group half">
-                        <label for="price">Price ($)</label>
-                        <input type="number" id="price" name="price" min="0" step="0.01" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="content">Course Content</label>
-                        <input type="text" id="content" name="content" required>
                     </div>
                 </div>
                 <!-- <div class="form-row"> -->
@@ -227,28 +221,6 @@
             button.addEventListener('click', (e) => {
                 // Implementation for edit action
                 alert('Edit course - To be implemented');
-            });
-        });
-
-        // document.querySelectorAll('.delete-button').forEach(button => {
-        //     button.addEventListener('click', (e) => {
-        //         if (confirm('Are you sure you want to delete this course?')) {
-
-        //         } else {
-        //             console.log('annuled');
-        //         }
-        //     });
-        // });
-
-        // Add event listeners for pagination
-        document.querySelectorAll('.pagination .page-button').forEach(button => {
-            button.addEventListener('click', () => {
-                if (!button.classList.contains('active')) {
-                    document.querySelector('.pagination .active').classList.remove('active');
-                    button.classList.add('active');
-                    // Implementation for pagination
-                    alert('Pagination - To be implemented');
-                }
             });
         });
     </script>

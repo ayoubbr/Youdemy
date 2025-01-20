@@ -340,10 +340,15 @@ label {
     margin-bottom: 8px;
     font-weight: 500;
 }
-
+select{
+    padding: 7px 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
 input[type="text"],
 input[type="number"],
-select,
 textarea {
     width: 100%;
     padding: 8px 12px;
