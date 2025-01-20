@@ -56,7 +56,6 @@
             foreach ($courses as $key => $value) {
                 $id = $value->getId();
             ?>
-
                 <div class="course-card">
                     <!-- <div class="course-image"> -->
                     <!-- <img src="/api/placeholder/300/160"> -->
@@ -117,6 +116,12 @@
                                 <button type="submit" class="action-button delete-button">
                                     <i class="fas fa-trash"></i>
                                     Delete
+                                </button>
+                            </form>
+                            <form action="/teacher/students" method="post">
+                                <input type="hidden" name="id" value="<?= $id ?>">
+                                <button class="action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
                                 </button>
                             </form>
                         </div>
@@ -261,6 +266,7 @@
             </form>
         </div>
     </div>
+
     <script>
         function showAddCourseModal() {
             document.getElementById('addCourseModal').style.display = 'block';
@@ -337,18 +343,4 @@
                 event.target.classList.remove('active');
             }
         }
-
-        // Add event listeners for filter actions
-        document.querySelector('.filter-actions .add-course-btn').addEventListener('click', () => {
-            // Implementation for applying filters
-            alert('Applying filters - To be implemented');
-        });
-
-        // // Add event listeners for edit and delete actions
-        // document.querySelectorAll('.edit-button').forEach(button => {
-        //     button.addEventListener('click', (e) => {
-        //         // Implementation for edit action
-        //         alert('Edit course - To be implemented');
-        //     });
-        // });
     </script>

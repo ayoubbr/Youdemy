@@ -362,10 +362,16 @@
                 <i class="fas fa-book"></i>
                 Courses
             </a>
-            <a href="/teacher/students" class="nav-item <?php echo $request == '/teacher/students' ?  'active' :  ''; ?>">
-                <i class="fas fa-users"></i>
-                Students
-            </a>
+            <?php
+            if (!empty($_SESSION['id_course'])) {
+            ?>
+                <a href="/teacher/students" class="nav-item <?php echo $request == '/teacher/students' ?  'active' :  ''; ?>">
+                    <i class="fas fa-users"></i>
+                    Students
+                </a>
+            <?php
+            }
+            ?>
         </nav>
     </aside>
 

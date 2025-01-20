@@ -118,4 +118,9 @@ class UserService
     {
         return $this->userRepository->getTopThreeTeachers();
     }
+
+    public function getStudentsByCourse($id)
+    {
+        return $this->userRepository->getStudentsByCourse($id);
+    }
 }

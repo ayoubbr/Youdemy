@@ -78,4 +78,9 @@ class UserController
     {
         return $this->userService->getTopThreeTeachers();
     }
+
+    public function getStudentsByCourse($id)
+    { 
+        return $this->userService->getStudentsByCourse($id);
+    }
 }

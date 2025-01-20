@@ -144,16 +144,6 @@ tr:hover {
     background: var(--success);
     color: white;
 }
-
-.pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: white;
-    border-top: 1px solid var(--border);
-}
-
 .page-info {
     color: var(--text-secondary);
 }

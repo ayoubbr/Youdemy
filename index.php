@@ -209,6 +209,12 @@ switch ($request) {
 
     case '/teacher/statistics':
     case '/teacher/students':
+        $_SESSION['id_course'] = $_POST['id'];
+        if (empty($_SESSION['id_course'])) {
+            header('location: /teacher/courses');
+        }
+        $userController = new UserController();
+        $result = $userController->getStudentsByCourse($_SESSION['id_course']);
         require __DIR__ . '/views/teacher/dashboard.php';
         break;
 

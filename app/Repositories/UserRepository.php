@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Core\Database;
 use App\DAOs\UserDao;
+use App\Models\Course;
 use App\Models\User;
 use PDO;
 
@@ -98,5 +99,29 @@ class UserRepository
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function getStudentsByCourse($id)
+    {
+        $courseQuery = "SELECT title FROM courses WHERE id = :course_id";
+        $stmt = Database::getInstance()->getConnection()->prepare($courseQuery);
+        $stmt->bindParam(':course_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $course = $stmt->fetchObject(Course::class);
+       
+        $studentsQuery = "SELECT u.id,u.firstname,u.lastname,u.email,u.phone,u.photo,u.status
+            FROM users u
+            JOIN subscriptions s ON u.id = s.student_id
+            WHERE s.course_id = :course_id";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($studentsQuery);
+        $stmt->bindParam(':course_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $students = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\User');
+
+        return [
+            'course_title' => $course->getTitle(),
+            'students' => $students
+        ];
     }
 }
