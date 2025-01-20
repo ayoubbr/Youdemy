@@ -35,6 +35,21 @@ class Course
                 $this->students = $arguments[9];
             }
         }
+        if ($name == 'instanceWithAll') {
+            if (count($arguments) == 11) {
+                $this->id = $arguments[0];
+                $this->title = $arguments[1];
+                $this->description = $arguments[2];
+                $this->price = $arguments[3];
+                $this->rating = $arguments[4];
+                $this->status = $arguments[5];
+                $this->content = $arguments[6];
+                $this->category = $arguments[7];
+                $this->tags = $arguments[8];
+                $this->teacher = $arguments[9];
+                $this->students = $arguments[10];
+            }
+        }
     }
 
     public function getId(): int

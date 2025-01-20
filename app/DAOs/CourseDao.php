@@ -56,6 +56,45 @@ class CourseDao
         $stmt->execute();
     }
 
+    public function update($course)
+    {
+        $tags = $course->getTags();
+
+        $query = "UPDATE courses SET title=?, description=?, price=?, content=?, categorie_id=? WHERE id=?";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+
+        $stmt->execute([
+            $course->getTitle(),
+            $course->getDescription(),
+            $course->getPrice(),
+            $course->getContent(),
+            $course->getCategory()->getId(),
+            $course->getId()
+        ]);
+
+        $course_id = $course->getId();
+        $tags_id = [];
+        foreach ($tags as $key => $value) {
+            array_push($tags_id, $value->getId());
+        }
+
+        $sql = '';
+        $sql .= "DELETE FROM course_tags WHERE course_id='" . $course_id . "';";
+        $stmt = Database::getInstance()->getConnection()->prepare($sql);
+        $stmt->execute();
+
+
+        $sql2 = '';
+        if (!empty($tags_id)) {
+            for ($i = 0; $i < count($tags); $i++) {
+                $sql2 .= "INSERT INTO course_tags (course_id, tag_id) VALUES ($course_id, $tags_id[$i]);";
+            }
+            $stmt = Database::getInstance()->getConnection()->prepare($sql2);
+            $stmt->execute();
+        }
+    }
+
     public function getAll()
     {
         $query = "SELECT courses.id, courses.title, courses.description, courses.price, courses.rating, courses.content, courses.status, 

@@ -19,6 +19,11 @@ class CourseController
         return $this->courseService->create($courseForm);
     }
 
+    public function update(CourseForm $courseForm)
+    {
+        return $this->courseService->update($courseForm);
+    }
+
     public function getAll()
     {
         return $this->courseService->getAll();
@@ -39,13 +44,14 @@ class CourseController
     {
         $this->courseService->activate($id);
     }
-    
+
     public function archiveCourse($id)
     {
         $this->courseService->archive($id);
     }
 
-    public function getCountCourses():int{
+    public function getCountCourses(): int
+    {
         return $this->courseService->getCountCourses();
     }
 
@@ -54,7 +60,8 @@ class CourseController
         return $this->courseService->courseByCategory();
     }
 
-    public function courseWithMostStudents(){
+    public function courseWithMostStudents()
+    {
         return $this->courseService->courseWithMostStudents();
     }
 }

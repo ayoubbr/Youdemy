@@ -13,6 +13,7 @@ class CourseRepository
     private TagRepository $tagRepository;
     private UserRepository $userRepository;
     private CategoryRepository $categoryRepository;
+    
     public function __construct()
     {
         $this->courseDao = new CourseDao();
@@ -24,6 +25,11 @@ class CourseRepository
     public function create(Course $course)
     {
         return $this->courseDao->create($course);
+    }
+
+    public function update($course)
+    {
+        return $this->courseDao->update($course);
     }
 
     public function getAll()

@@ -93,8 +93,6 @@
                         <div class="course-tags">
                             <?php
                             if (!is_null($value->getTags())) {
-
-                                // $array = explode(', ', $value->getTags());
                                 foreach ($value->getTags() as $key => $tag) {
                             ?>
                                     <span><?php echo $tag->getTitle(); ?></span>
@@ -102,6 +100,12 @@
                                 }
                             }
                             ?>
+                        </div>
+                        <div class="stat-item" style="display: none;">
+                            <?php echo $value->getRating(); ?>
+                        </div>
+                        <div class="stat-item" style="display: none;">
+                            <?php echo $value->getStatus(); ?>
                         </div>
                         <div class="course-actions">
                             <button class="action-button edit-button" onclick="<?php echo "edit('course', $id)"; ?>">
@@ -124,7 +128,6 @@
         </div>
     </div>
 
-    <!-- Add this HTML just before the closing </div> of "main-content" -->
     <div id="addCourseModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -199,6 +202,8 @@
             </div>
             <form id="addCourseForm" action="/teacher/course/update" method="post">
                 <input type="hidden" name="id" id="editCourseId">
+                <input type="hidden" name="rating" id="editCourseRating">
+                <input type="hidden" name="status" id="editCourseStatus">
                 <div class="form-row">
                     <div class="form-group half">
                         <label for="title">Course Title</label>
@@ -251,7 +256,7 @@
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="page-button" onclick="hideModal('editCourseModal')">Cancel</button>
-                    <button type="submit" class="add-course-btn">Create Course</button>
+                    <button type="submit" class="add-course-btn">Update Course</button>
                 </div>
             </form>
         </div>
@@ -292,30 +297,20 @@
             const content = card.children[4].children[1].getAttribute("href");
             const price = card.children[5].children[2].children[0].textContent.substr(1);
             const tagsText = card.children[6].textContent;
+            const rating = card.children[7].textContent.trim();
+            const status = card.children[8].textContent.trim();
 
-            // const tags = card.children[6].textContent.split(',').map(tag => tag.trim());
-            const tags = tagsText.split(/\s+/) // Split by whitespace
-                .filter(tag => tag.trim() !== ''); // Remove empty strings
-
-            console.log('Tags found:', tags); // For debugging
-
+            const tags = tagsText.split(/\s+/)
+                .filter(tag => tag.trim() !== '');
 
             if (type === 'course') {
-
-                // Reset all checkboxes first
                 const checkboxes = document.querySelectorAll('input[name="tags[]"]');
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = false;
                 });
 
-                // Check the boxes that match the course tags
                 tags.forEach(tag => {
-                    console.log(tag);
-
-                    // Find checkbox by looping through all checkboxes instead of using querySelector
                     checkboxes.forEach(checkbox => {
-                        // console.log(checkbox .value);
-                        // console.log(tag);
                         if (checkbox.value === tag) {
 
                             checkbox.checked = true;
@@ -329,6 +324,8 @@
                 document.getElementById('editCoursePrice').value = price;
                 document.getElementById('editCourseCategory').value = category;
                 document.getElementById('editCourseContent').value = content;
+                document.getElementById('editCourseRating').value = rating;
+                document.getElementById('editCourseStatus').value = status;
 
                 showModal('editCourseModal');
             }

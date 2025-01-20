@@ -49,6 +49,35 @@ class CourseService
 
         return $this->courseRepository->create($course);
     }
+    public function update(CourseForm $courseForm)
+    {
+        
+        $teacher = $this->userService->findByEmail($courseForm->teacherEmail);
+        $category = $this->categoryService->findByName($courseForm->categoryName);
+        $tags = $courseForm->tags;
+        $tagObjects = [];
+
+        for ($i = 0; $i < count($tags); $i++) {
+            array_push($tagObjects, $this->tagService->findByName($tags[$i]));
+        }
+
+        $course = new Course();
+        $course->instanceWithAll(
+            $courseForm->id,
+            $courseForm->title,
+            $courseForm->description,
+            $courseForm->price,
+            $courseForm->rating,
+            $courseForm->status,
+            $courseForm->content,
+            $category,
+            $tagObjects,
+            $teacher,
+            $courseForm->students
+        );
+       
+        return $this->courseRepository->update($course);
+    }
 
     public function getAll()
     {
@@ -103,7 +132,8 @@ class CourseService
         return $returnArray;
     }
 
-    public function courseWithMostStudents(){
+    public function courseWithMostStudents()
+    {
         return $this->courseRepository->courseWithMostStudents();
     }
 }

@@ -162,10 +162,7 @@ switch ($request) {
         $courseController->delete($id);
         header('location: /teacher/courses');
         break;
-    case '/teacher/statistics':
-    case '/teacher/students':
-        require __DIR__ . '/views/teacher/dashboard.php';
-        break;
+
     case '/teacher/course/create':
         $courseController =  new CourseController();
         $courseForm =  CourseForm::instanceWithAllArgs(
@@ -183,6 +180,36 @@ switch ($request) {
 
         $courseController->create($courseForm);
         header("location: /teacher/courses");
+        break;
+
+    case '/teacher/course/update':
+        $courseController =  new CourseController();
+        $tags = [];
+        if (!empty($_POST['tags'])) {
+            $tags = $_POST['tags'];
+        }
+        $courseForm =  CourseForm::instanceWithAll(
+            $_POST['id'],
+            $_POST['title'],
+            $_POST['description'],
+            $_POST['price'],
+            $_POST['rating'],
+            $_POST['content'],
+            $_POST['status'],
+            $_POST['categoryName'],
+            $tags,
+            $_SESSION['user']->getEmail(),
+            // todo when subscription is done (students)
+            []
+        );
+
+        $courseController->update($courseForm);
+        header('location: /teacher/courses');
+        break;
+
+    case '/teacher/statistics':
+    case '/teacher/students':
+        require __DIR__ . '/views/teacher/dashboard.php';
         break;
 
     case '/admin':
