@@ -108,7 +108,7 @@ class UserRepository
         $stmt->bindParam(':course_id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $course = $stmt->fetchObject(Course::class);
-       
+
         $studentsQuery = "SELECT u.id,u.firstname,u.lastname,u.email,u.phone,u.photo,u.status
             FROM users u
             JOIN subscriptions s ON u.id = s.student_id
@@ -123,5 +123,30 @@ class UserRepository
             'course_title' => $course->getTitle(),
             'students' => $students
         ];
+    }
+
+    public function getNumberOfStudentsByTeacher($teacher_id)
+    {
+        $teacherQuery = "SELECT id, firstname, lastname FROM users WHERE id = :teacher_id";
+        $stmt = Database::getInstance()->getConnection()->prepare($teacherQuery);
+        $stmt->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $teacher = $stmt->fetchObject(User::class);
+
+        if (!$teacher) {
+            return null;
+        }
+
+        $studentsQuery = "SELECT COUNT(DISTINCT s.student_id) as student_count
+                            FROM courses c
+                            JOIN subscriptions s ON c.id = s.course_id
+                            WHERE c.teacher_id = :teacher_id";
+
+        $stmt = Database::getInstance()->getConnection()->prepare($studentsQuery);
+        $stmt->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetchColumn();
+        return $result;
     }
 }

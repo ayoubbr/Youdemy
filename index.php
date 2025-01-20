@@ -13,6 +13,7 @@ use App\Http\LoginForm;
 use App\Http\RegisterForm;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\User;
 
 $request = $_SERVER['REQUEST_URI'];
 
@@ -208,6 +209,12 @@ switch ($request) {
         break;
 
     case '/teacher/statistics':
+        $userController = new UserController();
+        $teacher_id = $_SESSION['user']->getId();
+        $result = $userController->getNumberOfStudentsByTeacher($teacher_id);
+        // $result = $userController->getCoursesByTeacher($teacher_id);
+        require __DIR__ . '/views/teacher/dashboard.php';
+        break;
     case '/teacher/students':
         $_SESSION['id_course'] = $_POST['id'];
         if (empty($_SESSION['id_course'])) {

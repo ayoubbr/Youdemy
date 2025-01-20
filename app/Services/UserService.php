@@ -123,4 +123,9 @@ class UserService
     {
         return $this->userRepository->getStudentsByCourse($id);
     }
+
+    public function getNumberOfStudentsByTeacher($teacher_id)
+    {
+        return $this->userRepository->getNumberOfStudentsByTeacher($teacher_id);
+    }
 }

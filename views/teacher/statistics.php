@@ -9,11 +9,7 @@
                 </div>
                 <div>
                     <div class="stat-title">Total Students</div>
-                    <div class="stat-value">1,234</div>
-                    <div class="stat-change change-positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>12% vs last month</span>
-                    </div>
+                    <div class="stat-value"><?php echo $result; ?></div>
                 </div>
             </div>
         </div>
@@ -26,10 +22,6 @@
                 <div>
                     <div class="stat-title">Active Courses</div>
                     <div class="stat-value">24</div>
-                    <div class="stat-change change-positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>3 new this month</span>
-                    </div>
                 </div>
             </div>
         </div>
