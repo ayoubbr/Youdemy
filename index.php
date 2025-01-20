@@ -167,9 +167,6 @@ switch ($request) {
         require __DIR__ . '/views/teacher/dashboard.php';
         break;
     case '/teacher/course/create':
-
-        // var_dump($_SESSION['user']);
-        // die();
         $courseController =  new CourseController();
         $courseForm =  CourseForm::instanceWithAllArgs(
             $_POST['title'],
