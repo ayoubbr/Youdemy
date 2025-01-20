@@ -74,28 +74,6 @@ switch ($request) {
         require __DIR__ . '/views/courses.php';
         break;
 
-    case '/teacher/course/create':
-        $courseController =  new CourseController();
-        $courseForm =  CourseForm::instanceWithAllArgs(
-            $_POST['title'],
-            $_POST['description'],
-            $_POST['price'],
-            0,
-            $_POST['content'],
-            'Active',
-            $_POST['categoryName'],
-            $_POST['tags'],
-            // get email from session
-            'rucuw@mailinator.com',
-            []
-        );
-
-        $courseController->create($courseForm);
-        header("location: /teacher/courses");
-        break;
-
-
-
     case '/topic/getAll':
         $tagController = new TagController();
         $tags = $tagController->getAll();
@@ -187,6 +165,27 @@ switch ($request) {
     case '/teacher/statistics':
     case '/teacher/students':
         require __DIR__ . '/views/teacher/dashboard.php';
+        break;
+    case '/teacher/course/create':
+
+        // var_dump($_SESSION['user']);
+        // die();
+        $courseController =  new CourseController();
+        $courseForm =  CourseForm::instanceWithAllArgs(
+            $_POST['title'],
+            $_POST['description'],
+            $_POST['price'],
+            0,
+            $_POST['content'],
+            'Active',
+            $_POST['categoryName'],
+            $_POST['tags'],
+            $_SESSION['user']->getEmail(),
+            []
+        );
+
+        $courseController->create($courseForm);
+        header("location: /teacher/courses");
         break;
 
     case '/admin':
