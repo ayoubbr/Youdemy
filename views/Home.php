@@ -739,7 +739,7 @@
             <div class="logo">Youdemy</div>
             <div class="nav-links">
                 <a href="#features">Features</a>
-                <a href="#courses">Courses</a>
+                <a href="/courses">Courses</a>
                 <a href="#testimonials">Testimonials</a>
                 <a href="#pricing">Pricing</a>
             </div>

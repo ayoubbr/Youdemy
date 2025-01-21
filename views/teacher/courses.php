@@ -83,81 +83,84 @@
 
             <?php
             foreach ($courses as $key => $value) {
-                $id = $value->getId();
+                // var_dump($_SESSION['user']);
+                // die();
+                if ($value->teacher_id == $_SESSION['user']->getId()) {
+                    $id = $value->getId();
             ?>
-                <div class="course-card">
-                    <!-- <div class="course-image"> -->
-                    <!-- <img src="/api/placeholder/300/160"> -->
-                    <!-- <span class="course-status status-published">Published</span> -->
-                    <!-- </div> -->
-                    <div class="course-content">
-                        <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
-                        <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
-                        <h3 class="course-title" style="display:none;"><?php echo $value->getDescription(); ?></h3>
-                        <div class="course-instructor">
-                            <i class="fas fa-user"></i>
-                            <?php echo $value->getTeacher()->getFirstname() . " " . $value->getTeacher()->getLastname(); ?>
-                        </div>
-                        <div class="course-instructor">
-                            <i class="fa-solid fa-link"></i>
-                            <a href="<?php echo $value->getContent(); ?>">Click here to see course.</a>
-                        </div>
-                        <div class="course-stats">
-                            <div class="stat-item">
-                                <div class="stat-value1"><?php echo count($value->getStudents());
-
-                                                            ?></div>
-                                <div class="stat-label">Students</div>
+                    <div class="course-card">
+                        <!-- <div class="course-image"> -->
+                        <!-- <img src="/api/placeholder/300/160"> -->
+                        <!-- <span class="course-status status-published">Published</span> -->
+                        <!-- </div> -->
+                        <div class="course-content">
+                            <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
+                            <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
+                            <h3 class="course-title" style="display:none;"><?php echo $value->getDescription(); ?></h3>
+                            <div class="course-instructor">
+                                <i class="fas fa-user"></i>
+                                <?php echo $value->getTeacher()->getFirstname() . " " . $value->getTeacher()->getLastname(); ?>
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-value1"><?php echo $value->getRating(); ?></div>
-                                <div class="stat-label">Rating</div>
+                            <div class="course-instructor">
+                                <i class="fa-solid fa-link"></i>
+                                <a href="<?php echo $value->getContent(); ?>">Click here to see course.</a>
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-value1">$<?php echo $value->getPrice(); ?></div>
-                                <div class="stat-label">Price</div>
+                            <div class="course-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value1"><?php echo count($value->getStudents());
+                                    ?></div>
+                                    <div class="stat-label">Students</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value1"><?php echo $value->getRating(); ?></div>
+                                    <div class="stat-label">Rating</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value1">$<?php echo $value->getPrice(); ?></div>
+                                    <div class="stat-label">Price</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="course-tags">
-                            <div style="height: 40px;"></div>
-                            <?php
-                            if (!is_null($value->getTags())) {
-                                foreach ($value->getTags() as $key => $tag) {
-                            ?>
-                                    <span><?php echo $tag->getTitle(); ?></span>
-                            <?php
+                            <div class="course-tags">
+                                <div style="height: 40px;"></div>
+                                <?php
+                                if (!is_null($value->getTags())) {
+                                    foreach ($value->getTags() as $key => $tag) {
+                                ?>
+                                        <span><?php echo $tag->getTitle(); ?></span>
+                                <?php
+                                    }
                                 }
-                            }
-                            ?>
-                        </div>
-                        <div class="stat-item" style="display: none;">
-                            <?php echo $value->getRating(); ?>
-                        </div>
-                        <div class="stat-item" style="display: none;">
-                            <?php echo $value->getStatus(); ?>
-                        </div>
-                        <div class="course-actions">
-                            <button class="action-button edit-button" onclick="<?php echo "edit('course', $id)"; ?>">
-                                <i class="fas fa-edit"></i>
-                                Edit
-                            </button>
-                            <form action="/teacher/courses/one/delete" method="post">
-                                <input type="hidden" name="id" value="<?= $value->getId(); ?>">
-                                <button type="submit" class="action-button delete-button">
-                                    <i class="fas fa-trash"></i>
-                                    Delete
+                                ?>
+                            </div>
+                            <div class="stat-item" style="display: none;">
+                                <?php echo $value->getRating(); ?>
+                            </div>
+                            <div class="stat-item" style="display: none;">
+                                <?php echo $value->getStatus(); ?>
+                            </div>
+                            <div class="course-actions">
+                                <button class="action-button edit-button" onclick="<?php echo "edit('course', $id)"; ?>">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
                                 </button>
-                            </form>
-                            <form action="/teacher/students" method="post">
-                                <input type="hidden" name="id" value="<?= $id ?>">
-                                <button class="action-btn view-btn">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </form>
+                                <form action="/teacher/courses/one/delete" method="post">
+                                    <input type="hidden" name="id" value="<?= $value->getId(); ?>">
+                                    <button type="submit" class="action-button delete-button">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </button>
+                                </form>
+                                <form action="/teacher/students" method="post">
+                                    <input type="hidden" name="id" value="<?= $id ?>">
+                                    <button class="action-btn view-btn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
             <?php
+                }
             }
             ?>
         </div>

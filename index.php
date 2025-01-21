@@ -72,6 +72,13 @@ switch ($request) {
         break;
 
     case '/courses':
+
+        $courseController = new CourseController();
+        $courses = $courseController->getAll();
+        $categoryController = new CategoryController();
+        $categories = $categoryController->getAll();
+        $tagController = new TagController();
+        $tags = $tagController->getAll();
         require __DIR__ . '/views/courses.php';
         break;
 
@@ -125,15 +132,6 @@ switch ($request) {
         $id = $_POST['id'];
         $tagController->delete($id);
         header("location: /admin/topics");
-        break;
-    case '/student/courses':
-        $courseController = new CourseController();
-        $courses = $courseController->getAll();
-        $categoryController = new CategoryController();
-        $categories = $categoryController->getAll();
-        $tagController = new TagController();
-        $tags = $tagController->getAll();
-        require __DIR__ . '/views/student/courses.php';
         break;
 
     case '/student/courses/details':

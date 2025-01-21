@@ -47,7 +47,7 @@
         }
 
         body {
-            background: var(--background-color);
+            background: var(--bg-gradient);
             min-height: 100vh;
             color: var(--text-color);
             overflow-x: hidden;
@@ -194,6 +194,10 @@
 
         .social-button.primary {
             background: var(--primary-color);
+        }
+
+        .social-button.orange {
+            background: var(--accent-orange);
         }
 
         .social-button.secondary {
@@ -388,49 +392,26 @@
                     }
                 }
                 ?>
+                <?php
+                if (isset($_SESSION['user'])) {
+                    if ($_SESSION['user']->getRole()->getName() == 'Student') {
+                ?>
+                        <a href="/student/courses" class="social-button primary">
+                            My Courses
+                        </a>
+                <?php
+                    }
+                }
+                ?>
                 <a href="/auth/logout" class="social-button secondary">
                     Logout
+                </a>
+                <a href="/" class="social-button orange">
+                    Home
                 </a>
             </div>
 
             <div class="sections-grid">
-                <div class="section">
-                    <h2 class="section-title">Skills & Expertise</h2>
-                    <div class="skills-container">
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">GraphQL</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">Redis</span>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2 class="section-title">Courses</h2>
-                    <div class="activity-card">
-                        <h3 class="activity-title">React Performance Optimization</h3>
-                        <p class="activity-description">
-                            Implemented advanced rendering optimizations resulting in 40% faster load times.
-                        </p>
-                        <div class="activity-meta">
-                            <span>🗓️ Yesterday</span>
-                            <span>👍 12 kudos</span>
-                        </div>
-                    </div>
-                    <div class="activity-card">
-                        <h3 class="activity-title">Tech Talk: Modern Web Architecture</h3>
-                        <p class="activity-description">
-                            Presented best practices in scalable web development at TechConf 2024.
-                        </p>
-                        <div class="activity-meta">
-                            <span>🗓️ Last week</span>
-                            <span>👥 230 attendees</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
