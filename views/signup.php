@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youdemy - Login</title>
     <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
         :root {
             /* Primary Colors */
@@ -51,7 +51,7 @@
             min-height: 100vh;
             padding: 20px;
             position: relative;
-            overflow-X: hidden;
+            overflow: hidden;
         }
 
         /* Decorative background elements */
@@ -78,7 +78,7 @@
 
         .login-container {
             background: var(--card-gradient);
-            padding: 3rem;
+            padding: 20px 3rem;
             border-radius: 20px;
             box-shadow: var(--shadow-lg);
             width: 100%;
@@ -185,6 +185,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
+            height: 60px;
         }
 
         .login-button:hover {
@@ -268,6 +269,8 @@
             animation: checkmark 0.5s ease-in-out;
         }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -281,7 +284,7 @@
             <div class="form-group">
                 <label for="firstname">Firstname</label>
                 <div class="input-container">
-                    <span class="input-icon">✉️</span>
+                    <span class="input-icon"><i class="fa-solid fa-user"></i></span>
                     <input
                         type="text"
                         id="firstname"
@@ -295,7 +298,7 @@
             <div class="form-group">
                 <label for="lastname">Lastname</label>
                 <div class="input-container">
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-user"></i></span>
                     <input
                         type="text"
                         id="lastname"
@@ -309,7 +312,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <div class="input-container">
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
                     <input
                         type="email"
                         id="email"
@@ -323,7 +326,7 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-container">
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
                     <input
                         type="password"
                         id="password"
@@ -337,7 +340,7 @@
             <div class="form-group">
                 <label for="passwordConfirmation">Password Confirmation</label>
                 <div class="input-container">
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
                     <input
                         type="password"
                         id="passwordConfirmation"
@@ -351,7 +354,7 @@
             <div class="form-group">
                 <label for="phone">Phone</label>
                 <div class="input-container">
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-phone"></i></span>
                     <input
                         type="text"
                         id="phone"
@@ -365,7 +368,7 @@
             <div class="form-group">
                 <label for="photo">photo</label>
                 <div class="input-container">
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-image"></i></span>
                     <input
                         type="text"
                         id="photo"
@@ -380,12 +383,12 @@
                 <label for="roleName">Type</label>
                 <div class="input-container-radio">
                     <input type="radio" id="roleChoice1" name="roleName" value="Teacher" required />
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-user-tie"></i></span>
                     <label for="roleChoice1">Teacher</label>
                 </div>
                 <div class="input-container-radio">
                     <input type="radio" id="roleChoice2" name="roleName" value="Student" required />
-                    <span class="input-icon">🔒</span>
+                    <span class="input-icon"><i class="fa-solid fa-user-graduate"></i></span>
                     <label for="roleChoice2">Student</label>
                 </div>
             </div>

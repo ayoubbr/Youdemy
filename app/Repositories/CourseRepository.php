@@ -206,4 +206,25 @@ class CourseRepository
 
         return $subscriptions;
     }
+
+    // public function getAllWithPagination()
+    // {
+    //     $query = "SELECT count(*) FROM courses";
+    //     $stmt = Database::getInstance()->getConnection()->prepare($query);
+    //     $stmt->execute();
+    //     $result = $stmt->fetchColumn();
+    //     $perPage = 4;
+    //     $total_pages = ceil($result / $perPage);
+
+    //     // Current page
+    //     $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    //     $starting_limit = ($page - 1) * $perPage;
+    //     $courses = $this->getAll();
+    //     $r = [
+    //         'courses' => $courses,
+    //         'page' => $page,
+    //         'total_pages' => $total_pages
+    //     ];
+    //     return $r;
+    // }
 }

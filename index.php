@@ -13,6 +13,7 @@ use App\Http\LoginForm;
 use App\Http\RegisterForm;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Repositories\CourseRepository;
 
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -147,7 +148,7 @@ switch ($request) {
         $subscriptions = $courseController->getAllSubscriptions($user_id);
         require __DIR__ . '/views/student/mycourses.php';
         break;
-        
+
     case '/student/courses/details':
         $courseController =  new CourseController();
         $id = $_POST['id'];
@@ -368,6 +369,11 @@ switch ($request) {
         header('location: /admin/teachers');
         break;
 
+    // case '/test':
+    //     $course = new CourseRepository();
+    //     $courses = $course->getAllWithPagination();
+    //     require __DIR__ . '/views/test.php';
+    //     break;
     default:
         require __DIR__ . '/views/Home.php';
         break;
