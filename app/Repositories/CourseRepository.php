@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Core\Database;
 use App\DAOs\CourseDao;
+use App\Models\Category;
 use App\Models\Course;
 use PDO;
 
@@ -126,5 +127,53 @@ class CourseRepository
         $count = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $count;
+    }
+
+    public function searchCourses($searchParams)
+    {
+        $query = "SELECT c.*, cat.title as category_title 
+        FROM courses c
+        LEFT JOIN categories cat ON c.categorie_id = cat.id
+        WHERE 1=1";
+
+        $params = array();
+
+
+        if (!empty($searchParams['search'])) {
+            $query .= " AND c.title LIKE :search";
+            $params[':search'] = '%' . $searchParams['search'] . '%';
+        }
+
+        if (!empty($searchParams['search'])) {
+            $query .= " OR c.description LIKE :search";
+            $params[':search'] = '%' . $searchParams['search'] . '%';
+        }
+
+        if (!empty($searchParams['category'])) {
+            $query .= " AND c.categorie_id = :category";
+            $params[':category'] = $searchParams['category'];
+        }
+
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute($params);
+
+        $courses = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $course = new Course();
+            $course->setId($row['id']);
+            $course->setTitle($row['title']);
+            $course->setDescription($row['description']);
+            $course->setPrice($row['price']);
+            $course->setRating($row['rating']);
+            $course->setStatus($row['status']);
+
+            $category = new Category();
+            $category->setTitle($row['category_title']);
+            $course->setCategory($category);
+
+            $courses[] = $course;
+        }
+
+        return $courses;
     }
 }

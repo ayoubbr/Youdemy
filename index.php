@@ -13,9 +13,8 @@ use App\Http\LoginForm;
 use App\Http\RegisterForm;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Models\User;
 
-$request = $_SERVER['REQUEST_URI'];
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch ($request) {
     case '':
@@ -72,13 +71,22 @@ switch ($request) {
         break;
 
     case '/courses':
-
         $courseController = new CourseController();
-        $courses = $courseController->getAll();
         $categoryController = new CategoryController();
-        $categories = $categoryController->getAll();
         $tagController = new TagController();
+
+        $searchParams = [
+            'search' => $_GET['search'] ?? '',
+            'category' => $_GET['category'] ?? ''
+        ];
+
+        $courses = !empty($searchParams['search']) || !empty($searchParams['category'])
+            ? $courseController->searchCourses($searchParams)
+            : $courseController->getAll();
+
+        $categories = $categoryController->getAll();
         $tags = $tagController->getAll();
+        
         require __DIR__ . '/views/courses.php';
         break;
 

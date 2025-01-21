@@ -64,4 +64,9 @@ class CourseController
     {
         return $this->courseService->courseWithMostStudents();
     }
+
+    public function searchCourses($searchParams)
+    {
+        return $this->courseService->searchCourses($searchParams);
+    }
 }

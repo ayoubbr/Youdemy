@@ -738,10 +738,10 @@
         <div class="nav-container">
             <div class="logo">Youdemy</div>
             <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="/courses">Courses</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#pricing">Pricing</a>
+                <!-- <a href="#features">Features</a> -->
+                <!-- <a href="/courses">Courses</a> -->
+                <!-- <a href="#testimonials">Testimonials</a> -->
+                <!-- <a href="#pricing">Pricing</a> -->
             </div>
 
             <?php
@@ -770,8 +770,7 @@
                 <h1>Transform Your Future with Online Learning</h1>
                 <p>Unlock your potential with world-class courses, expert instructors, and a supportive global community. Start your learning journey today.</p>
                 <div class="cta-buttons">
-                    <button class="btn btn-primary">Get Started Free</button>
-                    <button class="btn btn-outline">Explore Courses</button>
+                    <a class="btn btn-outline" href="/courses">Explore Courses</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -859,8 +858,7 @@
             <h2>Start Your Learning Journey Today</h2>
             <p>Join thousands of learners who have transformed their careers with Youdemy</p>
             <div class="cta-buttons">
-                <button class="btn btn-primary">Start Free Trial</button>
-                <button class="btn btn-outline">View Pricing</button>
+                <a href="/courses" class="btn btn-outline">View Courses</a>
             </div>
         </div>
     </section>

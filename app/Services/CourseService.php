@@ -136,4 +136,9 @@ class CourseService
     {
         return $this->courseRepository->courseWithMostStudents();
     }
+
+    public function searchCourses($searchParams)
+    {
+        return $this->courseRepository->searchCourses($searchParams);
+    }
 }

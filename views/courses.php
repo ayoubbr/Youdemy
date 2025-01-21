@@ -53,6 +53,10 @@
             color: var(--text-color);
         }
 
+        a {
+            text-decoration: none;
+        }
+
         .header {
             background: var(--bg-gradient);
             padding: 2rem;
@@ -313,23 +317,30 @@
     </header>
 
     <div class="search-container">
-        <div class="search-box">
-            <input type="text" placeholder="Search for courses...">
-            <button>
+        <form method="GET" action="/courses" class="search-box">
+
+            <input type="text" name="search" placeholder="Search for courses..."
+                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+
+            <input type="hidden" name="category" id="categoryInput"
+                value="<?php echo isset($_GET['category']) ? htmlspecialchars($_GET['category']) : ''; ?>">
+
+            <button type="submit">
                 <i class="fas fa-search"></i>
             </button>
-        </div>
+
+        </form>
     </div>
 
+    <!-- Update your filters section -->
     <div class="filters">
-        <button class="filter-btn active">All</button>
-        <?php
-        foreach ($categories as $key => $value) {
-        ?>
-            <button class="filter-btn"><?= $value->getTitle(); ?></button>
-        <?php
-        }
-        ?>
+        <button class="filter-btn <?php echo empty($_GET['category']) ? 'active' : ''; ?>" data-category="">All</button>
+        <?php foreach ($categories as $category): ?>
+            <button class="filter-btn <?php echo isset($_GET['category']) && $_GET['category'] == $category->getId() ? 'active' : ''; ?>"
+                data-category="<?php echo $category->getId(); ?>">
+                <?php echo htmlspecialchars($category->getTitle()); ?>
+            </button>
+        <?php endforeach; ?>
     </div>
 
     <div class="courses-grid">
@@ -362,12 +373,19 @@
                         }
                         ?>
                     </div>
-                    <div class="course-meta">
-                        <form action="/student/courses/details" method="post">
-                            <input type="submit" class="course-details" value="Details">
-                            <input type="hidden" name="id" class="course-details" value="<?php echo $value->getId(); ?>">
-                        </form>
-                    </div>
+                    <?php
+                    if (isset($_SESSION['user'])) {
+                        
+                    ?>
+                        <div class="course-meta">
+                            <form action="/student/courses/details" method="post">
+                                <input type="submit" class="course-details" value="Details">
+                                <input type="hidden" name="id" class="course-details" value="<?php echo $value->getId(); ?>">
+                            </form>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         <?php
@@ -375,10 +393,11 @@
         ?>
     </div>
     </div>
-
+    <!-- Add this JavaScript at the bottom of your page -->
     <script>
-        // Add click handlers for filter buttons
         const filterButtons = document.querySelectorAll('.filter-btn');
+        const categoryInput = document.getElementById('categoryInput');
+        const searchForm = document.querySelector('.search-box');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -386,6 +405,10 @@
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 // Add active class to clicked button
                 button.classList.add('active');
+                // Update hidden category input
+                categoryInput.value = button.dataset.category;
+                // Submit the form
+                searchForm.submit();
             });
         });
     </script>
