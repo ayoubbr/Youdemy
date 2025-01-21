@@ -83,8 +83,6 @@
 
             <?php
             foreach ($courses as $key => $value) {
-                // var_dump($_SESSION['user']);
-                // die();
                 if ($value->teacher_id == $_SESSION['user']->getId()) {
                     $id = $value->getId();
             ?>
@@ -107,8 +105,7 @@
                             </div>
                             <div class="course-stats">
                                 <div class="stat-item">
-                                    <div class="stat-value1"><?php echo count($value->getStudents());
-                                    ?></div>
+                                    <div class="stat-value1"><?php echo count($value->getStudents());?></div>
                                     <div class="stat-label">Students</div>
                                 </div>
                                 <div class="stat-item">

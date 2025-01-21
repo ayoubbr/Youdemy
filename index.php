@@ -86,7 +86,7 @@ switch ($request) {
 
         $categories = $categoryController->getAll();
         $tags = $tagController->getAll();
-        
+
         require __DIR__ . '/views/courses.php';
         break;
 
@@ -149,12 +149,23 @@ switch ($request) {
         require __DIR__ . '/views/student/courseDetails.php';
         break;
 
+    case '/student/course/subscribe':
+        $student_id = $_SESSION['user']->getId();
+        $course_id = $_POST['course_id'];
+        $userController = new UserController();
+
+        $resultCourse = $userController->subscribe($student_id, $course_id);
+
+        header("location: /student/courses");
+        break;
+
     case '/student/courses/enrolled':
         require __DIR__ . '/views/student/mycourses.php';
         break;
 
     case '/teacher':
     case '/teacher/courses':
+
         if (isset($_SESSION['course_id'])) {
             unset($_SESSION['course_id']);
         }
@@ -162,15 +173,20 @@ switch ($request) {
         $categoryController = new CategoryController();
         $tagController = new TagController();
         $userController = new UserController();
+
         $courses = $courseController->getAll();
         $categories = $categoryController->getAll();
         $tags = $tagController->getAll();
         $teacher_id = $_SESSION['user']->getId();
+
         $result = $userController->getNumberOfStudentsByTeacher($teacher_id);
         $coursesNumber = $userController->getCoursesByTeacher($teacher_id);
-
+        // Debug code
+        // var_dump($courses);
+        // die();
         require __DIR__ . '/views/teacher/dashboard.php';
         break;
+
     case '/teacher/courses/one/delete':
         $courseController =  new CourseController();
         $id = $_POST['id'];

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Course;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Exception;
@@ -11,6 +12,7 @@ class UserService
     private User $user;
     private UserRepository $userRepository;
     private RoleService $roleService;
+    private CourseService $courseService;
 
     public function __construct()
     {
@@ -132,5 +134,19 @@ class UserService
     public function getCoursesByTeacher($teacher_id)
     {
         return $this->userRepository->getCoursesByTeacher($teacher_id);
+    }
+
+    public function subscribe($student_id, $course_id)
+    {
+        $this->courseService = new CourseService();
+
+        $course = $this->courseService->findById($course_id);
+        $student = $this->findById($student_id);
+
+        $course->setStudent($student);
+     
+        $this->userRepository->subscribe($student_id, $course_id);
+        
+        return $course;
     }
 }

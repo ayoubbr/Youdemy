@@ -14,11 +14,13 @@ class UserController
     private User $user;
     private RoleService $roleService;
     private UserService $userService;
+    private CourseController $courseController;
 
     public function __construct()
     {
         $this->roleService = new RoleService();
         $this->userService = new UserService();
+        $this->courseController = new CourseController();
     }
 
     public function create()
@@ -90,7 +92,14 @@ class UserController
     }
 
     public function getCoursesByTeacher($teacher_id)
-    {   
+    {
         return $this->userService->getCoursesByTeacher($teacher_id);
+    }
+
+    public function subscribe($student_id, $course_id)
+    {
+        $course = $this->userService->subscribe($student_id, $course_id);
+       
+        return $course;
     }
 }

@@ -375,7 +375,7 @@
                     </div>
                     <?php
                     if (isset($_SESSION['user'])) {
-                        
+
                     ?>
                         <div class="course-meta">
                             <form action="/student/courses/details" method="post">
@@ -393,7 +393,6 @@
         ?>
     </div>
     </div>
-    <!-- Add this JavaScript at the bottom of your page -->
     <script>
         const filterButtons = document.querySelectorAll('.filter-btn');
         const categoryInput = document.getElementById('categoryInput');
@@ -401,13 +400,10 @@
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
+
                 button.classList.add('active');
-                // Update hidden category input
                 categoryInput.value = button.dataset.category;
-                // Submit the form
                 searchForm.submit();
             });
         });

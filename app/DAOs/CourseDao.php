@@ -97,9 +97,17 @@ class CourseDao
 
     public function getAll()
     {
-        $query = "SELECT courses.id, courses.title, courses.description, courses.price, courses.rating, courses.content, courses.status, 
-                    courses.categorie_id, courses.teacher_id , GROUP_CONCAT(tags.title SEPARATOR ', ') AS tags FROM courses 
-                    LEFT JOIN course_tags ON courses.id = course_tags.course_id LEFT JOIN tags ON tags.id = course_tags.tag_id GROUP BY courses.id";
+        $query = "SELECT courses.id, courses.title, courses.description, courses.price, 
+                    courses.rating, courses.content, courses.status, 
+                    courses.categorie_id, courses.teacher_id , 
+                    GROUP_CONCAT(tags.title SEPARATOR ', ') AS tags,
+                    GROUP_CONCAT(DISTINCT subscriptions.student_id SEPARATOR ',') AS student_ids
+                    FROM courses 
+                    LEFT JOIN course_tags ON courses.id = course_tags.course_id 
+                    LEFT JOIN tags ON tags.id = course_tags.tag_id 
+                    LEFT JOIN subscriptions ON courses.id = subscriptions.course_id
+                    GROUP BY courses.id";
+
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\Course');

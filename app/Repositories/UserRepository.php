@@ -137,7 +137,7 @@ class UserRepository
             return null;
         }
 
-        $studentsQuery = "SELECT COUNT(DISTINCT s.student_id) as student_count
+        $studentsQuery = "SELECT COUNT( s.student_id) as student_count
                             FROM courses c
                             JOIN subscriptions s ON c.id = s.course_id
                             WHERE c.teacher_id = :teacher_id";
@@ -161,7 +161,13 @@ class UserRepository
 
         $result = $stmt->fetchColumn();
         return $result;
-        // var_dump($result);
-        // die();
+    }
+
+    public function subscribe($student_id, $course_id)
+    {
+        $query = "INSERT INTO subscriptions (student_id, course_id) VALUES(?, ?); ";
+        $stmt = Database::getInstance()->getConnection()->prepare($query);
+        $stmt->execute([$student_id, $course_id]);
+        
     }
 }

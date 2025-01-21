@@ -315,14 +315,9 @@
 
 <body>
     <div class="main-content">
-        <!-- Course Header -->
         <div class="course-header">
             <h1 class="course-title"><?= $course->getTitle(); ?></h1>
             <div class="course-meta">
-                <!-- <div class="meta-item">
-                    <i class="fas fa-clock"></i>
-                    <span>24 hours of content</span>
-                </div> -->
                 <div class="meta-item">
                     <i class="fas fa-user-graduate"></i>
                     <span><?= count($course->getStudents()); ?></span>
@@ -331,15 +326,10 @@
                     <i class="fas fa-star"></i>
                     <span><?= $course->getRating(); ?></span>
                 </div>
-                <!-- <div class="meta-item">
-                    <i class="fas fa-calendar"></i>
-                    <span>Last updated: January 2024</span>
-                </div> -->
             </div>
             <div class="course-tags">
                 <?php
                 if (!is_null($course->getTags())) {
-
 
                     $tags = explode(', ', $course->getTags());
                     foreach ($tags as $key => $value) {
@@ -354,20 +344,17 @@
 
         <!-- Course Content Grid -->
         <div class="course-grid">
-            <!-- Left Column -->
             <div class="course-main">
-                <!-- Course Description -->
                 <div class="course-description">
                     <h2 class="section-title">Course Description</h2>
                     <div class="description-content">
                         <p><?php echo $course->getDescription(); ?></p>
                         <div class="progress-bar">
-                            <div class="progress" style="width: 75%;"></div>
+                            <div class="progress" style="width: 100%;"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Curriculum Section -->
                 <div class="curriculum-section">
                     <h2 class="section-title">Course Content</h2>
                     <div class="module active">
@@ -379,17 +366,17 @@
                             <!-- TODO  create course with content-->
                             <div class="lesson-item">
                                 <i class="fas fa-play-circle"></i>
-                                <span>CSS Fundamentals</span>
+                                <a href="<?php echo $course->getTitle(); ?>">Click here to see course. </a>
                             </div>
                             <div class="lesson-item">
                                 <i class="fas fa-file-alt"></i>
-                                <span>Module Assignment</span>
+                                <a href="<?php echo $course->getTitle(); ?>">Click here to see course. </a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Instructor Section -->
+
                 <div class="instructor-section">
                     <h2 class="section-title">Your Instructor</h2>
                     <div class="instructor-info">
@@ -399,40 +386,17 @@
                             <p><?php echo $course->getTeacher()->getEmail(); ?></p>
                         </div>
                     </div>
-                    <!-- <p class="instructor-bio">
-                        Expert web developer with a passion for teaching and helping others master modern web technologies.
-                    </p> -->
                 </div>
-
-                <!-- Reviews Section -->
-                <!-- <div class="reviews-section">
-                    <h2 class="section-title">Student Reviews</h2>
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <img src="/api/placeholder/40/40" alt="Reviewer" style="border-radius: 50%;">
-                                <div>
-                                    <h4>Sarah Johnson</h4>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="review-date">2 days ago</span>
-                        </div>
-                        <p>Excellent course! The content is well-structured and the instructor explains complex concepts clearly.</p>
-                    </div>
-                </div> -->
             </div>
 
-            <!-- Right Column - Sidebar -->
             <div class="course-sidebar">
                 <div class="price-tag">$<?php echo $course->getPrice(); ?></div>
-                <button class="enroll-button">Subscribe Now</button>
+                
+                <form action="/student/course/subscribe" method="post" class="enroll-form">
+                    <input type="hidden" name="course_id" value="<?php echo $course->getId(); ?>">
+                    <button class="enroll-button">Subscribe Now</button>
+                </form>
+
                 <div class="course-features">
                     <div class="feature-item">
                         <i class="fas fa-video"></i>
@@ -456,13 +420,11 @@
     </div>
 
     <script>
-        // Module accordion functionality
         document.querySelectorAll('.module-header').forEach(header => {
             header.addEventListener('click', () => {
                 const module = header.parentElement;
                 module.classList.toggle('active');
 
-                // Update chevron icon
                 const icon = header.querySelector('i');
                 if (module.classList.contains('active')) {
                     icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
@@ -472,36 +434,24 @@
             });
         });
 
-        // Progress bar animation
         document.addEventListener('DOMContentLoaded', () => {
             const progress = document.querySelector('.progress');
-            progress.style.width = '75%';
+            progress.style.width = '100%';
         });
-
-        // Enroll button interaction
         const enrollButton = document.querySelector('.enroll-button');
+
+
         enrollButton.addEventListener('click', () => {
             enrollButton.textContent = 'Enrolling...';
             enrollButton.style.opacity = '0.8';
-
-            // Simulate enrollment process
-            setTimeout(() => {
-                enrollButton.textContent = 'Enrolled!';
-                enrollButton.style.backgroundColor = 'var(--success)';
-                enrollButton.disabled = true;
-
-                // Show success message
-                showNotification('Successfully enrolled in the course!');
-            }, 1500);
         });
 
-        // Notification system
+
         function showNotification(message) {
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = message;
 
-            // Add notification styles dynamically
             const style = document.createElement('style');
             style.textContent = `
             .notification {
@@ -532,147 +482,11 @@
 
             document.body.appendChild(notification);
 
-            // Remove notification after 3 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease-in forwards';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
-
-        // Video preview functionality
-        document.querySelectorAll('.lesson-item').forEach(lesson => {
-            lesson.addEventListener('click', () => {
-                if (lesson.querySelector('.fa-play-circle')) {
-                    // Create modal for video preview
-                    const modal = document.createElement('div');
-                    modal.className = 'video-modal';
-                    modal.innerHTML = `
-                    <div class="video-modal-content">
-                        <div class="video-modal-header">
-                            <h3>${lesson.querySelector('span').textContent}</h3>
-                            <button class="close-modal">&times;</button>
-                        </div>
-                        <div class="video-placeholder">
-                            <i class="fas fa-play"></i>
-                            <p>Preview not available in demo</p>
-                        </div>
-                    </div>
-                `;
-
-                    // Add modal styles
-                    const style = document.createElement('style');
-                    style.textContent = `
-                    .video-modal {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.8);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 1000;
-                    }
-
-                    .video-modal-content {
-                        background: white;
-                        width: 90%;
-                        max-width: 800px;
-                        border-radius: 1rem;
-                        overflow: hidden;
-                    }
-
-                    .video-modal-header {
-                        padding: 1rem 1.5rem;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        border-bottom: 1px solid var(--border);
-                    }
-
-                    .close-modal {
-                        background: none;
-                        border: none;
-                        font-size: 1.5rem;
-                        cursor: pointer;
-                        color: var(--text-secondary);
-                    }
-
-                    .video-placeholder {
-                        height: 450px;
-                        background: #f8fafc;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        color: var(--text-secondary);
-                    }
-
-                    .video-placeholder i {
-                        font-size: 3rem;
-                        margin-bottom: 1rem;
-                    }
-                `;
-                    document.head.appendChild(style);
-
-                    document.body.appendChild(modal);
-
-                    // Close modal functionality
-                    modal.querySelector('.close-modal').addEventListener('click', () => {
-                        modal.remove();
-                    });
-
-                    modal.addEventListener('click', (e) => {
-                        if (e.target === modal) {
-                            modal.remove();
-                        }
-                    });
-                }
-            });
-        });
-
-        // Course progress tracking
-        let progress = 0;
-        const totalLessons = document.querySelectorAll('.lesson-item').length;
-        const progressBar = document.querySelector('.progress');
-
-        function updateProgress() {
-            const completedLessons = document.querySelectorAll('.lesson-item.completed').length;
-            progress = (completedLessons / totalLessons) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
-
-        // Initialize tooltips
-        const tooltipStyle = document.createElement('style');
-        tooltipStyle.textContent = `
-        [data-tooltip] {
-            position: relative;
-        }
-
-        [data-tooltip]:before {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.5rem 1rem;
-            background: var(--text-primary);
-            color: white;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-        }
-
-        [data-tooltip]:hover:before {
-            opacity: 1;
-            visibility: visible;
-        }
-    `;
-        document.head.appendChild(tooltipStyle);
     </script>
 </body>
 

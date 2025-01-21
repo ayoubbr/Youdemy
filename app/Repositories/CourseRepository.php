@@ -34,8 +34,8 @@ class CourseRepository
 
     public function getAll()
     {
-        $courses = $this->courseDao->getAll();
-        $tags_array = [];
+        $courses = $this->courseDao->getAll();  
+        
         foreach ($courses as $key => $course) {
             $tags_array = [];
             if (!is_null($course->getTags())) {
@@ -44,6 +44,16 @@ class CourseRepository
 
             foreach ($tags_array as $key => $tag_string) {
                 $course->setTags($this->tagRepository->findByName($tag_string));
+            }
+
+            if (isset($course->student_ids) && !empty($course->student_ids)) {
+                $student_ids = explode(',', $course->student_ids);
+                foreach ($student_ids as $student_id) {
+                    $student = $this->userRepository->findById($student_id);
+                    if ($student) {
+                        $course->setStudent($student);
+                    }
+                }
             }
 
             $course->setTeacher($this->userRepository->findById($course->teacher_id));
@@ -61,7 +71,7 @@ class CourseRepository
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetchObject(Course::class);
-
+        
         return $result;
     }
 

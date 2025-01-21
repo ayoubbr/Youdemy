@@ -160,9 +160,9 @@ class Course
         return $this->students;
     }
 
-    public function setStudents(array $students): void
+    public function setStudent($student): void
     {
-        $this->students = $students;
+        array_push($this->students, $student);
     }
 
     public function __toString()
