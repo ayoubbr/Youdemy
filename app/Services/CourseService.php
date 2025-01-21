@@ -51,7 +51,7 @@ class CourseService
     }
     public function update(CourseForm $courseForm)
     {
-        
+
         $teacher = $this->userService->findByEmail($courseForm->teacherEmail);
         $category = $this->categoryService->findByName($courseForm->categoryName);
         $tags = $courseForm->tags;
@@ -75,7 +75,7 @@ class CourseService
             $teacher,
             $courseForm->students
         );
-       
+
         return $this->courseRepository->update($course);
     }
 
@@ -144,6 +144,23 @@ class CourseService
 
     public function getAllSubscriptions($user_id)
     {
-        return $this->courseRepository->getAllSubscriptions($user_id);
+        $subscriptions =  $this->courseRepository->getAllSubscriptions($user_id);
+
+        foreach ($subscriptions as $key => $course) {
+            $tags_array = [];
+            if (!is_null($course->getTags())) {
+                $tags_array = explode(', ', $course->getTags());
+            }
+
+            foreach ($tags_array as $key => $tag_string) {
+                $course->setTags($this->tagService->findByName($tag_string));
+            }
+
+
+            $course->setTeacher($this->userService->findById($course->teacher_id));
+            $course->setCategory($this->categoryService->findById($course->categorie_id));
+        }
+        
+        return $subscriptions;
     }
 }

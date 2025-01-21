@@ -169,83 +169,67 @@
     <div class="main-content">
         <h1 class="page-title">My Enrolled Courses</h1>
         <div id="courses-container">
-            <!-- Courses will be inserted here by JavaScript -->
-        </div>
-    </div>
+            <?php
 
-    <script>
-        // Sample course data - in a real application, this would come from a backend
-        const enrolledCourses = [{
-                title: "Advanced Web Development",
-                instructor: "Sarah Johnson",
-                duration: "48 hours",
-                progress: 75,
-                completedLessons: 18,
-                totalLessons: 24,
-                lastAccessed: "Jan 10, 2025",
-                tags: ["React", "Node.js", "MongoDB"]
-            },
-            {
-                title: "Machine Learning Fundamentals",
-                instructor: "Michael Chen",
-                duration: "36 hours",
-                progress: 30,
-                completedLessons: 6,
-                totalLessons: 20,
-                lastAccessed: "Jan 14, 2025",
-                tags: ["Python", "TensorFlow", "Data Science"]
-            }
-        ];
+            use App\Controllers\UserController;
 
-        function createCourseCard(course) {
-            return `
+            foreach ($subscriptions as $key => $value) {
+            ?>
                 <div class="course-card">
                     <div class="course-header">
                         <div>
-                            <h2 class="course-title">${course.title}</h2>
+                            <h2 class="course-title"><?php echo $value->getTitle(); ?></h2>
                             <div class="course-meta">
                                 <div class="meta-item">
                                     <i class="fas fa-user"></i>
-                                    <span>${course.instructor}</span>
+                                    <span>
+                                        <?php
+                                        $userC = new UserController();
+                                        $teacher = $userC->findById($value->teacher_id);
+                                        echo $teacher->getFirstname() . " " . $teacher->getLastname();
+                                        ?>
+                                    </span>
                                 </div>
                                 <div class="meta-item">
                                     <i class="fas fa-clock"></i>
-                                    <span>${course.duration}</span>
+                                    <span>duration</span>
                                 </div>
                                 <div class="meta-item">
                                     <i class="fas fa-calendar"></i>
-                                    <span>Last accessed: ${course.lastAccessed}</span>
+                                    <span>Last accessed</span>
                                 </div>
                             </div>
                         </div>
                         <button class="continue-btn">Continue Learning</button>
                     </div>
-                    
+
                     <div class="progress-section">
                         <div class="progress-header">
                             <span class="progress-text">Your Progress</span>
-                            <span class="progress-text">${course.progress}% Complete</span>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress" style="width: ${course.progress}%"></div>
-                        </div>
-                        <div class="meta-item" style="margin-top: 0.5rem;">
-                            <i class="fas fa-book"></i>
-                            <span>${course.completedLessons}/${course.totalLessons} Lessons Completed</span>
                         </div>
                     </div>
 
                     <div class="course-tags">
-                        ${course.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        <?php
+                        if (!is_null($value->getTags())) {
+                            $tags = $value->getTags();
+
+                            foreach ($tags as  $tag) {
+                        ?>
+                                <span class="tag"><?php echo $tag->getTitle(); ?></span>
+                        <?php
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
-            `;
-        }
-
-        // Render all courses
-        document.getElementById('courses-container').innerHTML =
-            enrolledCourses.map(course => createCourseCard(course)).join('');
-    </script>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
 </body>
 
 </html>

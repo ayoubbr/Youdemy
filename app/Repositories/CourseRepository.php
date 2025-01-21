@@ -189,12 +189,21 @@ class CourseRepository
 
     public function getAllSubscriptions($user_id)
     {
-        $query = "SELECT courses.* FROM courses JOIN subscriptions ON subscriptions.course_id = courses.id WHERE subscriptions.student_id = $user_id";
+        $query = "SELECT courses.*, 
+            GROUP_CONCAT(DISTINCT tags.title SEPARATOR ', ') AS tags
+            FROM courses 
+            JOIN subscriptions ON subscriptions.course_id = courses.id 
+            LEFT JOIN course_tags ON courses.id = course_tags.course_id
+            LEFT JOIN tags ON tags.id = course_tags.tag_id
+            WHERE subscriptions.student_id = :user_id
+            GROUP BY courses.id";;
+
         $Db = Database::getInstance()->getConnection();
         $statement = $Db->prepare($query);
+        $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $statement->execute();
         $subscriptions = $statement->fetchAll(PDO::FETCH_CLASS, Course::class);
-       
+
         return $subscriptions;
     }
 }

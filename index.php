@@ -141,7 +141,13 @@ switch ($request) {
         $tagController->delete($id);
         header("location: /admin/topics");
         break;
-
+    case '/student/courses':
+        $courseController =  new CourseController();
+        $user_id = $_SESSION['user']->getId();
+        $subscriptions = $courseController->getAllSubscriptions($user_id);
+        require __DIR__ . '/views/student/mycourses.php';
+        break;
+        
     case '/student/courses/details':
         $courseController =  new CourseController();
         $id = $_POST['id'];

@@ -99,7 +99,13 @@ class UserController
     public function subscribe($student_id, $course_id)
     {
         $course = $this->userService->subscribe($student_id, $course_id);
-       
+
         return $course;
+    }
+
+    public function findById($id): User
+    {
+        $user = $this->userService->findById($id);
+        return $user;
     }
 }

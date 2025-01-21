@@ -43,9 +43,11 @@ class UserRepository
 
         return $stmt->fetchObject(User::class);
     }
+
     public function findById($id): mixed
     {
-        $query = "SELECT id, firstname, lastname, email, phone, photo, role_id, password FROM users WHERE id = '" . $id . "';";
+        $query = "SELECT id, firstname, lastname, email, phone, photo, role_id, password 
+                FROM users WHERE id = '" . $id . "';";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute();
 
@@ -168,6 +170,5 @@ class UserRepository
         $query = "INSERT INTO subscriptions (student_id, course_id) VALUES(?, ?); ";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute([$student_id, $course_id]);
-        
     }
 }
