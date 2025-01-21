@@ -192,7 +192,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .enroll-button {
+        .enroll-button, .enrolled-button {
             width: 100%;
             background: var(--primary);
             color: white;
@@ -203,6 +203,11 @@
             font-size: 1.125rem;
             cursor: pointer;
             transition: all 0.2s ease;
+        }
+
+        .enrolled-button{
+            background-color: #059669;
+            cursor: default;
         }
 
         .enroll-button:hover {
@@ -391,11 +396,39 @@
 
             <div class="course-sidebar">
                 <div class="price-tag">$<?php echo $course->getPrice(); ?></div>
-                
-                <form action="/student/course/subscribe" method="post" class="enroll-form">
-                    <input type="hidden" name="course_id" value="<?php echo $course->getId(); ?>">
-                    <button class="enroll-button">Subscribe Now</button>
-                </form>
+                <?php
+                // var_dump($subscriptions);
+                // var_dump($course);
+                $isSubs = false;
+                foreach ($subscriptions as $key => $subscription) {
+                    if ($course->getId() == $subscription->getId()) {
+                        $isSubs = true;
+                        break;
+                    }
+                }
+                if ($isSubs) {
+               
+               ?>
+
+                    <span class="enrolled-button">Subscribed</span>
+               
+               <?php
+
+                } else {
+
+                ?>
+                    <form action="/student/course/subscribe" method="post" class="enroll-form">
+                        <input type="hidden" name="course_id" value="<?php echo $course->getId(); ?>">
+                        <button class="enroll-button">Subscribe Now</button>
+                    </form>
+
+                <?php
+                }
+                ?>
+
+
+
+
 
                 <div class="course-features">
                     <div class="feature-item">

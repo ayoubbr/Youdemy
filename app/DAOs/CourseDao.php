@@ -41,13 +41,13 @@ class CourseDao
 
         $course_id = $course->getId();
         $tags_id = [];
+
         foreach ($tags as $key => $value) {
             array_push($tags_id, $value->getId());
         }
 
         $sql = '';
         for ($i = 0; $i < count($tags); $i++) {
-            var_dump($tags[$i]->getId());
             $sql .= "INSERT INTO course_tags (course_id, tag_id) VALUES ($course_id, $tags_id[$i]);";
         }
 

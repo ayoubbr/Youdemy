@@ -141,4 +141,9 @@ class CourseService
     {
         return $this->courseRepository->searchCourses($searchParams);
     }
+
+    public function getAllSubscriptions($user_id)
+    {
+        return $this->courseRepository->getAllSubscriptions($user_id);
+    }
 }

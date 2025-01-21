@@ -145,7 +145,10 @@ switch ($request) {
     case '/student/courses/details':
         $courseController =  new CourseController();
         $id = $_POST['id'];
+        $user_id = $_SESSION['user']->getId();
         $course = $courseController->findById($id);
+        $subscriptions = $courseController->getAllSubscriptions($user_id);
+
         require __DIR__ . '/views/student/courseDetails.php';
         break;
 

@@ -34,8 +34,8 @@ class CourseRepository
 
     public function getAll()
     {
-        $courses = $this->courseDao->getAll();  
-        
+        $courses = $this->courseDao->getAll();
+
         foreach ($courses as $key => $course) {
             $tags_array = [];
             if (!is_null($course->getTags())) {
@@ -71,7 +71,7 @@ class CourseRepository
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetchObject(Course::class);
-        
+
         return $result;
     }
 
@@ -185,5 +185,16 @@ class CourseRepository
         }
 
         return $courses;
+    }
+
+    public function getAllSubscriptions($user_id)
+    {
+        $query = "SELECT courses.* FROM courses JOIN subscriptions ON subscriptions.course_id = courses.id WHERE subscriptions.student_id = $user_id";
+        $Db = Database::getInstance()->getConnection();
+        $statement = $Db->prepare($query);
+        $statement->execute();
+        $subscriptions = $statement->fetchAll(PDO::FETCH_CLASS, Course::class);
+       
+        return $subscriptions;
     }
 }

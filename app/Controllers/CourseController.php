@@ -69,4 +69,9 @@ class CourseController
     {
         return $this->courseService->searchCourses($searchParams);
     }
+
+    public function getAllSubscriptions($user_id)
+    {
+        return $this->courseService->getAllSubscriptions($user_id);
+    }
 }

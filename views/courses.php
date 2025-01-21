@@ -215,15 +215,13 @@
             font-size: 12px;
         }
 
-        .course-tags span {
-            border-radius: 10px;
-            background-color: #bbc2cb;
-            color: black;
-            width: 60px;
-            height: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .tag {
+            background: #e0e7ff;
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
         .course-details {
@@ -367,7 +365,7 @@
                         if (!is_null($value->getTags())) {
                             foreach ($value->getTags() as $key => $tag) {
                         ?>
-                                <span><?php echo $tag->getTitle(); ?></span>
+                                <span class="tag"><?php echo $tag->getTitle(); ?></span>
                         <?php
                             }
                         }
