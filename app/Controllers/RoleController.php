@@ -16,7 +16,6 @@ class RoleController
 
     public function create(Role $role)
     {
-
         return $this->roleService->create($role);
     }
 }

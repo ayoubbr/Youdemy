@@ -7,7 +7,7 @@ use PDOException;
 
 class Database
 {
-    private static $dbname = "YoudemyDB";
+    private static $dbname = "YoudemyDBPro";
     private static $servername = "localhost";
     private static $username = "root";
     private static $password = "";
