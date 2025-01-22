@@ -21,7 +21,7 @@ class AuthService
 
     public function register(RegisterForm $registerForm): User
     {
-        // $this->validation($registerForm);
+        $this->validation($registerForm);
 
         $role  = Role::instanceWithName($registerForm->roleName);
 
@@ -41,54 +41,47 @@ class AuthService
         return $user;
     }
 
-    // private function validation($forms) {
-    //     // Message::in("la méthode validation dans la classe authService");
-    //     foreach ($forms as $key => $value) {
-    //         // Message::in("la validation du champ : " . $key);
-    //         if (!$this->validationString($value)) {
-    //             throw new Exception($key . " is not valide ");
-    //         }
-    //     }
+    private function validation($forms)
+    {
+        foreach ($forms as $key => $value) {
+            if (!$this->validationString($value)) {
+                throw new Exception($key . " is not valide ");
+            }
+        }
 
+        if (isset($forms->password) && isset($forms->passwordConfirmation)) {
+            $this->passwordValidation($forms->password, $forms->passwordConfirmation);
+        }
+    }
 
+    private function validationString(string $string): bool
+    {
+        if (empty($string) || $string == null || is_null($string)) {
+            return false;
+        }
 
-    //     if (isset($forms->password) && isset($forms->passwordConfirmation)) {
-    //         $this->passwordValidation($forms->password, $forms->passwordConfirmation);
-    //     }
+        return true;
+    }
 
+    public function passwordValidation(string $password, string $passwordConfirmation)
+    {
+        if ($password != $passwordConfirmation) {
+            throw new Exception("les mots de passe sont pas les mêmes");
+        }
 
-
-    // }
-
-    // private function validationString(string $string): bool {
-    //     // Message::in("validation des string la valeur est : " . $string);
-    //     if (empty($string) || $string == null || is_null($string)) {
-    //         return false;
-    //     }
-
-    //     return true;
-    // }
-
-    // public function passwordValidation(string $password, string $passwordConfirmation) {
-    //     // Message::in("validation des password ");
-    //     // Message::in("pass 1 : " . $password . " pass 2 : " . $passwordConfirmation);
-    //     if ($password != $passwordConfirmation) {
-    //         throw new Exception("les mots de passe sont pas les mêmes");
-    //     }
-
-    //     return true;
-    // }
+        return true;
+    }
 
     public function login(LoginForm $loginForm): User
     {
-        // $this->validation($loginForm);
+        $this->validation($loginForm);
         $user = User::instaceWithEmailAndPassword(
             $loginForm->email,
             $loginForm->password
         );
 
         $user =  $this->userService->findByEmailAndPassword($user);
-       
+
         if ($user->getId() == 0) {
             throw new Exception("Email ou le mot de passe incorrect");
         }

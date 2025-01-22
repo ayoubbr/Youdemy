@@ -268,6 +268,17 @@
             font-size: 1.2rem;
             animation: checkmark 0.5s ease-in-out;
         }
+
+        .error-message {
+            color: rgb(192 23 23);
+            background-color: rgb(233 198 198);
+            border: 1px solid #f77575;
+            padding: 10px;
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+            text-align: center;
+        }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
@@ -278,9 +289,27 @@
         <div class="logo-container">
             <div class="logo">Youdemy</div>
             <div class="subtitle">Unlock Your Learning Potential</div>
+            <?php
+            if (isset($_SESSION['error_register'])) {
+            ?>
+                <div class="form-group">
+                    <span for="error" class="error-message">
+                        <?php
+
+                        echo $_SESSION['error_register'];
+                        unset($_SESSION['error_register']);
+                        ?>
+
+                    </span>
+
+                </div>
+            <?php
+            }
+            ?>
         </div>
 
         <form id="loginForm" action="/auth/register" method="POST">
+
             <div class="form-group">
                 <label for="firstname">Firstname</label>
                 <div class="input-container">

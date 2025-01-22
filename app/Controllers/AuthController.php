@@ -25,7 +25,7 @@ class AuthController
                 $_SESSION['user'] = $user;
             }
         } catch (Exception $e) {
-            return $e->getMessage();
+            $_SESSION['error_register'] =  $e->getMessage();
         }
     }
 

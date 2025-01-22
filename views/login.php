@@ -197,9 +197,9 @@
         }
 
         .error-message {
-            color: #870a0a;
-            background-color: rgb(221, 151, 151);
-            border: 1px solid #ef4444;
+            color: rgb(192 23 23);
+            background-color: rgb(233 198 198);
+            border: 1px solid #f77575;
             padding: 10px;
             width: 100%;
             display: block;

@@ -42,8 +42,15 @@ switch ($request) {
             'Pending',
             $_POST['roleName']
         );
+
         $auth->register($registerForm);
-        header("location: /profile");
+        
+        if (isset($_SESSION['error_register'])) {
+            header("location: /signup");
+        } else {
+            header("location: /profile");
+        }
+
         break;
 
     case '/auth/login':
