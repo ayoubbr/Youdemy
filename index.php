@@ -14,7 +14,6 @@ use App\Http\LoginForm;
 use App\Http\RegisterForm;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Repositories\CourseRepository;
 
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -44,7 +43,7 @@ switch ($request) {
         );
 
         $auth->register($registerForm);
-        
+
         if (isset($_SESSION['error_register'])) {
             header("location: /signup");
         } else {
@@ -215,15 +214,16 @@ switch ($request) {
 
     case '/teacher/course/create':
         $courseController =  new CourseController();
+        $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
         $courseForm =  CourseForm::instanceWithAllArgs(
             $_POST['title'],
             $_POST['description'],
             $_POST['price'],
             0,
             $_POST['content'],
-            'Active',
+            'Archived',
             $_POST['categoryName'],
-            $_POST['tags'],
+            $tags,
             $_SESSION['user']->getEmail(),
             []
         );
@@ -378,11 +378,6 @@ switch ($request) {
         header('location: /admin/teachers');
         break;
 
-        // case '/test':
-        //     $course = new CourseRepository();
-        //     $courses = $course->getAllWithPagination();
-        //     require __DIR__ . '/views/test.php';
-        //     break;
     default:
         require __DIR__ . '/views/Home.php';
         break;

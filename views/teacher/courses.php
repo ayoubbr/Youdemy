@@ -93,6 +93,7 @@
                         <!-- </div> -->
                         <div class="course-content">
                             <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
+                            <div class="course-category"><?php echo $value->getStatus(); ?></div>
                             <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
                             <h3 class="course-title" style="display:none;"><?php echo $value->getDescription(); ?></h3>
                             <div class="course-instructor">

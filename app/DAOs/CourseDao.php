@@ -47,11 +47,14 @@ class CourseDao
         }
 
         $sql = '';
-        for ($i = 0; $i < count($tags); $i++) {
-            $sql .= "INSERT INTO course_tags (course_id, tag_id) VALUES ($course_id, $tags_id[$i]);";
+
+        if (count($tags) > 0) {
+            for ($i = 0; $i < count($tags); $i++) {
+                $sql .= "INSERT INTO course_tags (course_id, tag_id) VALUES ($course_id, $tags_id[$i]);";
+            }
+            $stmt = Database::getInstance()->getConnection()->prepare($sql);
         }
 
-        $stmt = Database::getInstance()->getConnection()->prepare($sql);
 
         $stmt->execute();
     }

@@ -35,6 +35,10 @@
             padding: 30px 120px;
         }
 
+        a {
+            text-decoration: none;
+        }
+
         .main-content {
             padding: 2rem;
             max-width: 1400px;
@@ -173,59 +177,64 @@
 
             use App\Controllers\UserController;
 
-            foreach ($subscriptions as $key => $value) {
+            if (count($subscriptions) > 0) {
+
+                foreach ($subscriptions as $key => $value) {
             ?>
-                <div class="course-card">
-                    <div class="course-header">
-                        <div>
-                            <h2 class="course-title"><?php echo $value->getTitle(); ?></h2>
-                            <div class="course-meta">
-                                <div class="meta-item">
-                                    <i class="fas fa-user"></i>
-                                    <span>
-                                        <?php
-                                        $userC = new UserController();
-                                        $teacher = $userC->findById($value->teacher_id);
-                                        echo $teacher->getFirstname() . " " . $teacher->getLastname();
-                                        ?>
-                                    </span>
-                                </div>
-                                <div class="meta-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>duration</span>
-                                </div>
-                                <div class="meta-item">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Last accessed</span>
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div>
+                                <h2 class="course-title"><?php echo $value->getTitle(); ?></h2>
+                                <div class="course-meta">
+                                    <div class="meta-item">
+                                        <i class="fas fa-user"></i>
+                                        <span>
+                                            <?php
+                                            $userC = new UserController();
+                                            $teacher = $userC->findById($value->teacher_id);
+                                            echo $teacher->getFirstname() . " " . $teacher->getLastname();
+                                            ?>
+                                        </span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>duration</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>Last accessed</span>
+                                    </div>
                                 </div>
                             </div>
+                            <a href="/courses" class="continue-btn">Go Back</a>
                         </div>
-                        <button class="continue-btn">Continue Learning</button>
-                    </div>
 
-                    <div class="progress-section">
-                        <div class="progress-header">
-                            <span class="progress-text">Your Progress</span>
+                        <div class="progress-section">
+                            <div class="progress-header">
+                                <span class="progress-text">Your Progress</span>
+                            </div>
+                            <div class="progress-bar">
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                        </div>
-                    </div>
 
-                    <div class="course-tags">
-                        <?php
-                        if (!is_null($value->getTags())) {
-                            $tags = $value->getTags();
+                        <div class="course-tags">
+                            <?php
+                            if (!is_null($value->getTags())) {
+                                $tags = $value->getTags();
 
-                            foreach ($tags as  $tag) {
-                        ?>
-                                <span class="tag"><?php echo $tag->getTitle(); ?></span>
-                        <?php
+                                foreach ($tags as  $tag) {
+                            ?>
+                                    <span class="tag"><?php echo $tag->getTitle(); ?></span>
+                            <?php
+                                }
                             }
-                        }
-                        ?>
+                            ?>
+                        </div>
                     </div>
-                </div>
             <?php
+                }
+            } else {
+                echo "No Courses here yet!";
             }
             ?>
         </div>

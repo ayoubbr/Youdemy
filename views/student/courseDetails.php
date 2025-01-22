@@ -192,7 +192,8 @@
             margin-bottom: 1.5rem;
         }
 
-        .enroll-button, .enrolled-button {
+        .enroll-button,
+        .enrolled-button {
             width: 100%;
             background: var(--primary);
             color: white;
@@ -205,7 +206,7 @@
             transition: all 0.2s ease;
         }
 
-        .enrolled-button{
+        .enrolled-button {
             background-color: #059669;
             cursor: default;
         }
@@ -368,14 +369,11 @@
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="module-content">
-                            <!-- TODO  create course with content-->
+                            <!-- TODO  create course with content (polymorphisme)-->
                             <div class="lesson-item">
                                 <i class="fas fa-play-circle"></i>
-                                <a href="<?php echo $course->getTitle(); ?>">Click here to see course. </a>
-                            </div>
-                            <div class="lesson-item">
                                 <i class="fas fa-file-alt"></i>
-                                <a href="<?php echo $course->getTitle(); ?>">Click here to see course. </a>
+                                <a href="<?php echo $course->getContent(); ?>" target="_blank">Click here to see course. </a>
                             </div>
                         </div>
                     </div>
@@ -407,12 +405,12 @@
                     }
                 }
                 if ($isSubs) {
-               
-               ?>
+
+                ?>
 
                     <span class="enrolled-button">Subscribed</span>
-               
-               <?php
+
+                <?php
 
                 } else {
 
