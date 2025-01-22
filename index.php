@@ -147,34 +147,50 @@ switch ($request) {
 
 
     case '/student/courses':
-        $courseController =  new CourseController();
-        $user_id = $_SESSION['user']->getId();
-        $subscriptions = $courseController->getAllSubscriptions($user_id);
-        require __DIR__ . '/views/student/mycourses.php';
+        if ($userLoggedRole != "Student") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $user_id = $_SESSION['user']->getId();
+            $subscriptions = $courseController->getAllSubscriptions($user_id);
+            require __DIR__ . '/views/student/mycourses.php';
+        }
         break;
 
     case '/student/courses/details':
-        $courseController =  new CourseController();
-        $id = $_POST['id'];
-        $user_id = $_SESSION['user']->getId();
-        $course = $courseController->findById($id);
-        $subscriptions = $courseController->getAllSubscriptions($user_id);
+        if ($userLoggedRole != "Student") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $id = $_POST['id'];
+            $user_id = $_SESSION['user']->getId();
+            $course = $courseController->findById($id);
+            $subscriptions = $courseController->getAllSubscriptions($user_id);
 
-        require __DIR__ . '/views/student/courseDetails.php';
+            require __DIR__ . '/views/student/courseDetails.php';
+        }
         break;
 
     case '/student/course/subscribe':
-        $student_id = $_SESSION['user']->getId();
-        $course_id = $_POST['course_id'];
-        $userController = new UserController();
+        if ($userLoggedRole != "Student") {
+            header('location: /');
+        } else {
+            $student_id = $_SESSION['user']->getId();
+            $course_id = $_POST['course_id'];
+            $userController = new UserController();
 
-        $resultCourse = $userController->subscribe($student_id, $course_id);
+            $resultCourse = $userController->subscribe($student_id, $course_id);
 
-        header("location: /student/courses");
+            header("location: /student/courses");
+        }
         break;
 
     case '/student/courses/enrolled':
-        require __DIR__ . '/views/student/mycourses.php';
+        if ($userLoggedRole != "Student") {
+            header('location: /');
+        } else {
+            require __DIR__ . '/views/student/mycourses.php';
+        }
         break;
 
     case '/teacher':
