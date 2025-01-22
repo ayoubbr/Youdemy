@@ -102,7 +102,8 @@
             color: var(--text-color);
             overflow-x: hidden;
         }
-        a{
+
+        a {
             text-decoration: none;
         }
 
@@ -205,8 +206,9 @@
             color: var(--white);
             box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
+
         .btn-orange {
-            background: var( --accent-orange);
+            background: var(--accent-orange);
             color: var(--white);
             box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
@@ -774,7 +776,16 @@
                 <h1>Transform Your Future with Online Learning</h1>
                 <p>Unlock your potential with world-class courses, expert instructors, and a supportive global community. Start your learning journey today.</p>
                 <div class="cta-buttons">
-                    <a class="btn btn-outline" href="/courses">Explore Courses</a>
+                    <?php
+                    if ($userLoggedRole == "Admin" || $userLoggedRole == "Teacher") {
+                        echo '';
+                    } else {
+                    ?>
+                        <a class="btn btn-outline" href="/courses">Explore Courses</a>
+                    <?php
+                    }
+                    ?>
+
                 </div>
             </div>
             <div class="hero-image">
@@ -853,16 +864,6 @@
                     </div>
                 </div>
                 <p class="testimonial-quote">"The interactive learning experience and supportive community made learning to code enjoyable and effective."</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta">
-        <div class="cta-content">
-            <h2>Start Your Learning Journey Today</h2>
-            <p>Join thousands of learners who have transformed their careers with Youdemy</p>
-            <div class="cta-buttons">
-                <a href="/courses" class="btn btn-outline">View Courses</a>
             </div>
         </div>
     </section>

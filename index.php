@@ -57,8 +57,7 @@ switch ($request) {
         break;
 
     case '/auth/register':
-        $auth = new AuthController();
-        $registerForm = RegisterForm::instanceWithAllArgs(
+        if (isset(
             $_POST['firstname'],
             $_POST['lastname'],
             $_POST['email'],
@@ -66,59 +65,84 @@ switch ($request) {
             $_POST['passwordConfirmation'],
             $_POST['phone'],
             $_POST['photo'],
-            'Pending',
             $_POST['roleName']
-        );
+        )) {
 
-        $auth->register($registerForm);
+            $auth = new AuthController();
+            $registerForm = RegisterForm::instanceWithAllArgs(
+                $_POST['firstname'],
+                $_POST['lastname'],
+                $_POST['email'],
+                $_POST['password'],
+                $_POST['passwordConfirmation'],
+                $_POST['phone'],
+                $_POST['photo'],
+                'Pending',
+                $_POST['roleName']
+            );
 
-        if (isset($_SESSION['error_register'])) {
-            header("location: /signup");
+            $auth->register($registerForm);
+
+            if (isset($_SESSION['error_register'])) {
+                header("location: /signup");
+            } else {
+                header("location: /profile");
+            }
         } else {
-            header("location: /profile");
+            header('location: /');
         }
-
         break;
 
     case '/auth/login':
-        $auth = new AuthController();
-        $loginForm = LoginForm::instanceWithAllArgs($_POST['email'], $_POST['password']);
-        $auth->login($loginForm);
+        if (isset(
+            $_POST['email'],
+            $_POST['password']
+        )) {
+            $auth = new AuthController();
+            $loginForm = LoginForm::instanceWithAllArgs($_POST['email'], $_POST['password']);
+            $auth->login($loginForm);
 
-        if (isset($_SESSION['error'])) {
-            header("location: /login");
+            if (isset($_SESSION['error'])) {
+                header("location: /login");
+            } else {
+                header("location: /profile");
+            }
         } else {
-            header("location: /profile");
+            header('location: /');
         }
-
         break;
 
     case '/auth/logout':
-        $auth = new AuthController();
-        $auth->logout();
+        if ($isLoggedIn) {
+            $auth = new AuthController();
+            $auth->logout();
+        }
+
         header("location: /");
         break;
 
-
-
     case '/courses':
-        $courseController = new CourseController();
-        $categoryController = new CategoryController();
-        $tagController = new TagController();
+        if ($userLoggedRole == "Admin" || $userLoggedRole == "Teacher") {
+            header('location: /');
+        } else {
+            $courseController = new CourseController();
+            $categoryController = new CategoryController();
+            $tagController = new TagController();
 
-        $searchParams = [
-            'search' => $_GET['search'] ?? '',
-            'category' => $_GET['category'] ?? ''
-        ];
+            $searchParams = [
+                'search' => $_GET['search'] ?? '',
+                'category' => $_GET['category'] ?? ''
+            ];
 
-        $courses = !empty($searchParams['search']) || !empty($searchParams['category'])
-            ? $courseController->searchCourses($searchParams)
-            : $courseController->getAll();
+            $courses = !empty($searchParams['search']) || !empty($searchParams['category'])
+                ? $courseController->searchCourses($searchParams)
+                : $courseController->getAll();
 
-        $categories = $categoryController->getAll();
-        $tags = $tagController->getAll();
+            $categories = $categoryController->getAll();
+            $tags = $tagController->getAll();
 
-        require __DIR__ . '/views/courses.php';
+            require __DIR__ . '/views/courses.php';
+        }
         break;
 
     case '/topic/getAll':

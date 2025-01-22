@@ -344,49 +344,53 @@
     <div class="courses-grid">
         <?php
         foreach ($courses as $key => $value) {
+            if ($value->getStatus() == 'Active') {
+
+
         ?>
-            <div class="course-card">
-                <!-- <div class="course-image">
+                <div class="course-card">
+                    <!-- <div class="course-image">
                     <img src="/api/placeholder/300/200" alt="Course thumbnail">
                 </div> -->
-                <div class="course-content">
-                    <span class="course-category"><?php echo $value->getCategory()->getTitle(); ?></span>
-                    <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
-                    <p class="course-description"><?php echo $value->getDescription(); ?></p>
-                    <div class="course-meta">
-                        <div class="course-rating">
-                            <i class="fas fa-star"></i>
-                            <span><?php echo $value->getRating(); ?></span>
+                    <div class="course-content">
+                        <span class="course-category"><?php echo $value->getCategory()->getTitle(); ?></span>
+                        <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
+                        <p class="course-description"><?php echo $value->getDescription(); ?></p>
+                        <div class="course-meta">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <span><?php echo $value->getRating(); ?></span>
+                            </div>
+                            <div class="course-price">$<?php echo $value->getPrice(); ?></div>
                         </div>
-                        <div class="course-price">$<?php echo $value->getPrice(); ?></div>
-                    </div>
-                    <div class="course-tags">
-                        <?php
-                        if (!is_null($value->getTags())) {
-                            foreach ($value->getTags() as $key => $tag) {
-                        ?>
-                                <span class="tag"><?php echo $tag->getTitle(); ?></span>
-                        <?php
+                        <div class="course-tags">
+                            <?php
+                            if (!is_null($value->getTags())) {
+                                foreach ($value->getTags() as $key => $tag) {
+                            ?>
+                                    <span class="tag"><?php echo $tag->getTitle(); ?></span>
+                            <?php
+                                }
                             }
+                            ?>
+                        </div>
+                        <?php
+                        if (isset($_SESSION['user'])) {
+
+                        ?>
+                            <div class="course-meta">
+                                <form action="/student/courses/details" method="post">
+                                    <input type="submit" class="course-details" value="Details">
+                                    <input type="hidden" name="id" class="course-details" value="<?php echo $value->getId(); ?>">
+                                </form>
+                            </div>
+                        <?php
                         }
                         ?>
                     </div>
-                    <?php
-                    if (isset($_SESSION['user'])) {
-
-                    ?>
-                        <div class="course-meta">
-                            <form action="/student/courses/details" method="post">
-                                <input type="submit" class="course-details" value="Details">
-                                <input type="hidden" name="id" class="course-details" value="<?php echo $value->getId(); ?>">
-                            </form>
-                        </div>
-                    <?php
-                    }
-                    ?>
                 </div>
-            </div>
         <?php
+            }
         }
         ?>
     </div>
