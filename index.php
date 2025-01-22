@@ -8,6 +8,7 @@ use App\Controllers\CategoryController;
 use App\Controllers\CourseController;
 use App\Controllers\TagController;
 use App\Controllers\UserController;
+use App\Core\Database;
 use App\Http\CourseForm;
 use App\Http\LoginForm;
 use App\Http\RegisterForm;
@@ -20,6 +21,7 @@ $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 switch ($request) {
     case '':
     case '/':
+        Database::getInstance();
         require __DIR__ . '/views/Home.php';
         break;
 
@@ -369,11 +371,11 @@ switch ($request) {
         header('location: /admin/teachers');
         break;
 
-    // case '/test':
-    //     $course = new CourseRepository();
-    //     $courses = $course->getAllWithPagination();
-    //     require __DIR__ . '/views/test.php';
-    //     break;
+        // case '/test':
+        //     $course = new CourseRepository();
+        //     $courses = $course->getAllWithPagination();
+        //     require __DIR__ . '/views/test.php';
+        //     break;
     default:
         require __DIR__ . '/views/Home.php';
         break;

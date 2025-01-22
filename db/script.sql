@@ -1,6 +1,3 @@
-CREATE DATABASE YoudemyDB;
-
-use YoudemyDB;
 
 CREATE TABLE roles (
     id INT PRIMARY KEY AUTO_INCREMENT,
