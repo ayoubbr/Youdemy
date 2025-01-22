@@ -394,6 +394,17 @@
                 ?>
                 <?php
                 if (isset($_SESSION['user'])) {
+                    if ($_SESSION['user']->getRole()->getName() == 'Admin') {
+                ?>
+                        <a href="/admin/courses" class="social-button primary">
+                            Dashboard
+                        </a>
+                <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($_SESSION['user'])) {
                     if ($_SESSION['user']->getRole()->getName() == 'Student') {
                 ?>
                         <a href="/student/courses" class="social-button primary">

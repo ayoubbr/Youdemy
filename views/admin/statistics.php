@@ -17,12 +17,12 @@
         <div class="top-items">
             <h2>Most Popular Course</h2>
             <div class="top-item" id="topCourse">
-                <h3>Title: <?php echo $courseWithMostStudents['title']; ?></h3>
-                <p>Description: <?php echo $courseWithMostStudents['description']; ?></p>
-                <p>Price: <?php echo $courseWithMostStudents['price']; ?></p>
-                <p>Category: <?php echo $courseWithMostStudents['category']; ?></p>
-                <p>Teacher: <?php echo $courseWithMostStudents['teacher_name']; ?></p>
-                <p>Students: <?php echo $courseWithMostStudents['student_count']; ?></p>
+                <h3>Title: <?php echo isset($courseWithMostStudents['title']) ? $courseWithMostStudents['title'] : 'NO Data';  ?></h3>
+                <p>Description: <?php echo isset($courseWithMostStudents['description']) ? $courseWithMostStudents['description'] : 'NO Data'; ?></p>
+                <p>Price: <?php echo isset($courseWithMostStudents['price']) ? $courseWithMostStudents['price'] : 'NO Data'; ?></p>
+                <p>Category: <?php echo isset($courseWithMostStudents['category']) ? $courseWithMostStudents['category'] : 'NO Data'; ?></p>
+                <p>Teacher: <?php echo isset($courseWithMostStudents['teacher_name']) ? $courseWithMostStudents['teacher_name'] : "NO Data"; ?></p>
+                <p>Students: <?php echo isset($courseWithMostStudents['student_count']) ? $courseWithMostStudents['student_count'] : "NO Data"; ?></p>
             </div>
         </div>
 
@@ -31,12 +31,16 @@
             <div id="topTeachers">
                 <div class="top-item">
                     <?php
-                    foreach ($topThreeTeachers as $key => $value) {
+                    if (count($topThreeTeachers) > 0) {
+                        foreach ($topThreeTeachers as $key => $value) {
                     ?>
-                        <h3><?php echo $value['firstname'] . ' ' . $value['lastname']; ?></h3>
-                        <p>Total Students: <?php echo $value['total_students']; ?></p>
+                            <h3><?php echo $value['firstname'] . ' ' . $value['lastname']; ?></h3>
+                            <p>Total Students: <?php echo $value['total_students']; ?></p>
 
                     <?php
+                        }
+                    } else {
+                        echo "No Data So Far!";
                     }
                     ?>
                 </div>

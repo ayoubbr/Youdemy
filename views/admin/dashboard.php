@@ -47,6 +47,10 @@
                 <i class="fas fa-tags"></i>
                 Categories & Tags
             </a>
+            <a href="/auth/logout" class="nav-item last">
+                <i class="fa-solid fa-circle-arrow-left"></i>
+                Logout
+            </a>
         </nav>
     </aside>
 
