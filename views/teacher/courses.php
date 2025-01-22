@@ -91,9 +91,10 @@
                         <!-- <img src="/api/placeholder/300/160"> -->
                         <!-- <span class="course-status status-published">Published</span> -->
                         <!-- </div> -->
+
                         <div class="course-content">
                             <div class="course-category"><?php echo $value->getCategory()->getTitle(); ?></div>
-                            <div class="course-category"><?php echo $value->getStatus(); ?></div>
+
                             <h3 class="course-title"><?php echo $value->getTitle(); ?></h3>
                             <h3 class="course-title" style="display:none;"><?php echo $value->getDescription(); ?></h3>
                             <div class="course-instructor">
@@ -106,7 +107,7 @@
                             </div>
                             <div class="course-stats">
                                 <div class="stat-item">
-                                    <div class="stat-value1"><?php echo count($value->getStudents());?></div>
+                                    <div class="stat-value1"><?php echo count($value->getStudents()); ?></div>
                                     <div class="stat-label">Students</div>
                                 </div>
                                 <div class="stat-item">
@@ -137,23 +138,28 @@
                                 <?php echo $value->getStatus(); ?>
                             </div>
                             <div class="course-actions">
-                                <button class="action-button edit-button" onclick="<?php echo "edit('course', $id)"; ?>">
+                                <button class="c-action action-button edit-button" onclick="<?php echo "edit('course', $id)"; ?>">
                                     <i class="fas fa-edit"></i>
                                     Edit
                                 </button>
-                                <form action="/teacher/courses/one/delete" method="post">
+                                <form class="c-action" action="/teacher/courses/one/delete" method="post">
                                     <input type="hidden" name="id" value="<?= $value->getId(); ?>">
                                     <button type="submit" class="action-button delete-button">
                                         <i class="fas fa-trash"></i>
                                         Delete
                                     </button>
                                 </form>
-                                <form action="/teacher/students" method="post">
+                                <form class="c-action" action="/teacher/students" method="post">
                                     <input type="hidden" name="id" value="<?= $id ?>">
                                     <button class="action-btn view-btn">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </form>
+
+                                <span class="c-action  action-btn status-btn">
+                                    <?php echo $value->getStatus(); ?>
+                                </span>
+
                             </div>
                         </div>
                     </div>

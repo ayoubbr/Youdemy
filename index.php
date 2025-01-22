@@ -229,95 +229,103 @@ switch ($request) {
 
     case '/teacher':
     case '/teacher/courses':
+        if ($userLoggedRole != "Teacher") {
+            header('location: /');
+        } else {
+            if (isset($_SESSION['course_id'])) {
+                unset($_SESSION['course_id']);
+            }
+            $courseController = new CourseController();
+            $categoryController = new CategoryController();
+            $tagController = new TagController();
+            $userController = new UserController();
 
-        if (isset($_SESSION['course_id'])) {
-            unset($_SESSION['course_id']);
+            $courses = $courseController->getAll();
+            $categories = $categoryController->getAll();
+            $tags = $tagController->getAll();
+            $teacher_id = $_SESSION['user']->getId();
+
+            $result = $userController->getNumberOfStudentsByTeacher($teacher_id);
+            $coursesNumber = $userController->getCoursesByTeacher($teacher_id);
+            require __DIR__ . '/views/teacher/dashboard.php';
         }
-        $courseController = new CourseController();
-        $categoryController = new CategoryController();
-        $tagController = new TagController();
-        $userController = new UserController();
-
-        $courses = $courseController->getAll();
-        $categories = $categoryController->getAll();
-        $tags = $tagController->getAll();
-        $teacher_id = $_SESSION['user']->getId();
-
-        $result = $userController->getNumberOfStudentsByTeacher($teacher_id);
-        $coursesNumber = $userController->getCoursesByTeacher($teacher_id);
-        // Debug code
-        // var_dump($courses);
-        // die();
-        require __DIR__ . '/views/teacher/dashboard.php';
         break;
 
     case '/teacher/courses/one/delete':
-        $courseController =  new CourseController();
-        $id = $_POST['id'];
-        $courseController->delete($id);
-        header('location: /teacher/courses');
+        if ($userLoggedRole != "Teacher") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $id = $_POST['id'];
+            $courseController->delete($id);
+            header('location: /teacher/courses');
+        }
         break;
 
     case '/teacher/course/create':
-        $courseController =  new CourseController();
-        $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
-        $courseForm =  CourseForm::instanceWithAllArgs(
-            $_POST['title'],
-            $_POST['description'],
-            $_POST['price'],
-            0,
-            $_POST['content'],
-            'Archived',
-            $_POST['categoryName'],
-            $tags,
-            $_SESSION['user']->getEmail(),
-            []
-        );
+        if ($userLoggedRole != "Teacher") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
+            $courseForm =  CourseForm::instanceWithAllArgs(
+                $_POST['title'],
+                $_POST['description'],
+                $_POST['price'],
+                0,
+                $_POST['content'],
+                'Archived',
+                $_POST['categoryName'],
+                $tags,
+                $_SESSION['user']->getEmail(),
+                []
+            );
 
-        $courseController->create($courseForm);
-        header("location: /teacher/courses");
+            $courseController->create($courseForm);
+            header("location: /teacher/courses");
+        }
         break;
 
     case '/teacher/course/update':
-        $courseController =  new CourseController();
-        $tags = [];
-        if (!empty($_POST['tags'])) {
-            $tags = $_POST['tags'];
-        }
-        $courseForm =  CourseForm::instanceWithAll(
-            $_POST['id'],
-            $_POST['title'],
-            $_POST['description'],
-            $_POST['price'],
-            $_POST['rating'],
-            $_POST['content'],
-            $_POST['status'],
-            $_POST['categoryName'],
-            $tags,
-            $_SESSION['user']->getEmail(),
-            // todo when subscription is done (students)
-            []
-        );
+        if ($userLoggedRole != "Teacher") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $tags = [];
+            if (!empty($_POST['tags'])) {
+                $tags = $_POST['tags'];
+            }
+            $courseForm =  CourseForm::instanceWithAll(
+                $_POST['id'],
+                $_POST['title'],
+                $_POST['description'],
+                $_POST['price'],
+                $_POST['rating'],
+                $_POST['content'],
+                $_POST['status'],
+                $_POST['categoryName'],
+                $tags,
+                $_SESSION['user']->getEmail(),
+                // todo when subscription is done (students)
+                []
+            );
 
-        $courseController->update($courseForm);
-        header('location: /teacher/courses');
-        break;
-
-    case '/teacher/statistics':
-        $userController = new UserController();
-        $teacher_id = $_SESSION['user']->getId();
-        $result = $userController->getNumberOfStudentsByTeacher($teacher_id);
-        $courses = $userController->getCoursesByTeacher($teacher_id);
-        require __DIR__ . '/views/teacher/dashboard.php';
-        break;
-    case '/teacher/students':
-        $_SESSION['id_course'] = $_POST['id'];
-        if (empty($_SESSION['id_course'])) {
+            $courseController->update($courseForm);
             header('location: /teacher/courses');
         }
-        $userController = new UserController();
-        $result = $userController->getStudentsByCourse($_SESSION['id_course']);
-        require __DIR__ . '/views/teacher/dashboard.php';
+        break;
+    case '/teacher/students':
+        if ($userLoggedRole != "Teacher") {
+            header('location: /');
+        } else {
+            $_SESSION['id_course'] = $_POST['id'];
+            if (empty($_SESSION['id_course'])) {
+                header('location: /teacher/courses');
+            }
+            $userController = new UserController();
+            $result = $userController->getStudentsByCourse($_SESSION['id_course']);
+            require __DIR__ . '/views/teacher/dashboard.php';
+        }
         break;
 
     case '/admin':
