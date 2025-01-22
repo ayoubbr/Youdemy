@@ -145,57 +145,7 @@ switch ($request) {
         }
         break;
 
-    case '/topic/getAll':
-        $tagController = new TagController();
-        $tags = $tagController->getAll();
-        $_SESSION['tags'] = $tags;
 
-        $categoryController = new CategoryController();
-        $categories = $categoryController->getAll();
-        $_SESSION['categories'] = $categories;
-        header('location: /admin/topics');
-        break;
-
-    case '/admin/category/create':
-        $category = new Category();
-        $category->instanceWithoutId($_POST['title'], $_POST['description']);
-        $categoryController = new CategoryController();
-        $categoryController->create($category);
-        header("location: /admin/topics");
-        break;
-    case '/admin/category/update':
-        $category = new Category();
-        $category->instanceWithAll($_POST['id'], $_POST['title'], $_POST['description']);
-        $categoryController = new CategoryController();
-        $categoryController->update($category);
-        header("location: /admin/topics");
-        break;
-    case '/admin/category/delete':
-        $categoryController = new CategoryController();
-        $id = $_POST['id'];
-        $categoryController->delete($id);
-        header("location: /admin/topics");
-        break;
-    case '/admin/tag/create':
-        $tag =  new Tag();
-        $tag->instanceWithoutId($_POST['title'], $_POST['description']);
-        $tagController =  new TagController();
-        $tagController->create($tag);
-        header("location: /admin/topics");
-        break;
-    case '/admin/tag/update':
-        $tag = new Tag();
-        $tag->instanceWithAll($_POST['id'], $_POST['title'], $_POST['description']);
-        $tagController = new tagController();
-        $tagController->update($tag);
-        header("location: /admin/topics");
-        break;
-    case '/admin/tag/delete':
-        $tagController = new tagController();
-        $id = $_POST['id'];
-        $tagController->delete($id);
-        header("location: /admin/topics");
-        break;
     case '/student/courses':
         $courseController =  new CourseController();
         $user_id = $_SESSION['user']->getId();
@@ -484,6 +434,85 @@ switch ($request) {
         }
         break;
 
+    case '/admin/topic/getAll':
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $tagController = new TagController();
+            $tags = $tagController->getAll();
+            $_SESSION['tags'] = $tags;
+
+            $categoryController = new CategoryController();
+            $categories = $categoryController->getAll();
+            $_SESSION['categories'] = $categories;
+            header('location: /admin/topics');
+        }
+        break;
+
+    case '/admin/category/create':
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $category = new Category();
+            $category->instanceWithoutId($_POST['title'], $_POST['description']);
+            $categoryController = new CategoryController();
+            $categoryController->create($category);
+            header("location: /admin/topics");
+        }
+        break;
+    case '/admin/category/update':
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $category = new Category();
+            $category->instanceWithAll($_POST['id'], $_POST['title'], $_POST['description']);
+            $categoryController = new CategoryController();
+            $categoryController->update($category);
+            header("location: /admin/topics");
+        }
+        break;
+    case '/admin/category/delete':
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $categoryController = new CategoryController();
+            $id = $_POST['id'];
+            $categoryController->delete($id);
+            header("location: /admin/topics");
+        }
+        break;
+    case '/admin/tag/create':
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $tag =  new Tag();
+            $tag->instanceWithoutId($_POST['title'], $_POST['description']);
+            $tagController =  new TagController();
+            $tagController->create($tag);
+            header("location: /admin/topics");
+        }
+        break;
+    case '/admin/tag/update':
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $tag = new Tag();
+            $tag->instanceWithAll($_POST['id'], $_POST['title'], $_POST['description']);
+            $tagController = new tagController();
+            $tagController->update($tag);
+            header("location: /admin/topics");
+        }
+        break;
+    case '/admin/tag/delete':
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $tagController = new tagController();
+            $id = $_POST['id'];
+            $tagController->delete($id);
+            header("location: /admin/topics");
+        }
+        break;
     default:
         require __DIR__ . '/views/Home.php';
         break;
