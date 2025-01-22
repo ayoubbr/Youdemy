@@ -78,7 +78,6 @@
             </div>
         </div>
 
-        <!-- Courses Grid -->
         <div class="courses-grid">
 
             <?php
@@ -210,12 +209,12 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="form-row"> -->
+            
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea id="description" name="description" rows="4" required></textarea>
                 </div>
-                <!-- </div>  -->
+        
                 <div class="form-group tags">
                     <?php
                     foreach ($tags as $key => $value) {
@@ -374,7 +373,7 @@
             }
         }
 
-        // Close modal when clicking outside
+        
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');

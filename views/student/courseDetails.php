@@ -41,7 +41,6 @@
             margin: 0 auto;
         }
 
-        /* Course Header Section */
         .course-header {
             background: white;
             padding: 2rem;
@@ -93,8 +92,6 @@
             font-size: 0.875rem;
             font-weight: 500;
         }
-
-        /* Course Content Grid */
         .course-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -107,7 +104,6 @@
             }
         }
 
-        /* Course Description Section */
         .course-description {
             background: white;
             padding: 2rem;
@@ -127,7 +123,6 @@
             line-height: 1.7;
         }
 
-        /* Course Curriculum */
         .curriculum-section {
             margin-top: 2rem;
         }
@@ -175,7 +170,7 @@
             color: var(--primary);
         }
 
-        /* Course Sidebar */
+    
         .course-sidebar {
             background: white;
             padding: 2rem;
@@ -233,7 +228,6 @@
             color: var(--success);
         }
 
-        /* Instructor Section */
         .instructor-section {
             background: white;
             padding: 2rem;
@@ -266,7 +260,7 @@
             margin-top: 1rem;
         }
 
-        /* Progress Bar */
+    
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -284,7 +278,7 @@
             transition: width 0.3s ease;
         }
 
-        /* Reviews Section */
+     
         .reviews-section {
             margin-top: 2rem;
         }
@@ -348,7 +342,7 @@
             </div>
         </div>
 
-        <!-- Course Content Grid -->
+  
         <div class="course-grid">
             <div class="course-main">
                 <div class="course-description">
@@ -423,10 +417,6 @@
                 <?php
                 }
                 ?>
-
-
-
-
 
                 <div class="course-features">
                     <div class="feature-item">

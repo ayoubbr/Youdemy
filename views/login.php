@@ -217,7 +217,7 @@
             }
         }
 
-        /* Loading animation for button */
+        
         @keyframes pulse {
             0% {
                 opacity: 1;
@@ -237,7 +237,7 @@
             cursor: wait;
         }
 
-        /* Success checkmark animation */
+        
         @keyframes checkmark {
             0% {
                 transform: scale(0);

@@ -1,11 +1,11 @@
 <div class="main-content">
-    <!-- Page Header -->
+
     <div class="page-header">
         <h1 class="page-title">User Management</h1>
 
     </div>
 
-    <!-- Filters -->
+
     <div class="user-filters">
         <div class="filter-grid">
             <div class="filter-group">
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <!-- Users Table -->
+
     <div class="users-table-container">
         <table class="users-table">
             <thead>
@@ -140,7 +140,6 @@
         </table>
     </div>
 </div>
-<!-- Edit User Modal -->
 <div id="edit-user-modal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -175,7 +174,6 @@
     </div>
 </div>
 
-<!-- Error Message Container -->
 <div id="error-message" class="error-message"></div>
 
 

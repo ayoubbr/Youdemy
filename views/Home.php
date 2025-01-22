@@ -751,8 +751,6 @@
             ?>
             <div class="auth-buttons">
                 <?php
-                var_dump($isLoggedIn);
-                var_dump($userLoggedRole);
                 if ($isLoggedIn) {
                 ?>
                     <a href="/auth/logout" class="btn btn-outline">Logout</a>

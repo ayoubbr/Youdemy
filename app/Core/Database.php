@@ -9,7 +9,7 @@ use PDOException;
 
 class Database
 {
-    private static $dbname = "YoudemyDBPro2";
+    private static $dbname = "YoudemyDataBase";
     private static $servername = "localhost";
     private static $username = "root";
     private static $password = "";

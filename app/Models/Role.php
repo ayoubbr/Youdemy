@@ -11,18 +11,6 @@ class Role
 
     public function __construct() {}
 
-    // public function __call($name, $arguments)
-    // {
-    //     if ($name == "instanceWithName") {
-    //         $this->name = $arguments[0];
-    //     }
-
-    //     if ($name == "instanceWithNameAndDescriptionAndLogo") {
-    //         $this->name = $arguments[0];
-    //         $this->description = $arguments[1];
-    //         $this->badge = $arguments[2];
-    //     }
-    // }
 
     public static function instanceWithNameAndDescriptionAndLogo(string $name, string $description, string $badge)
     {

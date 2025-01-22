@@ -108,7 +108,6 @@
     </div>
 </div>
 
-<!-- Category Modal -->
 <div id="categoryModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -129,7 +128,6 @@
     </div>
 </div>
 
-<!-- Tag Modal -->
 <div id="tagModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -150,7 +148,6 @@
     </div>
 </div>
 
-<!-- Edit Category Modal -->
 <div id="editCategoryModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -172,7 +169,6 @@
     </div>
 </div>
 
-<!-- Edit Tag Modal -->
 <div id="editTagModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -221,7 +217,7 @@
         }
     }
 
-    // Close modal when clicking outside
+    
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
             event.target.classList.remove('active');

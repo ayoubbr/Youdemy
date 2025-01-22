@@ -347,7 +347,7 @@
     <?php
     $request = $_SERVER['REQUEST_URI'];
     ?>
-    <!-- Sidebar -->
+
     <aside class="sidebar">
         <div class="logo">
             <i class="fas fa-graduation-cap"></i>
