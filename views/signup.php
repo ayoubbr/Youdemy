@@ -428,7 +428,7 @@
             </button>
 
             <div class="signup-link">
-                New to Youdemy?<a href="#">Create an account</a>
+                You Have an account?<a href="/login">Login</a>
             </div>
         </form>
     </div>
