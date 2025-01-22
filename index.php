@@ -32,6 +32,21 @@ switch ($request) {
         Database::getInstance();
         require __DIR__ . '/views/Home.php';
         break;
+    case '/login':
+        if ($isLoggedIn) {
+            header('location: /');
+        } else {
+            require __DIR__ . '/views/login.php';
+        }
+        break;
+
+    case '/signup':
+        if ($isLoggedIn) {
+            header('location: /');
+        } else {
+            require __DIR__ . '/views/signup.php';
+        }
+        break;
 
     case '/profile':
         if ($isLoggedIn) {
@@ -84,13 +99,7 @@ switch ($request) {
         header("location: /");
         break;
 
-    case '/login':
-        require __DIR__ . '/views/login.php';
-        break;
 
-    case '/signup':
-        require __DIR__ . '/views/signup.php';
-        break;
 
     case '/courses':
         $courseController = new CourseController();
