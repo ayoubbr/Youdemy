@@ -322,106 +322,158 @@ switch ($request) {
 
     case '/admin':
     case '/admin/statistics':
-        $categoryController = new CategoryController();
-        $categories = $categoryController->getAll();
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $categoryController = new CategoryController();
+            $categories = $categoryController->getAll();
 
-        $courseController = new CourseController();
-        $countCourses = $courseController->getCountCourses();
+            $courseController = new CourseController();
+            $countCourses = $courseController->getCountCourses();
 
-        $countCoursesByCategoryArray = $courseController->courseByCategory();
+            $countCoursesByCategoryArray = $courseController->courseByCategory();
 
-        $courseWithMostStudents = $courseController->courseWithMostStudents();
+            $courseWithMostStudents = $courseController->courseWithMostStudents();
 
-        $userController = new UserController();
-        $topThreeTeachers = $userController->getTopThreeTeachers();
+            $userController = new UserController();
+            $topThreeTeachers = $userController->getTopThreeTeachers();
 
-        require __DIR__ . '/views/admin/dashboard.php';
+            require __DIR__ . '/views/admin/dashboard.php';
+        }
         break;
     case '/admin/courses':
-        $courseController = new CourseController();
-        $courses = $courseController->getAll();
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $courseController = new CourseController();
+            $courses = $courseController->getAll();
 
-        $categoryController = new CategoryController();
-        $categories = $categoryController->getAll();
+            $categoryController = new CategoryController();
+            $categories = $categoryController->getAll();
 
-        $tagController = new TagController();
-        $tags = $tagController->getAll();
+            $tagController = new TagController();
+            $tags = $tagController->getAll();
 
-        $userController =  new UserController();
-        $teachers = $userController->getAll();
+            $userController =  new UserController();
+            $teachers = $userController->getAll();
 
-        require __DIR__ . '/views/admin/dashboard.php';
+            require __DIR__ . '/views/admin/dashboard.php';
+        }
         break;
     case '/admin/courses/one/delete':
-        $courseController =  new CourseController();
-        $id = $_POST['id'];
-        $courseController->delete($id);
-        header('location: /admin/courses');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $id = $_POST['id'];
+            $courseController->delete($id);
+            header('location: /admin/courses');
+        }
         break;
     case '/admin/courses/one/archive':
-        $courseController =  new CourseController();
-        $id = $_POST['id'];
-        $courseController->archiveCourse($id);
-        header('location: /admin/courses');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $id = $_POST['id'];
+            $courseController->archiveCourse($id);
+            header('location: /admin/courses');
+        }
         break;
     case '/admin/courses/one/activate':
-        $courseController =  new CourseController();
-        $id = $_POST['id'];
-        $courseController->activateCourse($id);
-        header('location: /admin/courses');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $courseController =  new CourseController();
+            $id = $_POST['id'];
+            $courseController->activateCourse($id);
+            header('location: /admin/courses');
+        }
         break;
     case '/admin/users':
-        $userController = new UserController();
-        $users = $userController->getAll();
-        require __DIR__ . '/views/admin/dashboard.php';
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $userController = new UserController();
+            $users = $userController->getAll();
+            require __DIR__ . '/views/admin/dashboard.php';
+        }
         break;
     case '/admin/teachers':
-        $userController = new UserController();
-        $users = $userController->getAll();
-        require __DIR__ . '/views/admin/dashboard.php';
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $userController = new UserController();
+            $users = $userController->getAll();
+            require __DIR__ . '/views/admin/dashboard.php';
+        }
         break;
 
     case '/admin/topics':
-        $tagController = new TagController();
-        $tags = $tagController->getAll();
-        $_SESSION['tags'] = $tags;
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $tagController = new TagController();
+            $tags = $tagController->getAll();
+            $_SESSION['tags'] = $tags;
 
-        $categoryController = new CategoryController();
-        $categories = $categoryController->getAll();
-        $_SESSION['categories'] = $categories;
-        require __DIR__ . '/views/admin/dashboard.php';
+            $categoryController = new CategoryController();
+            $categories = $categoryController->getAll();
+            $_SESSION['categories'] = $categories;
+            require __DIR__ . '/views/admin/dashboard.php';
+        }
         break;
 
     case '/admin/user/suspend':
-        $userController = new UserController();
-        $id = $_POST['id'];
-        $userController->suspendUser($id);
-        header('location: /admin/users');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $userController = new UserController();
+            $id = $_POST['id'];
+            $userController->suspendUser($id);
+            header('location: /admin/users');
+        }
         break;
 
     case '/admin/user/activate':
-        $userController = new UserController();
-        $id = $_POST['id'];
-        $userController->activateUser($id);
-        header('location: /admin/users');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $userController = new UserController();
+            $id = $_POST['id'];
+            $userController->activateUser($id);
+            header('location: /admin/users');
+        }
         break;
     case '/admin/user/delete':
-        $userController = new UserController();
-        $id = $_POST['id'];
-        $userController->deleteUser($id);
-        header('location: /admin/users');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $userController = new UserController();
+            $id = $_POST['id'];
+            $userController->deleteUser($id);
+            header('location: /admin/users');
+        }
         break;
     case '/admin/teacher/validate':
-        $userController = new UserController();
-        $id = $_POST['id'];
-        $userController->activateUser($id);
-        header('location: /admin/teachers');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $userController = new UserController();
+            $id = $_POST['id'];
+            $userController->activateUser($id);
+            header('location: /admin/teachers');
+        }
         break;
     case '/admin/teacher/suspend':
-        $userController = new UserController();
-        $id = $_POST['id'];
-        $userController->suspendUser($id);
-        header('location: /admin/teachers');
+        if ($userLoggedRole != "Admin") {
+            header('location: /');
+        } else {
+            $userController = new UserController();
+            $id = $_POST['id'];
+            $userController->suspendUser($id);
+            header('location: /admin/teachers');
+        }
         break;
 
     default:
