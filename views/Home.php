@@ -205,6 +205,11 @@
             color: var(--white);
             box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
+        .btn-orange {
+            background: var( --accent-orange);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
 
         .btn:hover {
             transform: translateY(-2px);
@@ -738,19 +743,18 @@
         <div class="nav-container">
             <div class="logo">Youdemy</div>
             <div class="nav-links">
-                <!-- <a href="#features">Features</a> -->
-                <!-- <a href="/courses">Courses</a> -->
-                <!-- <a href="#testimonials">Testimonials</a> -->
-                <!-- <a href="#pricing">Pricing</a> -->
             </div>
 
             <?php
             ?>
             <div class="auth-buttons">
                 <?php
-                if (isset($_SESSION['user'])) {
+                var_dump($isLoggedIn);
+                var_dump($userLoggedRole);
+                if ($isLoggedIn) {
                 ?>
                     <a href="/auth/logout" class="btn btn-outline">Logout</a>
+                    <a href="/profile" class="btn btn-orange">Profile</a>
                 <?php
                 } else {
                 ?>

@@ -17,6 +17,15 @@ use App\Models\Tag;
 
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+$userInSession = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+
+$userLoggedRole = !is_null($userInSession) ? $userInSession->getRole()->getName() : '';
+
+$isLoggedIn = !is_null($userInSession) ? true : false;
+// var_dump($loggedIn);
+// var_dump($userInSession);
+// var_dump($userLoggedRole);
+// die();
 switch ($request) {
     case '':
     case '/':
@@ -25,7 +34,11 @@ switch ($request) {
         break;
 
     case '/profile':
-        require __DIR__ . '/views/profile.php';
+        if ($isLoggedIn) {
+            require __DIR__ . '/views/profile.php';
+        } else {
+            header('location: /');
+        }
         break;
 
     case '/auth/register':
